@@ -1,7 +1,7 @@
 # bouquet-java-sdk
 
-This is a Java SDK for [OpenBouquet](https://github.com/openbouquet) API.
-Please have a look to [OpenBouquet web site](https://www.openbouquet.io).
+This is a Java SDK for [Bouquet API](https://github.com/bouquet).
+Please have a look to [Bouquet web site](https://www.bouquet.io).
 
 ## Requirements
 
@@ -29,7 +29,7 @@ Add this dependency to your project's POM:
 
 ```xml
 <dependency>
-    <groupId>openbouquet</groupId>
+    <groupId>bouquet</groupId>
     <artifactId>bouquet-java-sdk</artifactId>
     <version>4.2.40</version>
     <scope>compile</scope>
@@ -41,7 +41,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "openbouquet:bouquet-java-sdk:4.2.40"
+compile "bouquet:bouquet-java-sdk:4.2.40"
 ```
 
 ### Others
@@ -57,16 +57,16 @@ Then manually install the following JARs:
 
 ## Getting Started
 
-This Java SDK has been pre-generated using Swagger. The model has been cleaned & optimzed from this. It is provided as-is. 
+This Java SDK has been pre-generated using Swagger. The model has been cleaned & optimized from this. It is provided as-is. 
 Please follow the [installation](#installation) instruction.
 
-BaseApi class provides different ways to authenticate to a Bouquet server. On top of that the API has been splitted in 2 children classes:
-- ModelApi: Client API able to access to any object of the Bouquet model
-- AnalyticsApi: Client Api able to access Bookmarks & run analyses on Bouquet server
+BaseApi class provides different ways to authenticate to a Bouquet server. On top of that, the SDK has been splitted in 2 children classes:
+- ModelApi: SDK API able to access to any object of the Bouquet model
+- AnalyticsApi: SDK Api able to access Bookmarks & run analyses on Bouquet server
 
 The last important class is ClientApi in charge of running API calls & handling correctly their response
 
-You can have a look to sample classes in package io.openbouquet.v4.test showing the different ways to authenticate.
+You can have a look to sample classes in package io.bouquet.v4.test showing the different ways to authenticate & run basic calls.
 
 ## Documentation for Authorization
 
@@ -75,7 +75,6 @@ Authentication schemes defined for the API:
 
 - **Type**: OAuth
 - **Flow**: implicit
-- **Authorization URL**: https://api.squidsolutions.com/staging/auth/oauth
 - **Scopes**: 
   - access: Access protected resources
 
@@ -83,27 +82,27 @@ Authentication schemes defined for the API:
 
 - **Type**: HttpBasicAuth
 - **Flow**: password
-- **Authorization URL**: https://api.squidsolutions.com/staging/auth/oauth
+- **Authorization URL**: https://api.squidsolutions.com/staging/v4.2/auth-token
 - **Scopes**: 
-  - access: Access protected resources
+  - access: Get a Oauth token
 
 ### jwt_auth
 
 - **Type**: JWTAuth
 - **Flow**: application
-- **Authorization URL**: https://api.squidsolutions.com/staging/auth/oauth
+- **Authorization URL**: https://api.squidsolutions.com/staging/v4.2/token
 - **Scopes**: 
-  - access: Access protected resources
+  - access: Get a Oauth token for a Client (any user can be used to get a Oauth token from)
 
-### apikey_auth
+### api_key_auth
 
 - **Type**: ApiKeyAuth
 - **Flow**: application
-- **Authorization URL**: https://api.squidsolutions.com/staging/auth/oauth
+- **Authorization URL**: https://api.squidsolutions.com/staging/v4.2/token
 - **Scopes**: 
-  - access: Access protected resources
+  - access: Get a Oauth token for a specific user
 
-These authentication are implemented in BaseAPI class & used in io.openbouquet.v4.test
+These authentication are implemented in BaseAPI class & used in io.bouquet.v4.test
 
 ## Recommendation
 
