@@ -1,7 +1,7 @@
 # bouquet-java-sdk
 
-This is a Java SDK for [OpenBouquet server](http)s://github.com/openbouquet) API.
-Please have a look to [OpenBouquet Analytics] (https://www.openbouquet.io).
+This is a Java SDK for [OpenBouquet](https://github.com/openbouquet) API.
+Please have a look to [OpenBouquet web site](https://www.openbouquet.io).
 
 ## Requirements
 
