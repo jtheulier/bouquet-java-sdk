@@ -1,4 +1,7 @@
-# bouquet-sdk-java
+# bouquet-java-sdk
+
+This is a Java SDK for [OpenBouquet server](http)s://github.com/openbouquet) API.
+Please have a look to [OpenBouquet Analytics] (https://www.openbouquet.io).
 
 ## Requirements
 
@@ -27,7 +30,7 @@ Add this dependency to your project's POM:
 ```xml
 <dependency>
     <groupId>openbouquet</groupId>
-    <artifactId>bouquet-sdk-java</artifactId>
+    <artifactId>bouquet-java-sdk</artifactId>
     <version>4.2.40</version>
     <scope>compile</scope>
 </dependency>
@@ -38,7 +41,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "openbouquet:bouquet-sdk-java:4.2.40"
+compile "openbouquet:bouquet-java-sdk:4.2.40"
 ```
 
 ### Others
@@ -49,7 +52,7 @@ At first generate the JAR by executing:
 
 Then manually install the following JARs:
 
-* target/bouquet-sdk-java-4.2.40.jar
+* target/bouquet-java-sdk-4.2.40.jar
 * target/lib/*.jar
 
 ## Getting Started
