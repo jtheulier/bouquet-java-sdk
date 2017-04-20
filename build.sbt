@@ -1,8 +1,8 @@
 lazy val root = (project in file(".")).
   settings(
-    organization := "openbouquet",
-    name := "java-api",
-    version := "4.2.30",
+    organization := "bouquet",
+    name := "bouquet-java-sdk",
+    version := "4.2.40",
     scalaVersion := "2.11.4",
     scalacOptions ++= Seq("-feature"),
     javacOptions in compile ++= Seq("-Xlint:deprecation"),
