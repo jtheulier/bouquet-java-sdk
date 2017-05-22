@@ -52,7 +52,7 @@ public class Project extends VersionedBase  {
 	private List<String> dbSchemas = new ArrayList<String>();
 
 	@SerializedName("config")
-	private Hashtable<String, Object> config = null;
+	private Object config = null;
 
 	@SerializedName("dbPasswordLength")
 	private Integer dbPasswordLength = null;
@@ -236,11 +236,11 @@ public class Project extends VersionedBase  {
 	 * @return config
 	 **/
 	@ApiModelProperty(example = "null", value = "Deprecated : An optional configuration (json) object")
-	public Hashtable<String, Object> getConfig() {
+	public Object getConfig() {
 		return config;
 	}
 
-	public void setConfig(Hashtable<String, Object> config) {
+	public void setConfig(Object config) {
 		this.config = config;
 	}
 
