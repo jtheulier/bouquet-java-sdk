@@ -29,9 +29,12 @@ public class User extends VersionedBase  {
 	private String login = null;
 	private String email = null;
 	private List<String> groups = new ArrayList<String>();
+	private List<String> groupsAndUpgrades = new ArrayList<String>();
 	private Map<String, String> attributes = new HashMap<String, String>();
 	private String oid = null;
 	private String objectType = null;
+	private String password = null;
+	private List<String> upgrades = new ArrayList<String>();
 
 	/**
 	 * The object Composite Id (Primary Key)
@@ -117,6 +120,22 @@ public class User extends VersionedBase  {
 
 	/**
 	 **/
+	public User groupsAndUpgrades(List<String> groupsAndUpgrades) {
+		this.groupsAndUpgrades = groupsAndUpgrades;
+		return this;
+	}
+
+	@ApiModelProperty(example = "null", value = "")
+	public List<String> getGroupsAndUpgrades() {
+		return groupsAndUpgrades;
+	}
+	public void setGroupsAndUpgrades(List<String> groupsAndUpgrades) {
+		this.groupsAndUpgrades = groupsAndUpgrades;
+	}
+
+
+	/**
+	 **/
 	public User attributes(Map<String, String> attributes) {
 		this.attributes = attributes;
 		return this;
@@ -142,5 +161,34 @@ public class User extends VersionedBase  {
 		return objectType;
 	}
 
+	/**
+	 **/
+	public User password(String password) {
+		this.password = password;
+		return this;
+	}
+
+	@ApiModelProperty(example = "null", value = "")
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	/**
+	 **/
+	public User upgrades(List<String> upgrades) {
+		this.upgrades = upgrades;
+		return this;
+	}
+
+	@ApiModelProperty(example = "null", value = "")
+	public List<String> getUpgrades() {
+		return upgrades;
+	}
+	public void setUpgrades(List<String> upgrades) {
+		this.upgrades = upgrades;
+	}
 }
 
