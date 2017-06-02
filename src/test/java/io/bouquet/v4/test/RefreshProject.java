@@ -29,12 +29,12 @@ import io.bouquet.v4.ApiClient;
 import io.bouquet.v4.ApiException;
 import io.bouquet.v4.api.ModelApi;
 import io.bouquet.v4.client.CacheConfiguration;
-import io.bouquet.v4.client.ClientEngine;
-import io.bouquet.v4.client.LoginConfiguration;
 import io.bouquet.v4.client.CacheConfiguration.ClearAnalysis;
 import io.bouquet.v4.client.CacheConfiguration.ClearFlag;
 import io.bouquet.v4.client.CacheConfiguration.ComparePeriod;
 import io.bouquet.v4.client.CacheConfiguration.RefreshType;
+import io.bouquet.v4.client.ClientEngine;
+import io.bouquet.v4.client.LoginConfiguration;
 import io.bouquet.v4.model.Bookmark;
 import io.bouquet.v4.model.DataTable;
 import io.bouquet.v4.model.Dimension;
@@ -71,7 +71,7 @@ public class RefreshProject extends ClientEngine {
 		CacheConfiguration cacheConfiguration = null;
 		LoginConfiguration clientConfiguration = null;
 		boolean hasError = false;
-		if (args.length == 2) {
+		if (args.length == 3) {
 			clientConfiguration = LoginConfiguration.fromJson(args[1]);
 			cacheConfiguration = CacheConfiguration.fromJson(args[2]);
 			try {
@@ -94,7 +94,7 @@ public class RefreshProject extends ClientEngine {
 		ApiClient sourceClient = ApiClient.buildClient(baseUrl);
 		sourceClient.setConnectTimeout(0);
 		ModelApi api = new ModelApi(sourceClient, clientConfiguration);
-		Project project = api.getProject("myproject", true);
+		Project project = api.getProject(cacheConfiguration.getProjectId(), true);
 		// logger.debug("Start refresh for project");
 		boolean refreshDomains = true;
 		if (project != null) {

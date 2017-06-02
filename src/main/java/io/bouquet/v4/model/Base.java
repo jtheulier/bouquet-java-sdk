@@ -23,6 +23,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.lang3.reflect.FieldUtils;
+
 public abstract class Base {
 
 
@@ -49,9 +51,9 @@ public abstract class Base {
 		List<Field> fields = getAllFields();
 		for (Field field : fields) {
 			try {
-				Object b = field.get(o);
-				Object a = field.get(this);
-				result = result && (b.equals(a));
+				Object b = FieldUtils.readField(o, field.getName(), true);
+				Object a = FieldUtils.readField(this, field.getName(), true);
+				result = result && ((a==null && b==null) || (b!=null && b.equals(a)));
 			} catch (IllegalArgumentException | IllegalAccessException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

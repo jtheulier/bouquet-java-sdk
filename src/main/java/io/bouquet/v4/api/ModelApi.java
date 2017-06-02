@@ -3946,6 +3946,95 @@ public class ModelApi extends BaseApi {
 	}
 
 	/**
+	 * Start the reset-password process. Create a new &#39;reset_pwd&#39; AccessToken for the user having the passed email address.
+	 *
+	 * @param customerId
+	 * @param clientId
+	 * @param email
+	 *        the email of the user account requesting a password reset
+	 * @param lang
+	 * @param linkUrl
+	 *        the link url base used to build the link enclosed in the email (ie. http://api.squisolutions.com/release/api/reset_email?access_token={access_token}). The url must match the Client authorized urls
+	 * @return String
+	 * @throws ApiException
+	 *         if fails to make API call
+	 */
+	public String resetUserPassword(String customerId, String clientId, String email, String lang, String linkUrl) throws ApiException {
+		Object localVarPostBody = null;
+
+		// create path and map variables
+		String localVarPath = "/rs/reset-user-pwd".replaceAll("\\{format\\}", "json");
+
+		// query params
+		List<Pair> localVarQueryParams = new ArrayList<Pair>();
+		Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+		Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+		localVarQueryParams.addAll(getApiClient().parameterToPairs("", "customerId", customerId));
+		localVarQueryParams.addAll(getApiClient().parameterToPairs("", "clientId", clientId));
+		localVarQueryParams.addAll(getApiClient().parameterToPairs("", "email", email));
+		localVarQueryParams.addAll(getApiClient().parameterToPairs("", "lang", lang));
+		localVarQueryParams.addAll(getApiClient().parameterToPairs("", "link_url", linkUrl));
+
+		String[] localVarAuthNames = new String[] { "kraken_auth" };
+
+		Type localVarReturnType = new TypeToken<String>() {}.getType();
+
+		Call call = getApiClient().buildCall(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, null);
+		ApiResponse<String> resp = getApiClient().execute(call, localVarReturnType);
+		return resp.getData();
+	}
+
+	/**
+	 * Start the reset-password process. Create a new &#39;reset_pwd&#39; AccessToken for the user having the passed email address.
+	 *
+	 * @param customerId
+	 * @param clientId
+	 * @param email
+	 *        the email of the user account requesting a password reset
+	 * @param lang
+	 * @param linkUrl
+	 *        the link url base used to build the link enclosed in the email (ie. http://api.squisolutions.com/release/api/reset_email?access_token={access_token}). The url must match the Client authorized urls
+	 * @return String
+	 * @throws ApiException
+	 *         if fails to make API call
+	 */
+	public String setUserPassword(String customerId, String clientId, String email, String lang, String linkUrl) throws ApiException {
+		Object localVarPostBody = null;
+
+		// create path and map variables
+		String localVarPath = "/rs/set-user-pwd".replaceAll("\\{format\\}", "json");
+
+		// query params
+		List<Pair> localVarQueryParams = new ArrayList<Pair>();
+		Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+		Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+		localVarQueryParams.addAll(getApiClient().parameterToPairs("", "customerId", customerId));
+		localVarQueryParams.addAll(getApiClient().parameterToPairs("", "clientId", clientId));
+		localVarQueryParams.addAll(getApiClient().parameterToPairs("", "email", email));
+		localVarQueryParams.addAll(getApiClient().parameterToPairs("", "lang", lang));
+		localVarQueryParams.addAll(getApiClient().parameterToPairs("", "link_url", linkUrl));
+
+		final String[] localVarAccepts = { "application/json" };
+		getApiClient().selectHeaderAccept(localVarAccepts);
+
+		final String[] localVarContentTypes = {
+
+		};
+		getApiClient().selectHeaderContentType(localVarContentTypes);
+
+		String[] localVarAuthNames = new String[] { "kraken_auth" };
+
+		Type localVarReturnType = new TypeToken<String>() {}.getType();
+
+		Call call = getApiClient().buildCall(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, null);
+		ApiResponse<String> resp = getApiClient().execute(call, localVarReturnType);
+		return resp.getData();
+
+	}
+
+	/**
 	 * Deletes a bookmark
 	 *
 	 * @param internalJobId
