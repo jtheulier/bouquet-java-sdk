@@ -27,7 +27,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Domain
  */
 
-public class Domain extends VersionedBase  {
+public class Domain extends DynamicObject  {
 	@SerializedName("id")
 	private DomainPK id = null;
 
@@ -51,9 +51,6 @@ public class Domain extends VersionedBase  {
 
 	@SerializedName("dimensions")
 	private List<Dimension> dimensions = new ArrayList<Dimension>();
-
-	@SerializedName("dynamic")
-	private Boolean dynamic = false;
 
 	@SerializedName("oid")
 	private String oid = null;
@@ -224,24 +221,6 @@ public class Domain extends VersionedBase  {
 
 	public void setDimensions(List<Dimension> dimensions) {
 		this.dimensions = dimensions;
-	}
-
-	public Domain dynamic(Boolean dynamic) {
-		this.dynamic = dynamic;
-		return this;
-	}
-
-	/**
-	 * indicates if the object is automatically generated. This property can be updated.
-	 * @return dynamic
-	 **/
-	@ApiModelProperty(example = "null", value = "indicates if the object is automatically generated. This property can be updated.")
-	public Boolean isDynamic() {
-		return dynamic;
-	}
-
-	public void setDynamic(Boolean dynamic) {
-		this.dynamic = dynamic;
 	}
 
 	/**

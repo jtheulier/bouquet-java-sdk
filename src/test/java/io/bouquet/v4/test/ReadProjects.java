@@ -29,7 +29,9 @@ import io.bouquet.v4.ApiException;
 import io.bouquet.v4.api.ModelApi;
 import io.bouquet.v4.client.ClientEngine;
 import io.bouquet.v4.client.LoginConfiguration;
+import io.bouquet.v4.model.Domain;
 import io.bouquet.v4.model.Project;
+import io.bouquet.v4.model.Relation;
 
 /**
  * Simple class wich will read all availailable projects created
@@ -72,7 +74,25 @@ public class ReadProjects extends ClientEngine {
 		List<Project> projects = api.getProjects();
 		for (Project project:projects) {
 			logger.info("Found project " + project.getName());
+			cleanDynamicObjects(api, project);
 		}
 
+	}
+
+
+	public void cleanDynamicObjects(ModelApi api, Project project) throws ApiException {
+		for (Domain object: api.getDomains(project.getId().getProjectId())) {
+			object =  api.getDomain(object.getId().getProjectId(), object.getId().getDomainId(), true);
+			if (object.isDynamic()) {
+				logger.info("Found dynamic domain " + object.getName());
+			} else {
+
+			}
+		}
+		for (Relation object : api.getRelations(project.getId().getProjectId())) {
+			if (object.isDynamic()) {
+				logger.info("Found dynamic relation " + object.getName());
+			}
+		}
 	}
 }

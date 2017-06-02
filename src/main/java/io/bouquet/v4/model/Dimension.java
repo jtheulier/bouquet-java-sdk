@@ -26,7 +26,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Dimension
  */
 
-public class Dimension extends VersionedBase  {
+public class Dimension extends DynamicObject  {
 	@SerializedName("id")
 	private DimensionPK id = null;
 
@@ -136,9 +136,6 @@ public class Dimension extends VersionedBase  {
 
 	@SerializedName("valueType")
 	private ValueTypeEnum valueType = null;
-
-	@SerializedName("dynamic")
-	private Boolean dynamic = false;
 
 	@SerializedName("oid")
 	private String oid = null;
@@ -345,24 +342,6 @@ public class Dimension extends VersionedBase  {
 
 	public void setValueType(ValueTypeEnum valueType) {
 		this.valueType = valueType;
-	}
-
-	public Dimension dynamic(Boolean dynamic) {
-		this.dynamic = dynamic;
-		return this;
-	}
-
-	/**
-	 * indicates if the object is automatically generated. This property can be updated.
-	 * @return dynamic
-	 **/
-	@ApiModelProperty(example = "null", value = "indicates if the object is automatically generated. This property can be updated.")
-	public Boolean isDynamic() {
-		return dynamic;
-	}
-
-	public void setDynamic(Boolean dynamic) {
-		this.dynamic = dynamic;
 	}
 
 	/**

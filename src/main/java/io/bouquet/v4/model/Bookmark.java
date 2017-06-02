@@ -26,7 +26,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Bookmark
  */
 
-public class Bookmark extends VersionedBase  {
+public class Bookmark extends DynamicObject  {
 	@SerializedName("id")
 	private BookmarkPK id = null;
 
@@ -44,9 +44,6 @@ public class Bookmark extends VersionedBase  {
 
 	@SerializedName("reference")
 	private String reference = null;
-
-	@SerializedName("dynamic")
-	private Boolean dynamic = false;
 
 	@SerializedName("oid")
 	private String oid = null;
@@ -199,24 +196,6 @@ public class Bookmark extends VersionedBase  {
 
 	public void setReference(String reference) {
 		this.reference = reference;
-	}
-
-	public Bookmark dynamic(Boolean dynamic) {
-		this.dynamic = dynamic;
-		return this;
-	}
-
-	/**
-	 * indicates if the object is automatically generated. This property can be updated.
-	 * @return dynamic
-	 **/
-	@ApiModelProperty(example = "null", value = "indicates if the object is automatically generated. This property can be updated.")
-	public Boolean isDynamic() {
-		return dynamic;
-	}
-
-	public void setDynamic(Boolean dynamic) {
-		this.dynamic = dynamic;
 	}
 
 	/**

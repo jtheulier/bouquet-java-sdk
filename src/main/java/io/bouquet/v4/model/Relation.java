@@ -27,7 +27,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Relation
  */
 
-public class Relation extends VersionedBase  {
+public class Relation extends DynamicObject  {
 	@SerializedName("id")
 	private RelationPK id = null;
 
@@ -107,9 +107,6 @@ public class Relation extends VersionedBase  {
 
 	@SerializedName("joinExpression")
 	private Expression joinExpression = null;
-
-	@SerializedName("dynamic")
-	private Boolean dynamic = false;
 
 	@SerializedName("oid")
 	private String oid = null;
@@ -304,24 +301,6 @@ public class Relation extends VersionedBase  {
 
 	public void setJoinExpression(Expression joinExpression) {
 		this.joinExpression = joinExpression;
-	}
-
-	public Relation dynamic(Boolean dynamic) {
-		this.dynamic = dynamic;
-		return this;
-	}
-
-	/**
-	 * indicates if the object is automatically generated. This property can be updated.
-	 * @return dynamic
-	 **/
-	@ApiModelProperty(example = "null", value = "indicates if the object is automatically generated. This property can be updated.")
-	public Boolean isDynamic() {
-		return dynamic;
-	}
-
-	public void setDynamic(Boolean dynamic) {
-		this.dynamic = dynamic;
 	}
 
 	/**

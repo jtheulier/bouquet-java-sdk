@@ -26,7 +26,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Metric
  */
 
-public class Metric extends VersionedBase  {
+public class Metric extends DynamicObject  {
 	@SerializedName("id")
 	private MetricPK id = null;
 
@@ -93,9 +93,6 @@ public class Metric extends VersionedBase  {
 
 	@SerializedName("valueType")
 	private ValueTypeEnum valueType = null;
-
-	@SerializedName("dynamic")
-	private Boolean dynamic = false;
 
 	@SerializedName("oid")
 	private String oid = null;
@@ -199,24 +196,6 @@ public class Metric extends VersionedBase  {
 
 	public void setValueType(ValueTypeEnum valueType) {
 		this.valueType = valueType;
-	}
-
-	public Metric dynamic(Boolean dynamic) {
-		this.dynamic = dynamic;
-		return this;
-	}
-
-	/**
-	 * indicates if the object is automatically generated. This property can be updated.
-	 * @return dynamic
-	 **/
-	@ApiModelProperty(example = "null", value = "indicates if the object is automatically generated. This property can be updated.")
-	public Boolean isDynamic() {
-		return dynamic;
-	}
-
-	public void setDynamic(Boolean dynamic) {
-		this.dynamic = dynamic;
 	}
 
 	/**
