@@ -79,19 +79,26 @@ public class ReadProjects extends ClientEngine {
 
 	}
 
-
 	public void cleanDynamicObjects(ModelApi api, Project project) throws ApiException {
+		for (Relation object : api.getRelations(project.getId().getProjectId())) {
+			if (object.isDynamic()) {
+				logger.info("Found dynamic relation " + object.getName());
+				try {
+					api.deleteRelation(object.getId().getProjectId(), object.getId().getRelationId());
+				} catch (ApiException ae){
+					ae.printStackTrace();
+				}
+			}
+		}
 		for (Domain object: api.getDomains(project.getId().getProjectId())) {
 			object =  api.getDomain(object.getId().getProjectId(), object.getId().getDomainId(), true);
 			if (object.isDynamic()) {
 				logger.info("Found dynamic domain " + object.getName());
-			} else {
-
-			}
-		}
-		for (Relation object : api.getRelations(project.getId().getProjectId())) {
-			if (object.isDynamic()) {
-				logger.info("Found dynamic relation " + object.getName());
+				try {
+					api.deleteDomain(object.getId().getProjectId(), object.getId().getDomainId());
+				} catch (ApiException ae){
+					ae.printStackTrace();
+				}
 			}
 		}
 	}

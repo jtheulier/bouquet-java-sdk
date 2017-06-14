@@ -279,5 +279,16 @@ public class Facet extends Base   {
 		this.done = done;
 	}
 
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		return this.getDimension().getId().equals(((Facet)o).getDimension().getId());
+	}
+
 }
 
