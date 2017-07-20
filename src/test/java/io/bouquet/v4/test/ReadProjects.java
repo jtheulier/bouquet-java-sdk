@@ -29,8 +29,12 @@ import io.bouquet.v4.ApiException;
 import io.bouquet.v4.api.ModelApi;
 import io.bouquet.v4.client.ClientEngine;
 import io.bouquet.v4.client.LoginConfiguration;
+import io.bouquet.v4.model.Bookmark;
+import io.bouquet.v4.model.ChoosenMetric;
 import io.bouquet.v4.model.Domain;
+import io.bouquet.v4.model.Expression;
 import io.bouquet.v4.model.Project;
+import io.bouquet.v4.model.ReferencePKObject;
 import io.bouquet.v4.model.Relation;
 
 /**
@@ -73,10 +77,12 @@ public class ReadProjects extends ClientEngine {
 		ModelApi api = new ModelApi(sourceClient, clientConfiguration);
 		List<Project> projects = api.getProjects();
 		for (Project project:projects) {
-			logger.info("Found project " + project.getName());
-			cleanDynamicObjects(api, project);
+			logger.info("Found project " + project.getName() + " with id "+project.getId().getProjectId());
+			if (project.getId().getProjectId().equals("proquest_counter")) {
+				//cleanDynamicObjects(api, project);
+				addNameToMetrics(api, project);
+			}
 		}
-
 	}
 
 	public void cleanDynamicObjects(ModelApi api, Project project) throws ApiException {
@@ -101,5 +107,19 @@ public class ReadProjects extends ClientEngine {
 				}
 			}
 		}
+	}
+
+	public void addNameToMetrics(ModelApi api, Project project) throws ApiException {
+		for (Bookmark bookmark:api.getBookmarks(project.getId().getProjectId())) {
+			for (ChoosenMetric metric: bookmark.getConfig().getChosenMetrics()) {
+				Expression expr = metric.getExpression();
+				for (ReferencePKObject ref:expr.getReferences()) {
+					Object o = ref.getReference();
+					System.out.println(o.toString());
+				}
+			}
+
+		}
+
 	}
 }

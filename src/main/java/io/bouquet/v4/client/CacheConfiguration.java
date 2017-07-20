@@ -70,12 +70,32 @@ public class CacheConfiguration extends ProjectConfiguration implements Serializ
 		return refreshType;
 	}
 
+	public void setRefreshType(RefreshType refreshType) {
+		this.refreshType=refreshType;
+	}
+
 	public ClearFlag getClearFlag() {
 		return clearFlag;
 	}
 
+	public void setClearFlag(ClearFlag clearFlag) {
+		this.clearFlag=clearFlag;
+	}
+
 	public ClearAnalysis getClearAnalysis() {
 		return clearAnalysis;
+	}
+
+	public void setClearAnalysis(ClearAnalysis clearAnalysis) {
+		this.clearAnalysis=clearAnalysis;
+	}
+
+	public ComparePeriod getDefaultComparePeriod() {
+		return defaultComparePeriod;
+	}
+
+	public void getDefaultComparePeriod(ComparePeriod defaultComparePeriod) {
+		this.defaultComparePeriod=defaultComparePeriod;
 	}
 
 	@Override
@@ -103,7 +123,4 @@ public class CacheConfiguration extends ProjectConfiguration implements Serializ
 		return client;
 	}
 
-	public ComparePeriod getDefaultComparePeriod() {
-		return defaultComparePeriod;
-	}
 }
