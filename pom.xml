@@ -96,7 +96,7 @@
 				</executions>
 			</plugin>
 		</plugins>
-		<finalName>com.squid.elt.common</finalName>
+		<finalName>bouquet-java-sdk</finalName>
 		<pluginManagement>
 			<plugins>
 				<plugin>
