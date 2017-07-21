@@ -33,8 +33,12 @@ public class Expression extends Base  {
 	@SerializedName("name")
 	private String name = null;
 
+	/*
+	 * Added transiant else something isn't correctly set 
+	 * debug what is missing if you need to remove it
+	 */
 	@SerializedName("references")
-	private List<ReferencePKObject> references = new ArrayList<ReferencePKObject>();
+	private transient List<ReferencePKObject> references = new ArrayList<ReferencePKObject>();
 
 	public Expression value(String value) {
 		this.value = value;

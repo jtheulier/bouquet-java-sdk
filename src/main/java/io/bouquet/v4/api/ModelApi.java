@@ -490,12 +490,12 @@ public class ModelApi extends BaseApi {
 	 * Gets a Project
 	 *
 	 * @param projectId
-	 * @param deepget
+	 * @param deepread
 	 * @return Project
 	 * @throws ApiException
 	 *         if fails to make API call
 	 */
-	public Project getProject(String projectId, Boolean deepget) throws ApiException {
+	public Project getProject(String projectId, Boolean deepread) throws ApiException {
 		Object localVarPostBody = null;
 
 		// verify the required parameter 'projectId' is set
@@ -511,7 +511,7 @@ public class ModelApi extends BaseApi {
 		Map<String, String> localVarHeaderParams = new HashMap<String, String>();
 		Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-		localVarQueryParams.addAll(getApiClient().parameterToPairs("", "deepget", deepget));
+		localVarQueryParams.addAll(getApiClient().parameterToPairs("", "deepread", deepread));
 		String[] localVarAuthNames = new String[] { "kraken_auth" };
 
 		Type localVarReturnType = new TypeToken<Project>() {}.getType();
@@ -1281,12 +1281,12 @@ public class ModelApi extends BaseApi {
 	 *
 	 * @param projectId
 	 * @param domainId
-	 * @param deepget
+	 * @param deepread
 	 * @return Domain
 	 * @throws ApiException
 	 *         if fails to make API call
 	 */
-	public Domain getDomain(String projectId, String domainId, Boolean deepget) throws ApiException {
+	public Domain getDomain(String projectId, String domainId, Boolean deepread) throws ApiException {
 		Object localVarPostBody = null;
 
 		// verify the required parameter 'projectId' is set
@@ -1308,7 +1308,7 @@ public class ModelApi extends BaseApi {
 		Map<String, String> localVarHeaderParams = new HashMap<String, String>();
 		Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-		localVarQueryParams.addAll(getApiClient().parameterToPairs("", "deepget", deepget));
+		localVarQueryParams.addAll(getApiClient().parameterToPairs("", "deepread", deepread));
 		String[] localVarAuthNames = new String[] { "kraken_auth" };
 
 		Type localVarReturnType = new TypeToken<Domain>() {}.getType();
@@ -1566,12 +1566,12 @@ public class ModelApi extends BaseApi {
 	 * @param projectId
 	 * @param domainId
 	 * @param dimensionId
-	 * @param deepget
+	 * @param deepread
 	 * @return Dimension
 	 * @throws ApiException
 	 *         if fails to make API call
 	 */
-	public Dimension getDimension(String projectId, String domainId, String dimensionId, Boolean deepget) throws ApiException {
+	public Dimension getDimension(String projectId, String domainId, String dimensionId, Boolean deepread) throws ApiException {
 		Object localVarPostBody = null;
 
 		// verify the required parameter 'projectId' is set
@@ -1599,7 +1599,7 @@ public class ModelApi extends BaseApi {
 		Map<String, String> localVarHeaderParams = new HashMap<String, String>();
 		Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-		localVarQueryParams.addAll(getApiClient().parameterToPairs("", "deepget", deepget));
+		localVarQueryParams.addAll(getApiClient().parameterToPairs("", "deepread", deepread));
 		String[] localVarAuthNames = new String[] { "kraken_auth" };
 
 		Type localVarReturnType = new TypeToken<Dimension>() {}.getType();
@@ -2359,12 +2359,12 @@ public class ModelApi extends BaseApi {
 	 * @param projectId
 	 * @param domainId
 	 * @param metricId
-	 * @param deepget
+	 * @param deepread
 	 * @return Metric
 	 * @throws ApiException
 	 *         if fails to make API call
 	 */
-	public Metric getMetric(String projectId, String domainId, String metricId, Boolean deepget) throws ApiException {
+	public Metric getMetric(String projectId, String domainId, String metricId, Boolean deepread) throws ApiException {
 		Object localVarPostBody = null;
 
 		// verify the required parameter 'projectId' is set
@@ -2391,7 +2391,7 @@ public class ModelApi extends BaseApi {
 		Map<String, String> localVarHeaderParams = new HashMap<String, String>();
 		Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-		localVarQueryParams.addAll(getApiClient().parameterToPairs("", "deepget", deepget));
+		localVarQueryParams.addAll(getApiClient().parameterToPairs("", "deepread", deepread));
 		String[] localVarAuthNames = new String[] { "kraken_auth" };
 
 		Type localVarReturnType = new TypeToken<Metric>() {}.getType();
@@ -4072,12 +4072,12 @@ public class ModelApi extends BaseApi {
 	 *
 	 * @param projectId
 	 * @param bookmarkId
-	 * @param deepget
+	 * @param deepread
 	 * @return Bookmark
 	 * @throws ApiException
 	 *         if fails to make API call
 	 */
-	public Bookmark getBookmark(String projectId, String bookmarkId, Boolean deepget) throws ApiException {
+	public Bookmark getBookmark(String projectId, String bookmarkId, Boolean deepread) throws ApiException {
 		Object localVarPostBody = null;
 
 		// verify the required parameter 'projectId' is set
@@ -4099,7 +4099,7 @@ public class ModelApi extends BaseApi {
 		Map<String, String> localVarHeaderParams = new HashMap<String, String>();
 		Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-		localVarQueryParams.addAll(getApiClient().parameterToPairs("", "deepget", deepget));
+		localVarQueryParams.addAll(getApiClient().parameterToPairs("", "deepread", deepread));
 		String[] localVarAuthNames = new String[] { "kraken_auth" };
 
 		Type localVarReturnType = new TypeToken<Bookmark>() {}.getType();

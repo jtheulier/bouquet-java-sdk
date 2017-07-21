@@ -102,8 +102,8 @@ public class RefreshProject extends ClientEngine {
 				api.releaseAllCaches(project.getOid());
 				refreshDomains = false;
 			}
-
 			boolean hasError = false;
+
 			if (cacheConfiguration.getRefreshType() == RefreshType.FACETS || cacheConfiguration.getRefreshType() == RefreshType.ALL) {
 				try {
 					refreshFacets(api, project, refreshDomains);

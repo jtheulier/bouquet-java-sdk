@@ -33,8 +33,9 @@ import io.bouquet.v4.ApiException;
 import io.bouquet.v4.api.ModelApi;
 import io.bouquet.v4.client.CacheConfiguration.ComparePeriod;
 import io.bouquet.v4.model.Bookmark;
-import io.bouquet.v4.model.ChoosenMetric;
+import io.bouquet.v4.model.ChosenMetric;
 import io.bouquet.v4.model.Dimension;
+import io.bouquet.v4.model.Dimension.TypeEnum;
 import io.bouquet.v4.model.Domain;
 import io.bouquet.v4.model.DomainPK;
 import io.bouquet.v4.model.Expression;
@@ -44,13 +45,12 @@ import io.bouquet.v4.model.FacetMemberInterval;
 import io.bouquet.v4.model.FacetSelection;
 import io.bouquet.v4.model.Metric;
 import io.bouquet.v4.model.OrderBy;
+import io.bouquet.v4.model.OrderBy.DirectionEnum;
 import io.bouquet.v4.model.ProjectAnalysisJob;
 import io.bouquet.v4.model.ProjectAnalysisJobPK;
 import io.bouquet.v4.model.ProjectFacetJob;
 import io.bouquet.v4.model.ProjectFacetJobPK;
 import io.bouquet.v4.model.RollUp;
-import io.bouquet.v4.model.Dimension.TypeEnum;
-import io.bouquet.v4.model.OrderBy.DirectionEnum;
 
 
 public class ClientEngine {
@@ -207,7 +207,7 @@ public class ClientEngine {
 				selection.setCompareTo(bookmark.getConfig().getSelection().getCompareTo());
 			}
 			if ((selection.getCompareTo() == null || selection.getCompareTo().size() == 0) && defaultComparePeriod != ComparePeriod.__NONE && bookmark.getConfig().getPeriod() != null) {
-				if (bookmark.getConfig().getPeriod().any().size() == 1) {
+				if (bookmark.getConfig().getPeriod().any() != null && bookmark.getConfig().getPeriod().any().size() == 1) {
 					FacetMemberInterval compare = new FacetMemberInterval();
 					compare.setType("i");
 					compare.setLowerBound(defaultComparePeriod.toString());
@@ -317,9 +317,9 @@ public class ClientEngine {
 			{
 				analysis.setOrderBy(orderBys);
 				analysis.setRollups(rollups);
-				List<ChoosenMetric> mets = bookmark.getConfig().getChosenMetrics();
+				List<ChosenMetric> mets = bookmark.getConfig().getChosenMetrics();
 				if (mets != null) {
-					for (ChoosenMetric met : mets) {
+					for (ChosenMetric met : mets) {
 						if (met.getId() != null) {
 							Metric metric = api.getMetric(bookmark.getId().getProjectId(), domain.getDomainId(), met.getId(), false);
 							if (metric == null) {

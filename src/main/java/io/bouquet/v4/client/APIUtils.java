@@ -18,9 +18,7 @@ package io.bouquet.v4.client;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,9 +27,6 @@ import javax.net.ssl.X509TrustManager;
 import org.apache.commons.lang3.text.WordUtils;
 
 import io.bouquet.v4.ApiException;
-import io.bouquet.v4.model.FacetMember;
-import io.bouquet.v4.model.FacetMemberInterval;
-import io.bouquet.v4.model.FacetMemberString;
 
 
 public class APIUtils {
@@ -48,36 +43,6 @@ public class APIUtils {
 				splitted.add(m.group(1));
 			}
 			return splitted.toArray(new String[splitted.size()]);
-		}
-		return null;
-	}
-
-	@SuppressWarnings("unchecked")
-	public static List<FacetMember> deserializeFacets(List<Hashtable<String, Object>> facets) throws ApiException {
-		if (facets != null && facets.size() > 0) {
-			List<FacetMember> facetMembers = new ArrayList<FacetMember>();
-			for (Hashtable<String, Object> facet : facets) {
-				if (facet != null) {
-					if ("i".equals(facet.get("type"))) {
-						FacetMemberInterval facetMember = new FacetMemberInterval();
-						facetMember.setLowerBound((String) facet.get("lowerBound"));
-						facetMember.setUpperBound((String) facet.get("upperBound"));
-						facetMember.setType((String) facet.get("type"));
-						facetMembers.add(facetMember);
-					} else if ("v".equals(facet.get("type"))) {
-						FacetMemberString facetMember = new FacetMemberString();
-						facetMember.setId((String) facet.get("id"));
-						facetMember.setValue((String) facet.get("value"));
-						facetMember.setType((String) facet.get("type"));
-						facetMember.setAttributes((Map<String, String>) facet.get("attributes"));
-
-						facetMembers.add(facetMember);
-					} else {
-						throw new ApiException("Invalid facet type");
-					}
-				}
-			}
-			return facetMembers;
 		}
 		return null;
 	}

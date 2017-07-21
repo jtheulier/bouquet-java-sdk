@@ -37,7 +37,7 @@ public class BookmarkConfig extends Base {
 	String domain;
 	Period period;
 	List<String> chosenDimensions;
-	List<ChoosenMetric> chosenMetrics;
+	List<ChosenMetric> chosenMetrics;
 	FolderState bookmarkFolderState;
 	Boolean tourSeen;
 	List<OrderBy> orderBy;
@@ -57,9 +57,7 @@ public class BookmarkConfig extends Base {
 	public BookmarkConfig() {
 	}
 
-	
-
-public class FolderState {
+	public class FolderState {
 		private String bookmarkId;
 		private String stateId;
 		private Map<String, String> other = new HashMap<String, String>();
@@ -95,9 +93,9 @@ public class FolderState {
 		}
 	}
 
-	
 
-public class Period {
+
+	public class Period {
 		String domainId;
 		String dimensionId;
 		private Map<String, String> other = new HashMap<String, String>();
@@ -206,11 +204,11 @@ public class Period {
 		this.chosenDimensions = chosenDimensions;
 	}
 
-	public List<ChoosenMetric> getChosenMetrics() {
+	public List<ChosenMetric> getChosenMetrics() {
 		return chosenMetrics;
 	}
 
-	public void setChosenMetrics(List<ChoosenMetric> chosenMetrics) {
+	public void setChosenMetrics(List<ChosenMetric> chosenMetrics) {
 		this.chosenMetrics = chosenMetrics;
 	}
 

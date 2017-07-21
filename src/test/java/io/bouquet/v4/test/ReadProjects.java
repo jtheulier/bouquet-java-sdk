@@ -30,7 +30,7 @@ import io.bouquet.v4.api.ModelApi;
 import io.bouquet.v4.client.ClientEngine;
 import io.bouquet.v4.client.LoginConfiguration;
 import io.bouquet.v4.model.Bookmark;
-import io.bouquet.v4.model.ChoosenMetric;
+import io.bouquet.v4.model.ChosenMetric;
 import io.bouquet.v4.model.Domain;
 import io.bouquet.v4.model.Expression;
 import io.bouquet.v4.model.Project;
@@ -81,6 +81,7 @@ public class ReadProjects extends ClientEngine {
 			if (project.getId().getProjectId().equals("proquest_counter")) {
 				//cleanDynamicObjects(api, project);
 				addNameToMetrics(api, project);
+				//api.getProject(project.getId().getProjectId(), true);
 			}
 		}
 	}
@@ -111,15 +112,20 @@ public class ReadProjects extends ClientEngine {
 
 	public void addNameToMetrics(ModelApi api, Project project) throws ApiException {
 		for (Bookmark bookmark:api.getBookmarks(project.getId().getProjectId())) {
-			for (ChoosenMetric metric: bookmark.getConfig().getChosenMetrics()) {
+			for (ChosenMetric metric: bookmark.getConfig().getChosenMetrics()) {
 				Expression expr = metric.getExpression();
-				for (ReferencePKObject ref:expr.getReferences()) {
-					Object o = ref.getReference();
-					System.out.println(o.toString());
+				if (expr!=null) {
+					for (ReferencePKObject ref:expr.getReferences()) {
+						Object o = ref.getReference();
+						System.out.println(o.toString());
+					}
+				} else {
+					System.out.println("expr is null");
 				}
 			}
 
 		}
 
 	}
+
 }

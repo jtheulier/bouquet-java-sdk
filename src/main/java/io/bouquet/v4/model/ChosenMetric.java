@@ -19,21 +19,25 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class ChoosenMetric extends Base {
+public class ChosenMetric extends Base {
 
 	private String id = null;
 	private Expression expression = null;
 
-	public ChoosenMetric() {
+	public ChosenMetric() {
 	}
 
-	public ChoosenMetric(String id) {
+	public ChosenMetric(String id) {
 		this.id = id;
+	}
+
+	public ChosenMetric(Expression expression) {
+		this.expression = expression;
 	}
 
 	/**
 	 **/
-	public ChoosenMetric expression(Expression expression) {
+	public ChosenMetric expression(Expression expression) {
 		this.expression = expression;
 		return this;
 	}
