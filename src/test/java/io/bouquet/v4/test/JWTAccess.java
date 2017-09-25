@@ -20,6 +20,7 @@ import java.util.List;
 import io.bouquet.v4.ApiClient;
 import io.bouquet.v4.api.ModelApi;
 import io.bouquet.v4.client.JWTConfiguration;
+import io.bouquet.v4.model.Project;
 import io.bouquet.v4.model.User;
 
 /**
@@ -63,6 +64,10 @@ public class JWTAccess {
 		for (User user : users) {
 			System.out.println(user.toString());
 		}
-	}
+		List<Project> projects = api.getProjects();
+		for (Project project : projects) {
+			System.out.println(project.getName());
+		}	
+		}
 
 }

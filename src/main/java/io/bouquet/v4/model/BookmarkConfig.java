@@ -33,6 +33,7 @@ public class BookmarkConfig extends Base {
 	Integer maxResults;
 	String currentAnalysis;
 	FacetSelection selection;
+	FacetSelection rootSelection;
 	String customer;
 	String domain;
 	Period period;
@@ -169,6 +170,14 @@ public class BookmarkConfig extends Base {
 
 	public void setSelection(FacetSelection selection) {
 		this.selection = selection;
+	}
+
+	public FacetSelection getRootSelection() {
+		return rootSelection;
+	}
+
+	public void setRootSelection(FacetSelection rootSelection) {
+		this.rootSelection = rootSelection;
 	}
 
 	public String getCustomer() {

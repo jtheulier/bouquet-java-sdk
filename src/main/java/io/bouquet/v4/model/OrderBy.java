@@ -51,9 +51,35 @@ public class OrderBy extends Base  {
 			return String.valueOf(value);
 		}
 	}
-
 	@SerializedName("direction")
 	private DirectionEnum direction = null;
+
+	/**
+	 * the direction to order-by
+	 */
+	public enum NullsEnum {
+		@SerializedName("UNDEFINED")
+		UNDEFINED("UNDEFINED"),
+
+		@SerializedName("NULLS_FIRST")
+		NULLS_FIRST("NULLS_FIRST"),
+
+		@SerializedName("NULLS_LAST")
+		NULLS_LAST("NULLS_LAST");
+
+		private String value;
+
+		NullsEnum(String value) {
+			this.value = value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+	}
+	@SerializedName("nulls")
+	private NullsEnum nulls = NullsEnum.UNDEFINED;
 
 	public OrderBy col(Integer col) {
 		this.col = col;
@@ -108,5 +134,25 @@ public class OrderBy extends Base  {
 	public void setDirection(DirectionEnum direction) {
 		this.direction = direction;
 	}
+
+	public OrderBy nulls(NullsEnum nulls) {
+		this.nulls = nulls;
+		return this;
+	}
+
+	/**
+	 * the direction to order-by
+	 * @return direction
+	 **/
+	@ApiModelProperty(example = "NULLS_FIRST", value = "the position of null values to order-by")
+	public NullsEnum getNulls() {
+		return nulls;
+	}
+
+	public void setNulls(NullsEnum nulls) {
+		this.nulls = nulls;
+	}
 }
+
+
 

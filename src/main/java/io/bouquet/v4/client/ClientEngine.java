@@ -204,6 +204,7 @@ public class ClientEngine {
 			FacetSelection selection = new FacetSelection();
 			if (bookmark.getConfig() != null && bookmark.getConfig().getSelection() != null) {
 				selection.setFacets(bookmark.getConfig().getSelection().getFacets());
+				selection.setRootFacets(bookmark.getConfig().getSelection().getRootFacets());
 				selection.setCompareTo(bookmark.getConfig().getSelection().getCompareTo());
 			}
 			if ((selection.getCompareTo() == null || selection.getCompareTo().size() == 0) && defaultComparePeriod != ComparePeriod.__NONE && bookmark.getConfig().getPeriod() != null) {

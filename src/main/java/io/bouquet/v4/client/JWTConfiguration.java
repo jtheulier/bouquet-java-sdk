@@ -21,6 +21,8 @@ import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 
+import javax.xml.bind.DatatypeConverter;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -83,9 +85,18 @@ public class JWTConfiguration implements Serializable {
 		byte[] keyBytes = org.apache.commons.codec.binary.Base64.decodeBase64(privateKey.getBytes("UTF-8"));
 		PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(keyBytes);
 		KeyFactory kf = KeyFactory.getInstance("RSA");
+		PrivateKey pk = kf.generatePrivate(spec);
+		System.out.println("Private Key: " + getHexString(pk.getEncoded()));
+		System.out.println(DatatypeConverter.printBase64Binary(pk.getEncoded()));
 		return kf.generatePrivate(spec);
 	}
-
+	private String getHexString(byte[] b) {
+		String result = "";
+		for (int i = 0; i < b.length; i++) {
+			result += Integer.toString((b[i] & 0xff) + 0x100, 16).substring(1);
+		}
+		return result;
+	}
 	public String toJson() {
 		ObjectMapper mapper = new ObjectMapper();
 		try {

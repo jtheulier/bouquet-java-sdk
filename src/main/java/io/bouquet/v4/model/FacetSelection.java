@@ -30,6 +30,8 @@ public class FacetSelection extends Base  {
 	@SerializedName("startIndex")
 	private Long startIndex = null;
 
+	@SerializedName("rootFacets")
+	private List<Facet> rootFacets = new ArrayList<Facet>();
 	@SerializedName("facets")
 	private List<Facet> facets = new ArrayList<Facet>();
 
@@ -55,6 +57,29 @@ public class FacetSelection extends Base  {
 
 	public void setStartIndex(Long startIndex) {
 		this.startIndex = startIndex;
+	}
+
+	public FacetSelection rootFacets(List<Facet> rootFacets) {
+		this.rootFacets = rootFacets;
+		return this;
+	}
+
+	public FacetSelection addRootFacetsItem(Facet rootFacetsItem) {
+		this.rootFacets.add(rootFacetsItem);
+		return this;
+	}
+
+	/**
+	 * Get rootFacets
+	 * @return rootFacets
+	 **/
+	@ApiModelProperty(example = "null", value = "")
+	public List<Facet> getRootFacets() {
+		return rootFacets;
+	}
+
+	public void setRootFacets(List<Facet> rootFacets) {
+		this.rootFacets = rootFacets;
 	}
 
 	public FacetSelection facets(List<Facet> facets) {
