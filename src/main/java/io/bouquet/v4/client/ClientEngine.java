@@ -321,12 +321,17 @@ public class ClientEngine {
 				List<ChosenMetric> mets = bookmark.getConfig().getChosenMetrics();
 				if (mets != null) {
 					for (ChosenMetric met : mets) {
-						if (met.getId() != null) {
+						if (met.getId() != null && met.getId().indexOf("@")==-1) {
 							Metric metric = api.getMetric(bookmark.getId().getProjectId(), domain.getDomainId(), met.getId(), false);
 							if (metric == null) {
 								throw new ApiException("Invalid metric Id " + met);
 							}
 							metric.getAccessRights().clear();
+							metrics.add(metric);
+						} else if (met.getId() != null) {
+							Metric metric = new Metric();
+							metric.setExpression(new Expression().value(met.getId()));
+							metric.setDynamic(false);
 							metrics.add(metric);
 						} else if (met.getExpression() != null) {
 							Metric metric = new Metric();
