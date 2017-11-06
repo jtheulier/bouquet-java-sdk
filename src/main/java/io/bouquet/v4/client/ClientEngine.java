@@ -118,7 +118,7 @@ public class ClientEngine {
 		return null;
 	}
 
-	protected boolean executeFacetJob(ModelApi api, Domain domain, List<Dimension> dimensions, boolean wait) throws ApiException, InterruptedException {
+	public boolean executeFacetJob(ModelApi api, Domain domain, List<Dimension> dimensions, boolean wait) throws ApiException, InterruptedException {
 		ProjectFacetJob job = new ProjectFacetJob();
 		job.setDomains(Arrays.asList(domain.getId()));
 		ProjectFacetJobPK facetJobId = new ProjectFacetJobPK();

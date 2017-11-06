@@ -26,7 +26,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class CacheConfiguration extends ProjectConfiguration implements Serializable {
 
 	public enum RefreshType {
-		FACETS, BOOKMARKS, ALL
+		NONE, FACETS, BOOKMARKS, ALL
 	};
 
 	public enum ClearFlag {
