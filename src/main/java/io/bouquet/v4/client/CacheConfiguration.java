@@ -123,4 +123,15 @@ public class CacheConfiguration extends ProjectConfiguration implements Serializ
 		return client;
 	}
 
+	public static CacheConfiguration copy(CacheConfiguration cache) {
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			return  fromJson(mapper.writeValueAsString(cache));
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }
