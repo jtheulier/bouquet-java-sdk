@@ -348,7 +348,6 @@ public class ClientEngine {
 									metrics.add(metric);
 								}
 							}
-							break;
 						}
 					}
 					analysis.setMetricList(metrics);
