@@ -15,13 +15,10 @@
  *******************************************************************************/
 package io.bouquet.v4.test;
 
-import java.util.List;
-
 import io.bouquet.v4.ApiClient;
 import io.bouquet.v4.api.ModelApi;
+import io.bouquet.v4.auth.OAuth;
 import io.bouquet.v4.client.JWTConfiguration;
-import io.bouquet.v4.model.Project;
-import io.bouquet.v4.model.User;
 
 /**
  * Test class to get an access token from a JWT key (found in a Client object)
@@ -42,32 +39,21 @@ public class JWTAccess {
 		try {
 			JWTConfiguration configuration = JWTConfiguration.fromJson(args[1]);
 			JWTAccess test = new JWTAccess();
-			test.run(args[0], configuration);
+			test.getAccessToken(args[0], configuration);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	/**
-	 * Test case run
-	 * @param basePath base URL of the Bouquet server (ending with /v4.2)
-	 * @param configuration JWT object containing the key, user to login with & client
-	 * @throws Exception when an error occurs
-	 */
-	public void run(String basePath, JWTConfiguration configuration) throws Exception {
+	public String getAccessToken(String basePath, JWTConfiguration configuration) throws Exception {
 
 		ApiClient apiClient = new ApiClient();
 		apiClient.setBasePath(basePath);
-		ModelApi api = new ModelApi(apiClient, configuration);
+		new ModelApi(apiClient, configuration);
 
-		List<User> users = api.getUsers();
-		for (User user : users) {
-			System.out.println(user.toString());
-		}
-		List<Project> projects = api.getProjects();
-		for (Project project : projects) {
-			System.out.println(project.getName());
-		}	
-		}
+		System.out.println(((OAuth) apiClient.getAuthentication("kraken_auth")).getAccessToken());
+		return ((OAuth) apiClient.getAuthentication("kraken_auth")).getAccessToken();
+
+	}
 
 }

@@ -4,7 +4,7 @@
 	<groupId>bouquet</groupId>
 	<packaging>jar</packaging>
 	<name>bouquet-java-sdk</name>
-	<version>4.2.51</version>
+	<version>4.2.67</version>
 	<scm>
 		<connection>scm:git:git@github.com:swagger-api/swagger-mustache.git</connection>
 		<developerConnection>scm:git:git@github.com:swagger-api/swagger-codegen.git</developerConnection>

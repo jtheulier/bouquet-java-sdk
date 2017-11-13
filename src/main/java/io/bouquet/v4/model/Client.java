@@ -31,6 +31,8 @@ public class Client extends Base   {
 	private String jwtkeyPrivate = null;
 	private String oid = null;
 	private String objectType = null;
+	private ClientSSOConfiguration sso;
+	private Boolean forceClientSecret = Boolean.FALSE;
 
 
 	public enum RoleEnum {
@@ -202,5 +204,44 @@ public class Client extends Base   {
 		this.name = name;
 	}
 
+	/**
+	 **/
+	public Client sso(ClientSSOConfiguration sso) {
+		this.sso = sso;
+		return this;
+	}
+
+	@ApiModelProperty(example = "null", value = "")
+	/**
+	 * Returns the SSO definition associated with a client
+	 * @return the sso
+	 */
+	public ClientSSOConfiguration getSso() {
+		return sso;
+	}
+
+	public void setSso(ClientSSOConfiguration sso) {
+		this.sso = sso;
+	}
+
+	/**
+	 **/
+	public Client forceClientSecret(Boolean forceClientSecret) {
+		this.forceClientSecret = forceClientSecret;
+		return this;
+	}
+
+	@ApiModelProperty(example = "null", value = "")
+	/**
+	 * Flag that triggers the use or not of the client secret.
+	 * @return
+	 */
+	public Boolean getForceClientSecret() {
+		return forceClientSecret;
+	}
+
+	public void setForceClientSecret(Boolean forceClientSecret) {
+		this.forceClientSecret = forceClientSecret;
+	}
 }
 

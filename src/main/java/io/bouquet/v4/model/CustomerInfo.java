@@ -37,6 +37,8 @@ public class CustomerInfo extends RoleBase  {
 
 	private String name = null;
 
+	private List<AccessControlGroup> accessControlGroups;
+
 
 	/**
 	 **/
@@ -220,6 +222,23 @@ public class CustomerInfo extends RoleBase  {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 **/
+	public CustomerInfo accessControlGroups(List<AccessControlGroup> accessControlGroups) {
+		this.accessControlGroups = accessControlGroups;
+		return this;
+	}
+
+	@ApiModelProperty(example = "null", value = "")
+	@JsonProperty("accessControlGroups")
+	public List<AccessControlGroup> getAccessControlGroups() {
+		return accessControlGroups;
+	}
+
+	public void setAccessControlGroups(List<AccessControlGroup> accessControlGroups) {
+		this.accessControlGroups = accessControlGroups;
 	}
 
 }
