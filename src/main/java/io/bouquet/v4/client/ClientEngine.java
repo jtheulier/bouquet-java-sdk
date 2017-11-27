@@ -127,7 +127,7 @@ public class ClientEngine {
 		facetJobId.setProjectId(domain.getId().getProjectId());
 		job = api.postFacetJob(domain.getId().getProjectId(), job, null);
 		List<Facet> remainingFacets = job.getResults().getFacets();
-		int retry = 10;
+		int retry = 120;
 		if (!wait) {
 			retry = 1;
 			wait = true;
