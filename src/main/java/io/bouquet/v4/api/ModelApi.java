@@ -77,8 +77,8 @@ public class ModelApi extends BaseApi {
 		super(apiClient, configuration);
 	}
 
-	public ModelApi(ApiClient apiClient, String clientId, String jwt) throws ApiException {
-		super(apiClient, clientId, jwt);
+	public ModelApi(ApiClient apiClient, String clientId, String assertion) throws ApiException {
+		super(apiClient, clientId, assertion);
 	}
 
 	/**

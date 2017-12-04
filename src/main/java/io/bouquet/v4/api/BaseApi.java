@@ -61,11 +61,11 @@ public class BaseApi {
 
 
 
-	public BaseApi(ApiClient apiClient, String clientId, String jwt) {
+	public BaseApi(ApiClient apiClient, String clientId, String assertion) {
 		this.apiClient = apiClient;
 		AccessToken accesstoken;
 		try {
-			accesstoken =getAccessTokenWitApiKey(jwt, clientId);
+			accesstoken =getAccessTokenWitApiKey(assertion, clientId);
 			apiClient.setAccessToken(accesstoken.getId().getTokenId());
 		} catch (Exception e) {
 			e.printStackTrace();
