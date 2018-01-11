@@ -37,8 +37,23 @@ public class CustomerInfo extends RoleBase  {
 
 	private String name = null;
 
+	private String description;
+
+	private String teamId;
+
+	private String publicUrl;
+
 	private List<AccessControlGroup> accessControlGroups;
 
+	//private SubscriptionStatus subscriptionStatus;
+
+	private int accessTokenExpiration;
+
+	private String preferedTeamOwner;
+
+	private String privateCertificate;
+
+	private String publicCertificate;
 
 	/**
 	 **/
@@ -226,6 +241,57 @@ public class CustomerInfo extends RoleBase  {
 
 	/**
 	 **/
+	public  CustomerInfo description(String description) {
+		this.description = description;
+		return this;
+	}
+
+	@ApiModelProperty(example = "null", value = "")
+	@JsonProperty("description")
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	/**
+	 **/
+	public CustomerInfo teamId(String teamId) {
+		this.teamId = teamId;
+		return this;
+	}
+
+	@ApiModelProperty(example = "null", value = "")
+	@JsonProperty("teamId")
+	public String getTeamId() {
+		return teamId;
+	}
+
+	public void setTeamId(String teamId) {
+		this.teamId = teamId;
+	}
+
+	/**
+	 **/
+	public CustomerInfo publicUrl(String publicUrl) {
+		this.publicUrl = publicUrl;
+		return this;
+	}
+
+	@ApiModelProperty(example = "null", value = "")
+	@JsonProperty("publicUrl")
+	public String getPublicUrl() {
+		return publicUrl;
+	}
+
+	public void setPublicUrl(String publicUrl) {
+		this.publicUrl = publicUrl;
+	}
+
+	/**
+	 **/
 	public CustomerInfo accessControlGroups(List<AccessControlGroup> accessControlGroups) {
 		this.accessControlGroups = accessControlGroups;
 		return this;
@@ -241,5 +307,72 @@ public class CustomerInfo extends RoleBase  {
 		this.accessControlGroups = accessControlGroups;
 	}
 
+	/**
+	 **/
+	public CustomerInfo accessTokenExpiration(int accessTokenExpiration) {
+		this.accessTokenExpiration = accessTokenExpiration;
+		return this;
+	}
+
+	@ApiModelProperty(example = "null", value = "")
+	@JsonProperty("accessTokenExpiration")
+	public int getAccessTokenExpiration() {
+		return accessTokenExpiration;
+	}
+
+	public void setAccessTokenExpiration(int accessTokenExpiration) {
+		this.accessTokenExpiration = accessTokenExpiration;
+	}
+
+	/**
+	 **/
+	public CustomerInfo preferedTeamOwner(String preferedTeamOwner) {
+		this.preferedTeamOwner = preferedTeamOwner;
+		return this;
+	}
+
+	@ApiModelProperty(example = "null", value = "")
+	@JsonProperty("preferedTeamOwner")
+	public String getPreferedTeamOwner() {
+		return preferedTeamOwner;
+	}
+
+	public void setPreferedTeamOwner(String preferedTeamOwner) {
+		this.preferedTeamOwner = preferedTeamOwner;
+	}
+
+	/**
+	 **/
+	public CustomerInfo privateCertificate(String privateCertificate) {
+		this.privateCertificate = privateCertificate;
+		return this;
+	}
+
+	@ApiModelProperty(example = "null", value = "")
+	@JsonProperty("privateCertificate")
+	public String getPrivateCertificate() {
+		return privateCertificate;
+	}
+
+	public void setPrivateCertificate(String privateCertificate) {
+		this.privateCertificate = privateCertificate;
+	}
+
+	/**
+	 **/
+	public CustomerInfo publicCertificate(String publicCertificate) {
+		this.publicCertificate = publicCertificate;
+		return this;
+	}
+
+	@ApiModelProperty(example = "null", value = "")
+	@JsonProperty("publicCertificate")
+	public String getPublicCertificate() {
+		return publicCertificate;
+	}
+
+	public void setPublicCertificate(String publicCertificate) {
+		this.publicCertificate = publicCertificate;
+	}
 }
 

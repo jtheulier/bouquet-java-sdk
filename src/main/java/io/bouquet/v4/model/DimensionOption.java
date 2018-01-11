@@ -46,6 +46,9 @@ public class DimensionOption extends Base  {
 	@SerializedName("hidden")
 	private Boolean hidden = false;
 
+	@SerializedName("name")
+	public String name = null;
+
 	@SerializedName("groupFilter")
 	private List<String> groupFilter = new ArrayList<String>();
 
@@ -168,6 +171,19 @@ public class DimensionOption extends Base  {
 	public DimensionOption addGroupFilterItem(String groupFilterItem) {
 		this.groupFilter.add(groupFilterItem);
 		return this;
+	}
+
+	/**
+	 * Get name
+	 * @return name
+	 **/
+	@ApiModelProperty(example = "null", value = "")
+	protected String getName() {
+		return name;
+	}
+
+	protected void setName(String name) {
+		this.name = name;
 	}
 
 	/**

@@ -36,6 +36,7 @@ import io.bouquet.v4.client.JWTConfiguration;
 import io.bouquet.v4.client.LoginConfiguration;
 import io.bouquet.v4.model.AccessRight;
 import io.bouquet.v4.model.AccessToken;
+import io.bouquet.v4.model.ApiKey;
 import io.bouquet.v4.model.Attribute;
 import io.bouquet.v4.model.Bookmark;
 import io.bouquet.v4.model.BookmarkPK;
@@ -166,6 +167,168 @@ public class ModelApi extends BaseApi {
 		return resp.getData();
 	}
 
+
+	/**
+	 * Gets All ApiKeys
+	 *
+	 * @return List<InlineResponse200>
+	 * @throws ApiException
+	 *         if fails to make API call
+	 */
+	public List<ApiKey> getApiKeys() throws ApiException {
+		Object localVarPostBody = null;
+
+		// create path and map variables
+		String localVarPath = "/rs/apikeys".replaceAll("\\{format\\}", "json");
+
+		// query params
+		List<Pair> localVarQueryParams = new ArrayList<Pair>();
+		Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+		Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+		String[] localVarAuthNames = new String[] { "kraken_auth" };
+
+		Type localVarReturnType = new TypeToken<List<ApiKey>>() {}.getType();
+
+		Call call = getApiClient().buildCall(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, null);
+		ApiResponse<List<ApiKey>> resp = getApiClient().execute(call, localVarReturnType);
+		return resp.getData();
+
+	}
+
+	/**
+	 * Gets a ApiKey
+	 *
+	 * @param apiKeyId
+	 * @return ApiKey
+	 * @throws ApiException
+	 *         if fails to make API call
+	 */
+	public ApiKey getApiKey(String apiKeyId) throws ApiException {
+		Object localVarPostBody = null;
+
+		// verify the required parameter 'apiKeyId' is set
+		if (apiKeyId == null) {
+			throw new ApiException(400, "Missing the required parameter 'apiKeyId' when calling getApiKey");
+		}
+
+		// create path and map variables
+		String localVarPath = "/rs/apikeys/{apiKeyId}".replaceAll("\\{format\\}", "json").replaceAll("\\{" + "apiKeyId" + "\\}", getApiClient().escapeString(apiKeyId.toString()));
+
+		// query params
+		List<Pair> localVarQueryParams = new ArrayList<Pair>();
+		Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+		Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+		String[] localVarAuthNames = new String[] { "kraken_auth" };
+
+		Type localVarReturnType = new TypeToken<ApiKey>() {}.getType();
+
+		Call call = getApiClient().buildCall(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, null);
+		ApiResponse<ApiKey> resp = getApiClient().execute(call, localVarReturnType);
+		return resp.getData();
+
+	}
+
+	/**
+	 * Updates a ApiKey
+	 *
+	 * @param body the apiKey to update
+	 * @return ApiKey
+	 * @throws ApiException
+	 *         if fails to make API call
+	 */
+	public ApiKey updateApiKey(ApiKey body) throws ApiException {
+		Object localVarPostBody = body;
+
+		// verify the required parameter 'apiKeyId' is set
+		if (body.getId().getApiKeyId() == null) {
+			throw new ApiException(400, "Missing the required parameter 'apiKeyId' when calling updateApiKey");
+		}
+
+		// verify the required attribute oid us set as the id
+		if (body.getId().getApiKeyId().equals(body.getOid()) == false) {
+			throw new ApiException(400, "Object id differs from object oid");
+		}
+
+		// create path and map variables
+		String localVarPath = "/rs/apikeys/{apiKeyId}".replaceAll("\\{format\\}", "json").replaceAll("\\{" + "apiKeyId" + "\\}", getApiClient().escapeString(body.getId().getApiKeyId().toString()));
+
+		// query params
+		List<Pair> localVarQueryParams = new ArrayList<Pair>();
+		Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+		Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+		String[] localVarAuthNames = new String[] { "kraken_auth" };
+
+		Type localVarReturnType = new TypeToken<ApiKey>() {}.getType();
+
+		Call call = getApiClient().buildCall(localVarPath, "PUT", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, null);
+		ApiResponse<ApiKey> resp = getApiClient().execute(call, localVarReturnType);
+		return resp.getData();
+
+	}
+
+	/**
+	 * Creates a ApiKey, if apiKey's oid is set, it will be created under this id
+	 *
+	 * @param body
+	 * @return ApiKey
+	 * @throws ApiException
+	 *         if fails to make API call
+	 */
+	public ApiKey setApiKey(ApiKey body) throws ApiException {
+		Object localVarPostBody = body;
+
+		// create path and map variables
+		String localVarPath = "/rs/apikeys";
+		if (body.getOid() != null) {
+			localVarPath += "/" + getApiClient().escapeString(body.getOid());
+		}
+
+		// query params
+		List<Pair> localVarQueryParams = new ArrayList<Pair>();
+		Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+		Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+		String[] localVarAuthNames = new String[] { "kraken_auth" };
+
+		Type localVarReturnType = new TypeToken<ApiKey>() {}.getType();
+
+		Call call = getApiClient().buildCall(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, null);
+		ApiResponse<ApiKey> resp = getApiClient().execute(call, localVarReturnType);
+		return resp.getData();
+
+	}
+
+	/**
+	 * Deletes a ApiKey
+	 *
+	 * @param apiKeyId
+	 * @return Boolean
+	 * @throws ApiException
+	 *         if fails to make API call
+	 */
+	public Boolean deleteApiKey(String apiKeyId) throws ApiException {
+		Object localVarPostBody = null;
+
+		// verify the required parameter 'apiKeyId' is set
+		if (apiKeyId == null) {
+			throw new ApiException(400, "Missing the required parameter 'apiKeyId' when calling deleteApiKey");
+		}
+
+		// create path and map variables
+		String localVarPath = "/rs/apikeys/{apiKeyId}".replaceAll("\\{format\\}", "json").replaceAll("\\{" + "apiKeyId" + "\\}", getApiClient().escapeString(apiKeyId.toString()));
+
+		// query params
+		List<Pair> localVarQueryParams = new ArrayList<Pair>();
+		Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+		Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+		String[] localVarAuthNames = new String[] { "kraken_auth" };
+
+		Type localVarReturnType = new TypeToken<Boolean>() {}.getType();
+
+		Call call = getApiClient().buildCall(localVarPath, "DELETE", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, null);
+		ApiResponse<Boolean> resp = getApiClient().execute(call, localVarReturnType);
+		return resp.getData();
+
+	}
 
 	/**
 	 * Gets All Clients

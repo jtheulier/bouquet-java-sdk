@@ -35,6 +35,8 @@ public class User extends VersionedBase  {
 	private String objectType = null;
 	private String password = null;
 	private List<String> upgrades = new ArrayList<String>();
+	private String givenName;
+	private String familyName;
 
 	/**
 	 * The object Composite Id (Primary Key)
@@ -190,5 +192,38 @@ public class User extends VersionedBase  {
 	public void setUpgrades(List<String> upgrades) {
 		this.upgrades = upgrades;
 	}
+
+	/**
+	 **/
+	public User givenName(String givenName) {
+		this.givenName = givenName;
+		return this;
+	}
+
+	@ApiModelProperty(example = "null", value = "")
+	public String getGivenName() {
+		return givenName;
+	}
+
+	public void setGivenName(String givenName) {
+		this.givenName = givenName;
+	}
+
+	/**
+	 **/
+	public User familyName(String familyName) {
+		this.familyName = familyName;
+		return this;
+	}
+
+	@ApiModelProperty(example = "null", value = "")
+	public String getFamilyName() {
+		return familyName;
+	}
+
+	public void setFamilyName(String familyName) {
+		this.familyName = familyName;
+	}
+
 }
 

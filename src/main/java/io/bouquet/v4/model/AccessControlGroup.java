@@ -15,10 +15,11 @@
  *******************************************************************************/
 package io.bouquet.v4.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
-import java.util.Map;
+
+import io.swagger.annotations.ApiModelProperty;
 
 public class AccessControlGroup extends Base {
 
@@ -29,9 +30,11 @@ public class AccessControlGroup extends Base {
 		NONE      // no access - use it to revoke access
 	};
 
+	private AccessControlGroupPK id;
+
 	private String name;
 
-	private Map<String,AccessLevel> projectsGranted = new Hashtable<String,AccessLevel>();
+	private List<SharedProject> sharedProjects = new ArrayList<SharedProject>();
 
 	private List<String> accessRestrictionGroups = new ArrayList<String>();
 
@@ -40,6 +43,22 @@ public class AccessControlGroup extends Base {
 	 */
 	public AccessControlGroup() {
 		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * The object Composite Id (Primary Key)
+	 **/
+	public AccessControlGroup id(AccessControlGroupPK id) {
+		this.id = id;
+		return this;
+	}
+
+	@ApiModelProperty(example = "null", value = "The object Composite Id (Primary Key)")
+	public AccessControlGroupPK getId() {
+		return id;
+	}
+	public void setId(AccessControlGroupPK id) {
+		this.id = id;
 	}
 
 	/**
@@ -61,12 +80,12 @@ public class AccessControlGroup extends Base {
 	 * get the list of project to grant access to the SSO users. A project is identified by its unique ID.
 	 * @return
 	 */
-	public Map<String,AccessLevel> getProjectGranted() {
-		return projectsGranted;
+	public List<SharedProject> getSharedProjects() {
+		return sharedProjects;
 	}
 
-	public void setProjectGranted(Map<String,AccessLevel> projectGranted) {
-		this.projectsGranted = projectGranted;
+	public void setSharedProjects(List<SharedProject> sharedProjects) {
+		this.sharedProjects = sharedProjects;
 	}
 
 	/**
@@ -87,9 +106,51 @@ public class AccessControlGroup extends Base {
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof AccessControlGroup) {
-			return this.name.equals(((AccessControlGroup) o).getName());
+			return this.id.equals(((AccessControlGroup) o).getId());
 		}
 		return false;
+	}
+
+	public static class SharedProject implements Serializable{
+		/**
+		 *
+		 */
+		private static final long serialVersionUID = 1186776931614726791L;
+
+		String projectId;
+		AccessLevel accessLevel;
+
+		public SharedProject() {
+
+		}
+
+		public SharedProject(String projectId, AccessLevel accessLevel) {
+			this.projectId = projectId;
+			this.accessLevel = accessLevel;
+		}
+		public String getProjectId() {
+			return projectId;
+		}
+		public void setProjectId(String projectId) {
+			this.projectId = projectId;
+		}
+		public AccessLevel getAccessLevel() {
+			return accessLevel;
+		}
+		public void setAccessLevel(AccessLevel accessLevel) {
+			this.accessLevel = accessLevel;
+		}
+
+		@Override
+		public boolean equals(Object o) {
+			if (o instanceof SharedProject) {
+				if (this.projectId == null && ((SharedProject)o).getProjectId() != null) {
+					return false;
+				}
+				return (this.projectId.equals(((SharedProject)o).getProjectId() ));
+			}
+			return false;
+		}
 	}
 
 }
