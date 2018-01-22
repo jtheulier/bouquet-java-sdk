@@ -23,37 +23,7 @@ import io.swagger.annotations.ApiModelProperty;
  * AccessRight
  */
 
-public class AccessRight extends Base  {
-	/**
-	 * Gets or Sets role
-	 */
-	public enum RoleEnum {
-		@SerializedName("NONE")
-		NONE("NONE"),
-
-		@SerializedName("EXECUTE")
-		EXECUTE("EXECUTE"),
-
-		@SerializedName("READ")
-		READ("READ"),
-
-		@SerializedName("WRITE")
-		WRITE("WRITE"),
-
-		@SerializedName("OWNER")
-		OWNER("OWNER");
-
-		private String value;
-
-		RoleEnum(String value) {
-			this.value = value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-	}
+public class AccessRight extends RoleBase  {
 
 	@SerializedName("role")
 	private RoleEnum role = null;
@@ -73,11 +43,13 @@ public class AccessRight extends Base  {
 	 * Get role
 	 * @return role
 	 **/
+	@Override
 	@ApiModelProperty(example = "null", value = "")
 	public RoleEnum getRole() {
 		return role;
 	}
 
+	@Override
 	public void setRole(RoleEnum role) {
 		this.role = role;
 	}

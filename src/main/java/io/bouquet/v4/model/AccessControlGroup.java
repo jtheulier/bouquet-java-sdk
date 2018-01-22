@@ -15,19 +15,51 @@
  *******************************************************************************/
 package io.bouquet.v4.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.swagger.annotations.ApiModelProperty;
 
 public class AccessControlGroup extends Base {
 
 	public enum AccessLevel {
-		EDITOR,   // allow to edit
-		VIEWER,   // allow to view
-		EXECUTE,  // allow to execute only
-		NONE      // no access - use it to revoke access
+		EDITOR("EDITOR","Editor"),   // allow to edit
+		VIEWER("VIEWER","Viewer"),   // allow to view
+		EXECUTE("EXECUTE","Execute"),  // allow to execute only
+		NONE("NONE","None");     // no access - use it to revoke access
+
+		private java.lang.String name;
+
+		private java.lang.String id;
+
+		private static final Map<String, AccessLevel> byId = new HashMap<String, AccessLevel>();
+		static {
+			for (AccessLevel e : AccessLevel.values()) {
+				if (byId.put(e.getId(), e) != null) {
+					throw new IllegalArgumentException("duplicate id: " + e.getId());
+				}
+			}
+		}
+
+		public static AccessLevel getById(String id) {
+			return byId.get(id);
+		}
+
+		AccessLevel(String id, String name) {
+			this.id = id;
+			this.name = name;
+		}
+
+		public java.lang.String getName() {
+			return name;
+		}
+
+		public String getId() {
+			return id;
+		}
+
 	};
 
 	private AccessControlGroupPK id;
@@ -110,47 +142,4 @@ public class AccessControlGroup extends Base {
 		}
 		return false;
 	}
-
-	public static class SharedProject implements Serializable{
-		/**
-		 *
-		 */
-		private static final long serialVersionUID = 1186776931614726791L;
-
-		String projectId;
-		AccessLevel accessLevel;
-
-		public SharedProject() {
-
-		}
-
-		public SharedProject(String projectId, AccessLevel accessLevel) {
-			this.projectId = projectId;
-			this.accessLevel = accessLevel;
-		}
-		public String getProjectId() {
-			return projectId;
-		}
-		public void setProjectId(String projectId) {
-			this.projectId = projectId;
-		}
-		public AccessLevel getAccessLevel() {
-			return accessLevel;
-		}
-		public void setAccessLevel(AccessLevel accessLevel) {
-			this.accessLevel = accessLevel;
-		}
-
-		@Override
-		public boolean equals(Object o) {
-			if (o instanceof SharedProject) {
-				if (this.projectId == null && ((SharedProject)o).getProjectId() != null) {
-					return false;
-				}
-				return (this.projectId.equals(((SharedProject)o).getProjectId() ));
-			}
-			return false;
-		}
-	}
-
 }

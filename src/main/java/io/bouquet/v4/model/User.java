@@ -30,6 +30,7 @@ public class User extends VersionedBase  {
 	private String email = null;
 	private List<String> groups = new ArrayList<String>();
 	private List<String> groupsAndUpgrades = new ArrayList<String>();
+	private List<SharedProject> sharedProjects = new ArrayList<SharedProject>();
 	private Map<String, String> attributes = new HashMap<String, String>();
 	private String oid = null;
 	private String objectType = null;
@@ -223,6 +224,14 @@ public class User extends VersionedBase  {
 
 	public void setFamilyName(String familyName) {
 		this.familyName = familyName;
+	}
+
+	public List<SharedProject> getSharedProjects() {
+		return sharedProjects;
+	}
+
+	public void setSharedProjects(List<SharedProject> sharedProjects) {
+		this.sharedProjects = sharedProjects;
 	}
 
 }
