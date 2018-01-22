@@ -51,37 +51,6 @@ public class Bookmark extends DynamicObject  {
 	@SerializedName("objectType")
 	private String objectType = null;
 
-	/**
-	 * The role of the current User (passed in the context) over this object
-	 */
-	public enum RoleEnum {
-		@SerializedName("NONE")
-		NONE("NONE"),
-
-		@SerializedName("EXECUTE")
-		EXECUTE("EXECUTE"),
-
-		@SerializedName("READ")
-		READ("READ"),
-
-		@SerializedName("WRITE")
-		WRITE("WRITE"),
-
-		@SerializedName("OWNER")
-		OWNER("OWNER");
-
-		private String value;
-
-		RoleEnum(String value) {
-			this.value = value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-	}
-
 	@SerializedName("name")
 	private String name = null;
 

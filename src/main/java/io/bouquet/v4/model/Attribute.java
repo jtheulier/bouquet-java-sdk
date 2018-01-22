@@ -27,7 +27,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Attribute
  */
 
-public class Attribute extends Base  {
+public class Attribute extends VersionedBase  {
 	@SerializedName("id")
 	private AttributePK id = null;
 
@@ -45,43 +45,6 @@ public class Attribute extends Base  {
 
 	@SerializedName("objectType")
 	private String objectType = null;
-
-	/**
-	 * The role of the current User (passed in the context) over this object
-	 */
-	public enum RoleEnum {
-		@SerializedName("NONE")
-		NONE("NONE"),
-
-		@SerializedName("EXECUTE")
-		EXECUTE("EXECUTE"),
-
-		@SerializedName("READ")
-		READ("READ"),
-
-		@SerializedName("WRITE")
-		WRITE("WRITE"),
-
-		@SerializedName("OWNER")
-		OWNER("OWNER");
-
-		private String value;
-
-		RoleEnum(String value) {
-			this.value = value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-	}
-
-	@SerializedName("_role")
-	private RoleEnum role = null;
-
-	@SerializedName("_vctrl")
-	private Integer vctrl = null;
 
 	@SerializedName("name")
 	private String name = null;
@@ -179,33 +142,6 @@ public class Attribute extends Base  {
 	@ApiModelProperty(example = "null", value = "")
 	public String getObjectType() {
 		return objectType;
-	}
-
-	/**
-	 * The role of the current User (passed in the context) over this object
-	 * @return role
-	 **/
-	@ApiModelProperty(example = "null", value = "The role of the current User (passed in the context) over this object")
-	public RoleEnum getRole() {
-		return role;
-	}
-
-	public Attribute vctrl(Integer vctrl) {
-		this.vctrl = vctrl;
-		return this;
-	}
-
-	/**
-	 * Internal version control value. (used by optimistic-locking mechanism)
-	 * @return vctrl
-	 **/
-	@ApiModelProperty(example = "null", value = "Internal version control value. (used by optimistic-locking mechanism)")
-	public Integer getVctrl() {
-		return vctrl;
-	}
-
-	public void setVctrl(Integer vctrl) {
-		this.vctrl = vctrl;
 	}
 
 	public Attribute name(String name) {

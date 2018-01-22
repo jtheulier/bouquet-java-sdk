@@ -20,7 +20,7 @@ import java.util.List;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class Client extends Base   {
+public class Client extends VersionedBase   {
 
 	private ClientPK id = null;
 	private List<AccessRight> accessRights = new ArrayList<AccessRight>();
@@ -34,26 +34,6 @@ public class Client extends Base   {
 	private ClientSSOConfiguration sso;
 	private Boolean forceClientSecret = Boolean.FALSE;
 
-
-	public enum RoleEnum {
-		NONE("NONE"),
-		READ("READ"),
-		WRITE("WRITE"),
-		OWNER("OWNER");
-
-		private String value;
-
-		RoleEnum(String value) {
-			this.value = value;
-		}
-
-		@Override
-		public String toString() {
-			return value;
-		}
-	}
-
-	private RoleEnum role = null;
 	private String name = null;
 
 
@@ -181,13 +161,6 @@ public class Client extends Base   {
 	public String getObjectType() {
 		return objectType;
 	}
-
-
-	@ApiModelProperty(example = "null", value = "The role of the current User (passed in the context) over this object")
-	public RoleEnum getRole() {
-		return role;
-	}
-
 
 	/**
 	 **/
