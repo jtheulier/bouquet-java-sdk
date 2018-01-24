@@ -31,7 +31,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @author sergefantino
  *
  */
-public class AccessControlGroupPK {
+public class AccessControlGroupPK extends Base {
 
 	private String accessControlGroupId = null;
 
@@ -48,8 +48,8 @@ public class AccessControlGroupPK {
 	public String getAccessControlGroupId() {
 		return accessControlGroupId;
 	}
+
 	public void setAccessControlGroupId(String accessControlGroupId) {
 		this.accessControlGroupId = accessControlGroupId;
 	}
-
 }

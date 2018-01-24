@@ -134,12 +134,4 @@ public class AccessControlGroup extends Base {
 	public void setAccessRestrictionGroups(List<String> accessRestrictionGroups) {
 		this.accessRestrictionGroups = accessRestrictionGroups;
 	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (o instanceof AccessControlGroup) {
-			return this.id.equals(((AccessControlGroup) o).getId());
-		}
-		return false;
-	}
 }
