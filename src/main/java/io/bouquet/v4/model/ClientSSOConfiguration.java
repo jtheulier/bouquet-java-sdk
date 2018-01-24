@@ -38,7 +38,7 @@ public class ClientSSOConfiguration extends Base {
 	private String redirectEndpoint = null;
 	private String samlConfiguration = null;
 
-	private String defaultAccessGroupControl = null;
+	private String defaultAccessControlGroup = null;
 
 
 	/**
@@ -174,16 +174,16 @@ public class ClientSSOConfiguration extends Base {
 
 	/**
 	 **/
-	public ClientSSOConfiguration defaultAccessGroupControl(String defaultAccessGroupControl) {
-		this.defaultAccessGroupControl = defaultAccessGroupControl;
+	public ClientSSOConfiguration defaultAccessControlGroup(String defaultAccessControlGroup) {
+		this.defaultAccessControlGroup = defaultAccessControlGroup;
 		return this;
 	}
-	public String getDefaultAccessGroupControl() {
-		return defaultAccessGroupControl;
+	public String getDefaultAccessControlGroup() {
+		return defaultAccessControlGroup;
 	}
 
-	public void setDefaultAccessGroupControl(String defaultAccessGroupControl) {
-		this.defaultAccessGroupControl = defaultAccessGroupControl;
+	public void setDefaultAccessControlGroup(String defaultAccessControlGroup) {
+		this.defaultAccessControlGroup = defaultAccessControlGroup;
 	}
 
 }
