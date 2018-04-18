@@ -255,14 +255,16 @@ public class ClientEngine {
 
 			{
 				Map<String, String> periods = bookmark.getConfig().getPeriod().any();
-				Expression expression = new  Expression();
-				Entry<String, String> period = periods.entrySet().iterator().next();
-				expression.setValue("TO_DATE(" + period.getValue() + ")");
-				facets.add(expression);
-				OrderBy timeOrder = new OrderBy();
-				timeOrder.col(0);
-				timeOrder.direction(DirectionEnum.DESC);
-				orderBys.add(timeOrder);
+				if (periods != null) {
+					Expression expression = new  Expression();
+					Entry<String, String> period = periods.entrySet().iterator().next();
+					expression.setValue("TO_DATE(" + period.getValue() + ")");
+					facets.add(expression);
+					OrderBy timeOrder = new OrderBy();
+					timeOrder.col(0);
+					timeOrder.direction(DirectionEnum.DESC);
+					orderBys.add(timeOrder);
+				}
 			}
 			if (isSummary == false && dims != null)
 
