@@ -17,6 +17,7 @@ package io.bouquet.v4.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -42,6 +43,8 @@ public class CustomerInfo extends RoleBase  {
 	private String teamId;
 
 	private String publicUrl;
+
+	private Map<String, List<String>> oauthEndPoints;
 
 	private List<AccessControlGroup> accessControlGroups;
 
@@ -373,6 +376,23 @@ public class CustomerInfo extends RoleBase  {
 
 	public void setPublicCertificate(String publicCertificate) {
 		this.publicCertificate = publicCertificate;
+	}
+
+	/**
+	 **/
+	public CustomerInfo oauthEndPoints(Map<String, List<String>> oauthEndPoints) {
+		this.oauthEndPoints = oauthEndPoints;
+		return this;
+	}
+
+	@ApiModelProperty(example = "null", value = "")
+	@JsonProperty("oauthEndPoints")
+	public Map<String, List<String>> getOauthEndPoints() {
+		return oauthEndPoints;
+	}
+
+	public void setOauthEndPoints(Map<String, List<String>> oauthEndPoints) {
+		this.oauthEndPoints = oauthEndPoints;
 	}
 }
 

@@ -233,7 +233,7 @@ public class ClientEngine {
 				analysis.setOptionKeys(new HashMap<String, Object>() {
 					private static final long serialVersionUID = 8372602286359963290L;
 					{
-						put("applyFormat", true);
+						put("formatResults", true);
 						put("computeGrowth", true);
 					}
 				});
@@ -319,7 +319,7 @@ public class ClientEngine {
 				analysis.setOptionKeys(new HashMap<String, Object>() {
 					private static final long serialVersionUID = -3511263422949970083L;
 					{
-						put("applyFormat", true);
+						put("formatResults", true);
 						put("computeGrowth", false);
 					}
 				});

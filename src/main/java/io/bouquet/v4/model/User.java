@@ -38,6 +38,7 @@ public class User extends VersionedBase  {
 	private List<String> upgrades = new ArrayList<String>();
 	private String givenName;
 	private String familyName;
+	private String authId;
 
 	/**
 	 * The object Composite Id (Primary Key)
@@ -232,6 +233,22 @@ public class User extends VersionedBase  {
 
 	public void setSharedProjects(List<SharedProject> sharedProjects) {
 		this.sharedProjects = sharedProjects;
+	}
+
+	/**
+	 **/
+	public User authId(String authId) {
+		this.authId = authId;
+		return this;
+	}
+
+	@ApiModelProperty(example = "null", value = "")
+	public String getAuthId() {
+		return authId;
+	}
+
+	public void setAuthId(String authId) {
+		this.authId = authId;
 	}
 
 }

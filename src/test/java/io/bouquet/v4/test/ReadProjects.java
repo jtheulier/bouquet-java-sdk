@@ -16,10 +16,12 @@
 package io.bouquet.v4.test;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
+import org.joda.time.DateTime;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -31,15 +33,19 @@ import io.bouquet.v4.client.ClientEngine;
 import io.bouquet.v4.client.LoginConfiguration;
 import io.bouquet.v4.model.Bookmark;
 import io.bouquet.v4.model.ChosenMetric;
+import io.bouquet.v4.model.Dimension;
 import io.bouquet.v4.model.Domain;
+import io.bouquet.v4.model.DomainPK;
 import io.bouquet.v4.model.Expression;
+import io.bouquet.v4.model.Metric;
 import io.bouquet.v4.model.Project;
 import io.bouquet.v4.model.ReferencePKObject;
 import io.bouquet.v4.model.Relation;
 
 /**
  * Simple class wich will read all availailable projects created
- *
+ * select 'drop table '||schemaname||'.'||tablename||';' from pg_tables where tablename like '%old%' or tablename like '%tmp%' or tablename like '%temp%' order by 1;
+
  *
  * @author jtheulier
  *
@@ -48,6 +54,8 @@ public class ReadProjects extends ClientEngine {
 	static String projectDisplayName = "Refresh V4 facets & bookmarks";
 
 	Logger logger = Logger.getLogger(ReadProjects.class);
+
+	boolean dryRun = false;
 
 	public ReadProjects() {
 		String loggerFile = "log4j.conf";
@@ -63,7 +71,7 @@ public class ReadProjects extends ClientEngine {
 
 		try {
 			LoginConfiguration clientConfiguration = LoginConfiguration.fromJson(args[1]);
-			ds.run(args[0], clientConfiguration);
+			ds.runperf(args[0], clientConfiguration);
 
 		} catch (InterruptedException | ApiException | IOException e) {
 			e.printStackTrace();
@@ -77,11 +85,61 @@ public class ReadProjects extends ClientEngine {
 		ModelApi api = new ModelApi(sourceClient, clientConfiguration);
 		List<Project> projects = api.getProjects();
 		for (Project project:projects) {
-			logger.info("Found project " + project.getName() + " with id "+project.getId().getProjectId());
-			if (project.getId().getProjectId().equals("proquest_counter")) {
-				//cleanDynamicObjects(api, project);
-				addNameToMetrics(api, project);
+
+			if (project.getId().getProjectId().equals("proquest_counter")
+					|| project.getId().getProjectId().equals("56d568b7c942c0388b8627fa")) {
+				cleanDynamicObjects(api, project);
+				//addNameToMetrics(api, project);
 				//api.getProject(project.getId().getProjectId(), true);
+			}
+		}
+	}
+
+	public void runperf(String baseURL, LoginConfiguration clientConfiguration) throws ApiException, JsonParseException, JsonMappingException, IOException, InterruptedException {
+		ApiClient sourceClient = ApiClient.buildClient(baseURL);
+		sourceClient.setConnectTimeout(0);
+		ModelApi api = new ModelApi(sourceClient, clientConfiguration);
+		List<Project> projects = api.getProjects();
+		for (Project project:projects) {
+			if (project.getId().getProjectId().equals("proquest_counter")) {
+				readProjectContent(api, project);
+			}
+		}
+		logger.info("Start test");
+		for (int i=0; i<5; i++) {
+			DateTime d1 = new DateTime();
+			for (Project project:projects) {
+				if (project.getId().getProjectId().equals("proquest_counter")) {
+					readProjectContent(api, project);
+				}
+			}
+			DateTime d2 = new DateTime();
+
+			logger.info("End Iteration "+ i + " in " + (d2.getMillis() - d1.getMillis())/1000.00f);
+		}
+
+	}
+	public void readProjectContent(ModelApi api, Project project) throws ApiException {
+		for (Domain domain: api.getDomains(project.getId().getProjectId())) {
+			if (domain.isDynamic() ==false) {
+				for (Dimension dimension:api.getDimensions(domain.getId().getProjectId(), domain.getId().getDomainId())) {
+					if (dimension.isDynamic() == false) {
+						try {
+							api.getDimension(dimension.getId().getProjectId(), dimension.getId().getDomainId(), dimension.getId().getDimensionId(), true);
+						} catch (ApiException ae){
+							//ae.printStackTrace();
+						}
+					}
+				}
+				for (Metric metric:api.getMetrics(domain.getId().getProjectId(), domain.getId().getDomainId())) {
+					if (metric.isDynamic() ==false) {
+						try {
+							api.getMetric(metric.getId().getProjectId(), metric.getId().getDomainId(), metric.getId().getMetricId(), true);
+						} catch (ApiException ae){
+							//ae.printStackTrace();
+						}
+					}
+				}
 			}
 		}
 	}
@@ -90,24 +148,53 @@ public class ReadProjects extends ClientEngine {
 		for (Relation object : api.getRelations(project.getId().getProjectId())) {
 			if (object.isDynamic()) {
 				logger.info("Found dynamic relation " + object.getName());
-				try {
-					api.deleteRelation(object.getId().getProjectId(), object.getId().getRelationId());
-				} catch (ApiException ae){
-					ae.printStackTrace();
+				if (dryRun == false) {
+					try {
+						api.deleteRelation(object.getId().getProjectId(), object.getId().getRelationId());
+					} catch (ApiException ae){
+						ae.printStackTrace();
+					}
 				}
 			}
 		}
-		for (Domain object: api.getDomains(project.getId().getProjectId())) {
-			object =  api.getDomain(object.getId().getProjectId(), object.getId().getDomainId(), true);
-			if (object.isDynamic()) {
+		List<Domain> domains = api.getDomains(project.getId().getProjectId());
+		List<DomainPK> domainIds = new ArrayList<DomainPK>();
+		for (Domain domain:domains) {
+			domainIds.add(domain.getId());
+		}
+		project = api.getProject(project.getId().getProjectId(), true);
+		for (Domain object: project.getDomains()) {
+			int index = domainIds.indexOf(object.getId());
+			Domain object2 = null;
+			if (index != -1) {
+				object2 = domains.get(index);
+				if (object2.getId().getDomainId().equals(object.getId().getDomainId())==false) {
+					throw new ApiException("invalid");
+				}
+			}
+			if (object2 != null && object2.isDynamic()) {
 				logger.info("Found dynamic domain " + object.getName());
-				try {
-					api.deleteDomain(object.getId().getProjectId(), object.getId().getDomainId());
-				} catch (ApiException ae){
-					ae.printStackTrace();
+				if (dryRun == false) {
+					try {
+						api.deleteDomain(object.getId().getProjectId(), object.getId().getDomainId());
+					} catch (ApiException ae){
+						ae.printStackTrace();
+					}
+				}
+			} else {
+				if (index == -1) {
+					logger.info("Going to delete " + object.getName());
+					if (dryRun == false) {
+						try {
+							api.deleteDomain(object.getId().getProjectId(), object.getId().getDomainId());
+						} catch (ApiException ae){
+							ae.printStackTrace();
+						}
+					}
 				}
 			}
 		}
+
 	}
 
 	public void addNameToMetrics(ModelApi api, Project project) throws ApiException {

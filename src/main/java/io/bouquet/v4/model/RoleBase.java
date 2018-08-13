@@ -15,12 +15,15 @@
  *******************************************************************************/
 package io.bouquet.v4.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import io.swagger.annotations.ApiModelProperty;
 
 public class RoleBase extends Base {
 
+	@Expose(serialize = false, deserialize = true)
+	public String ownerId;
 	/**
 	 * The role of the current User (passed in the context) over this object
 	 */
@@ -65,4 +68,14 @@ public class RoleBase extends Base {
 	public void setRole(RoleEnum role) {
 		this.role = role;
 	}
+
+	public String getOwnerId() {
+		return ownerId;
+	}
+
+	public void setOwnerId(String ownerId) {
+		this.ownerId = ownerId;
+	}
+
+
 }

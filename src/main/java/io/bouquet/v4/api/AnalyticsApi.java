@@ -482,7 +482,7 @@ public class AnalyticsApi extends BaseApi {
 		if (data != null)
 			localVarQueryParams.addAll(getApiClient().parameterToPairs("", "data", data));
 		if (applyFormatting != null)
-			localVarQueryParams.addAll(getApiClient().parameterToPairs("", "applyFormatting", applyFormatting));
+			localVarQueryParams.addAll(getApiClient().parameterToPairs("", "formatResults", applyFormatting));
 		if (envelope != null)
 			localVarQueryParams.addAll(getApiClient().parameterToPairs("", "envelope", envelope));
 		if (timeout != null)
@@ -641,7 +641,7 @@ public class AnalyticsApi extends BaseApi {
 		if (data != null)
 			localVarQueryParams.addAll(getApiClient().parameterToPairs("", "data", data));
 		if (applyFormatting != null)
-			localVarQueryParams.addAll(getApiClient().parameterToPairs("", "applyFormatting", applyFormatting));
+			localVarQueryParams.addAll(getApiClient().parameterToPairs("", "formatResults", applyFormatting));
 		if (style != null)
 			localVarQueryParams.addAll(getApiClient().parameterToPairs("", "style", style));
 		if (envelope != null)

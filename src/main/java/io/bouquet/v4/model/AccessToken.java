@@ -17,6 +17,7 @@ package io.bouquet.v4.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.google.gson.annotations.SerializedName;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -53,6 +54,8 @@ public class AccessToken extends Base  {
 	private String oid = null;
 	private String objectType = null;
 
+	@SerializedName("access_token")
+	private String accessToken;
 
 	/**
 	 **/
@@ -198,6 +201,18 @@ public class AccessToken extends Base  {
 		this.objectType = objectType;
 	}
 
+	/**
+	 **/
+	public AccessToken acccessToken(String accessToken) {
+		this.accessToken = accessToken;
+		return this;
+	}
 
+	public String getAccessToken() {
+		return accessToken;
+	}
+
+	public void setAccessToken(String accessToken) {
+		this.accessToken = accessToken;
+	}
 }
-

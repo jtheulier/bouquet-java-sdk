@@ -36,5 +36,4 @@ public class VersionedBase extends RoleBase {
 	public void setVctrl(Integer vctrl) {
 		this.vctrl = vctrl;
 	}
-
 }

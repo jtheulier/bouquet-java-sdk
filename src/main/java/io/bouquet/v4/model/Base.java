@@ -27,7 +27,6 @@ import org.apache.commons.lang3.reflect.FieldUtils;
 
 public abstract class Base {
 
-
 	/**
 	 * Convert the given object to string with each line indented by 4 spaces
 	 * (except the first line).

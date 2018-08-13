@@ -33,6 +33,8 @@ public class Client extends VersionedBase   {
 	private String objectType = null;
 	private ClientSSOConfiguration sso;
 	private Boolean forceClientSecret = Boolean.FALSE;
+	private Boolean allowRefreshToken = Boolean.FALSE;
+	private boolean bypassApiKey = Boolean.FALSE;
 
 	private String name = null;
 
@@ -215,6 +217,36 @@ public class Client extends VersionedBase   {
 
 	public void setForceClientSecret(Boolean forceClientSecret) {
 		this.forceClientSecret = forceClientSecret;
+	}
+
+	public Client allowRefreshToken(boolean allowRefreshToken) {
+		this.allowRefreshToken = allowRefreshToken;
+		return this;
+	}
+
+	@ApiModelProperty(example = "null", value = "")
+	public boolean isAllowRefreshToken() {
+		return allowRefreshToken;
+	}
+
+	public void setAllowRefreshToken(boolean allowRefreshToken) {
+		this.allowRefreshToken = allowRefreshToken;
+	}
+
+	/**
+	 **/
+	public Client bypassApiKey(Boolean bypassApiKey) {
+		this.bypassApiKey = bypassApiKey;
+		return this;
+	}
+
+	@ApiModelProperty(example = "null", value = "")
+	public boolean isBypassApiKey() {
+		return bypassApiKey;
+	}
+
+	public void setBypassApiKey(boolean bypassApiKey) {
+		this.bypassApiKey = bypassApiKey;
 	}
 }
 
