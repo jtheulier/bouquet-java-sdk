@@ -23,6 +23,11 @@ public class FacetMember extends Base  {
 
 	private String type;
 
+	public FacetMember type(String type) {
+		this.type=type;
+		return this;
+	}
+
 	public String getType() {
 		return type;
 	}

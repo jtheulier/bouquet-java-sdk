@@ -327,6 +327,12 @@ public class ClientEngine {
 				analysis.setOrderBy(orderBys);
 				analysis.setRollups(rollups);
 				List<ChosenMetric> choosens = bookmark.getConfig().getChosenMetrics();
+				if (mets == null) {
+					mets = new ArrayList<String>();
+					for (ChosenMetric choosen : choosens) {
+						mets.add(choosen.getId());
+					}
+				}
 				if (choosens != null) {
 					for (String met : mets) {
 						for (ChosenMetric choosen : choosens) {

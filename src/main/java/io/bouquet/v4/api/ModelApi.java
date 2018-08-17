@@ -1174,6 +1174,8 @@ public class ModelApi extends BaseApi {
 
 		Type localVarReturnType = new TypeToken<InputStream>() {}.getType();
 
+		localVarHeaderParams.put("Content-Type", "application/x-www-form-urlencoded");
+
 		Call call = getApiClient().buildCall(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, null);
 		ApiResponse<InputStream> resp = getApiClient().execute(call, localVarReturnType);
 		return resp.getData();
@@ -1317,6 +1319,7 @@ public class ModelApi extends BaseApi {
 			localVarReturnType = new TypeToken<DataTable>() {}.getType();
 		} else {
 			localVarReturnType = new TypeToken<InputStream>() {}.getType();
+			localVarHeaderParams.put("Content-Type", "application/x-www-form-urlencoded");
 		}
 		Call call = getApiClient().buildCall(localVarPath, "GET", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, null);
 		ApiResponse<String> resp = getApiClient().execute(call, localVarReturnType);
