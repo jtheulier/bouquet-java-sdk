@@ -15,6 +15,7 @@
  *******************************************************************************/
 package io.bouquet.v4.model;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.google.gson.annotations.SerializedName;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -23,6 +24,7 @@ import io.swagger.annotations.ApiModelProperty;
  * FacetMemberInterval
  */
 
+@JsonTypeName("i")
 public class FacetMemberInterval extends FacetMember  {
 	@SerializedName("lowerBound")
 	private String lowerBound = null;

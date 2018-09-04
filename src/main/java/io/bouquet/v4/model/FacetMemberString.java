@@ -18,6 +18,7 @@ package io.bouquet.v4.model;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.google.gson.annotations.SerializedName;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -26,6 +27,7 @@ import io.swagger.annotations.ApiModelProperty;
  * FacetMemberString
  */
 
+@JsonTypeName("v")
 public class FacetMemberString extends FacetMember  {
 	@SerializedName("id")
 	private String id = null;
