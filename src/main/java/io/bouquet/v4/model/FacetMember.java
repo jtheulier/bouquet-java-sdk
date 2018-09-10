@@ -15,8 +15,6 @@
  *******************************************************************************/
 package io.bouquet.v4.model;
 
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlType;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
@@ -30,8 +28,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 @JsonTypeInfo(use = Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({ @Type(value = FacetMemberInterval.class),
 	@Type(value = FacetMemberString.class) })
-@XmlType(namespace = "http://model.v4.kraken.squid.com")
-@XmlSeeAlso({ FacetMemberInterval.class, FacetMemberString.class })
 public class FacetMember extends Base  {
 
 	private String type;

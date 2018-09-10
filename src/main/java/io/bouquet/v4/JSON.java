@@ -40,11 +40,15 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
+import io.bouquet.v4.model.APICredentials;
 import io.bouquet.v4.model.ChosenMetric;
+import io.bouquet.v4.model.Credentials;
+import io.bouquet.v4.model.DBMSCredentials;
 import io.bouquet.v4.model.Expression;
 import io.bouquet.v4.model.FacetMember;
 import io.bouquet.v4.model.FacetMemberInterval;
 import io.bouquet.v4.model.FacetMemberString;
+import io.bouquet.v4.model.Oauth2RefreshCredentials;
 
 public class JSON {
 	private ApiClient apiClient;
@@ -122,6 +126,53 @@ public class JSON {
 			}
 
 		};
+		
+		JsonDeserializer<Credentials> credentialsDeserializer = new JsonDeserializer<Credentials>() {
+			@Override
+			public Credentials deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+				if (json.isJsonObject()) {
+					JsonObject jsonObject = json.getAsJsonObject();
+					if (jsonObject != null) {
+						if ("API".equals(jsonObject.get("type").getAsString())) {
+							return gson.fromJson(jsonObject, APICredentials.class);
+						} else if ("DBMS".equals(jsonObject.get("type").getAsString())) {
+							return gson.fromJson(jsonObject, DBMSCredentials.class);
+						} else if ("REFRESH".equals(jsonObject.get("type").getAsString())) {
+							return gson.fromJson(jsonObject, Oauth2RefreshCredentials.class);
+						} else {
+							//throw new ApiException("Invalid facet type");
+							return null;
+						}
+					}
+					//throw new ApiException("Invalid facet type");
+					return null;
+
+				} else {
+					//throw new ApiException("Invalid facet type");
+					return null;
+
+				}
+			}
+		};
+		
+		JsonSerializer<Credentials> credentialsSerializer = new JsonSerializer<Credentials>() {
+
+			@Override
+			public JsonElement serialize(Credentials src, Type typeOfSrc,
+					JsonSerializationContext context) {
+				if (src instanceof APICredentials) {
+					return context.serialize(src, APICredentials.class);
+				} else if (src instanceof DBMSCredentials) {
+					return context.serialize(src, DBMSCredentials.class);
+				} else if (src instanceof Oauth2RefreshCredentials) {
+					return context.serialize(src, Oauth2RefreshCredentials.class);
+				} else {
+					return null;
+				}
+			}
+
+		};
+
 		gson = new GsonBuilder()
 				.registerTypeAdapter(Date.class, new DateAdapter(apiClient))
 				.registerTypeAdapter(DateTime.class, new DateTimeTypeAdapter())
@@ -130,6 +181,8 @@ public class JSON {
 				.registerTypeAdapter(FacetMember.class, facetMemberSerializer)
 				.registerTypeAdapter(ChosenMetric.class, chosenMetricDeserializer)
 				.registerTypeAdapter(ChosenMetric.class, chosenMetricSerializer)
+				.registerTypeAdapter(Credentials.class, credentialsDeserializer)
+				.registerTypeAdapter(ChosenMetric.class, credentialsSerializer)
 				.create();
 	}
 
