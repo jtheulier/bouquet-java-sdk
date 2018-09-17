@@ -1737,7 +1737,7 @@ public class ModelApi extends BaseApi {
 		String[] localVarAuthNames = new String[] { "kraken_auth" };
 
 		if (refresh != null) {
-			localVarQueryParams.addAll(getApiClient().parameterToPairs("", "refresh", refresh));
+			localVarQueryParams.addAll(getApiClient().parameterToPairs("", "method", refresh));
 		}
 
 		Type localVarReturnType = new TypeToken<CacheInfo>() {
@@ -3345,7 +3345,7 @@ public class ModelApi extends BaseApi {
 		String[] localVarAuthNames = new String[] { "kraken_auth" };
 
 		if (refresh != null) {
-			localVarQueryParams.addAll(getApiClient().parameterToPairs("", "refresh", refresh));
+			localVarQueryParams.addAll(getApiClient().parameterToPairs("", "method", refresh));
 		}
 
 		Type localVarReturnType = new TypeToken<CacheInfo>() {
