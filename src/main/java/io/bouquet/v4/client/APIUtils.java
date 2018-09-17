@@ -28,8 +28,11 @@ import org.apache.commons.lang3.text.WordUtils;
 
 import io.bouquet.v4.ApiException;
 
-
 public class APIUtils {
+
+	public enum Refresh {
+		HARD, SOFT
+	};
 
 	private static final Pattern p = Pattern.compile("[\\.]{0,}@'([:\\w]+)'");
 
@@ -85,12 +88,14 @@ public class APIUtils {
 			}
 
 			@Override
-			public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) throws java.security.cert.CertificateException {
+			public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType)
+					throws java.security.cert.CertificateException {
 
 			}
 
 			@Override
-			public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) throws java.security.cert.CertificateException {
+			public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType)
+					throws java.security.cert.CertificateException {
 
 			}
 		};

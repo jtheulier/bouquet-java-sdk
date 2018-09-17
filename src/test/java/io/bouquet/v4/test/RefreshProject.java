@@ -28,6 +28,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import io.bouquet.v4.ApiClient;
 import io.bouquet.v4.ApiException;
 import io.bouquet.v4.api.ModelApi;
+import io.bouquet.v4.client.APIUtils.Refresh;
 import io.bouquet.v4.client.CacheConfiguration;
 import io.bouquet.v4.client.CacheConfiguration.ClearAnalysis;
 import io.bouquet.v4.client.CacheConfiguration.ClearFlag;
@@ -43,10 +44,11 @@ import io.bouquet.v4.model.Project;
 import io.bouquet.v4.model.ProjectAnalysisJob;
 
 /**
- * Refresh caches for a given project Steps are :
- * - Invalidate project caches
- * - Scan domains to reload indexed dimensions
- * - Compute the analysis for every shared bookmark Ex of config as argument: {\"url\":\"https://............/release/v4.2\",\"customerId\":\"************\",\"clientId\":\"dashboard\",\"login\":\"**********\",\"password\":\"*********\",\"redirectUrl\":null,\"accessType\":null,\"projectId\":\"***********   \"}
+ * Refresh caches for a given project Steps are : - Invalidate project caches -
+ * Scan domains to reload indexed dimensions - Compute the analysis for every
+ * shared bookmark Ex of config as argument:
+ * {\"url\":\"https://............/release/v4.2\",\"customerId\":\"************\",\"clientId\":\"dashboard\",\"login\":\"**********\",\"password\":\"*********\",\"redirectUrl\":null,\"accessType\":null,\"projectId\":\"***********
+ * \"}
  *
  *
  */
@@ -90,7 +92,8 @@ public class RefreshProject extends ClientEngine {
 		}
 	}
 
-	public void run(String baseUrl, LoginConfiguration clientConfiguration, CacheConfiguration cacheConfiguration) throws ApiException, JsonParseException, JsonMappingException, IOException, InterruptedException {
+	public void run(String baseUrl, LoginConfiguration clientConfiguration, CacheConfiguration cacheConfiguration)
+			throws ApiException, JsonParseException, JsonMappingException, IOException, InterruptedException {
 		ApiClient sourceClient = ApiClient.buildClient(baseUrl);
 		sourceClient.setConnectTimeout(0);
 		ModelApi api = new ModelApi(sourceClient, clientConfiguration);
@@ -104,7 +107,8 @@ public class RefreshProject extends ClientEngine {
 			}
 			boolean hasError = false;
 
-			if (cacheConfiguration.getRefreshType() == RefreshType.FACETS || cacheConfiguration.getRefreshType() == RefreshType.ALL) {
+			if (cacheConfiguration.getRefreshType() == RefreshType.FACETS
+					|| cacheConfiguration.getRefreshType() == RefreshType.ALL) {
 				try {
 					refreshFacets(api, project, refreshDomains);
 					// refreshDomains = false;
@@ -113,7 +117,9 @@ public class RefreshProject extends ClientEngine {
 				}
 			}
 
-			if (cacheConfiguration.getRefreshType() == RefreshType.BOOKMARKS || cacheConfiguration.getClearAnalysis() == ClearAnalysis.TRUE || cacheConfiguration.getRefreshType() == RefreshType.ALL) {
+			if (cacheConfiguration.getRefreshType() == RefreshType.BOOKMARKS
+					|| cacheConfiguration.getClearAnalysis() == ClearAnalysis.TRUE
+					|| cacheConfiguration.getRefreshType() == RefreshType.ALL) {
 				try {
 					removeAnalyses(api, project);
 					refreshDomains = false;
@@ -122,7 +128,8 @@ public class RefreshProject extends ClientEngine {
 				}
 			}
 
-			if (cacheConfiguration.getRefreshType() == RefreshType.BOOKMARKS || cacheConfiguration.getRefreshType() == RefreshType.ALL) {
+			if (cacheConfiguration.getRefreshType() == RefreshType.BOOKMARKS
+					|| cacheConfiguration.getRefreshType() == RefreshType.ALL) {
 				try {
 					refreshBookmarks(api, project, refreshDomains, cacheConfiguration.getDefaultComparePeriod());
 					refreshDomains = false;
@@ -148,12 +155,14 @@ public class RefreshProject extends ClientEngine {
 		}
 	}
 
-	private void refreshBookmarks(ModelApi api, Project project, boolean refreshDomains, ComparePeriod defaultComparePeriod) throws ApiException, InterruptedException {
+	private void refreshBookmarks(ModelApi api, Project project, boolean refreshDomains,
+			ComparePeriod defaultComparePeriod) throws ApiException, InterruptedException {
 		boolean hasError = false;
 		int limit = 1000;
 		List<String> refreshedDomains = new ArrayList<String>();
 		for (Bookmark bookmark : project.getBookmarks()) {
-			if (bookmark.getPath() != null && bookmark.getPath().startsWith("/SHARED") && bookmark.getConfig() != null) {
+			if (bookmark.getPath() != null && bookmark.getPath().startsWith("/SHARED")
+					&& bookmark.getConfig() != null) {
 				try {
 					if (refreshDomains && refreshedDomains.contains(bookmark.getConfig().getDomain()) == false) {
 						logger.debug("Refresh domain " + bookmark.getConfig().getDomain());
@@ -164,20 +173,24 @@ public class RefreshProject extends ClientEngine {
 					logger.debug("Start to refresh Bookmark " + bookmark.getPath() + "/" + bookmark.getName());
 					ProjectAnalysisJob analysis = buildAnalysisFromBookmark(api, bookmark, true, defaultComparePeriod);
 					analysis.setLimit(new Long(limit));
-					analysis = api.setAnalysisJob(analysis.getId().getProjectId(), analysis, 10000, limit, 1, true, null, null);
+					analysis = api.setAnalysisJob(analysis.getId().getProjectId(), analysis, 10000, limit, 1, true,
+							null, null);
 					Object analysisResult = getAnalysisJobResults(api, analysis, 10000, limit, 1, false, null, null, 3);
 
 					analysis = buildAnalysisFromBookmark(api, bookmark, false, defaultComparePeriod);
 					analysis.setLimit(new Long(limit));
-					analysis = api.setAnalysisJob(analysis.getId().getProjectId(), analysis, 10000, limit, 1, true, null, null);
+					analysis = api.setAnalysisJob(analysis.getId().getProjectId(), analysis, 10000, limit, 1, true,
+							null, null);
 					analysisResult = getAnalysisJobResults(api, analysis, 10000, limit, 1, false, null, null, 3);
 					if (analysisResult != null && analysisResult instanceof DataTable) {
-						logger.debug("Bookmark detail & summary refreshed " + bookmark.getPath() + "/" + bookmark.getName());
+						logger.debug(
+								"Bookmark detail & summary refreshed " + bookmark.getPath() + "/" + bookmark.getName());
 					}
 
 				} catch (ApiException ae) {
 					hasError = true;
-					logger.debug("Bookmark " + bookmark.getPath() + "/" + bookmark.getName() + " has errors: " + ae.getMessage() + " with " + ae.getResponseBody(), ae);
+					logger.debug("Bookmark " + bookmark.getPath() + "/" + bookmark.getName() + " has errors: "
+							+ ae.getMessage() + " with " + ae.getResponseBody(), ae);
 				}
 			}
 		}
@@ -186,7 +199,8 @@ public class RefreshProject extends ClientEngine {
 		}
 	}
 
-	private void refreshFacets(ModelApi api, Project project, boolean refreshDomains) throws ApiException, InterruptedException {
+	private void refreshFacets(ModelApi api, Project project, boolean refreshDomains)
+			throws ApiException, InterruptedException {
 		boolean hasError = false;
 		for (Domain domain : api.getDomains(project.getOid())) {
 			String domainId = domain.getOid();
@@ -194,7 +208,7 @@ public class RefreshProject extends ClientEngine {
 				try {
 					if (refreshDomains) {
 						logger.debug("Refresh domain " + domain.getName());
-						api.releaseDomainCache(project.getOid(), domainId);
+						api.releaseDomainCache(project.getOid(), domainId, Refresh.HARD);
 					} else {
 						logger.debug("Processing domain " + domain.getName());
 					}

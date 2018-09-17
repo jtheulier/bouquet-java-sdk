@@ -90,6 +90,9 @@ public class Project extends VersionedBase  {
 	@SerializedName("name")
 	private String name = null;
 
+	@SerializedName("credentials")
+	private Credentials credentials = null;
+
 	public Project id(ProjectPK id) {
 		this.id = id;
 		return this;
@@ -456,6 +459,14 @@ public class Project extends VersionedBase  {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Credentials getCredentials() {
+		return credentials;
+	}
+
+	public void setCredentials(Credentials credentials) {
+		this.credentials = credentials;
 	}
 
 }
