@@ -1711,7 +1711,8 @@ public class ModelApi extends BaseApi {
 	 * @return CacheInfo
 	 * @throws ApiException if fails to make API call
 	 */
-	public CacheInfo releaseDomainCache(String projectId, String domainId, RefreshCacheType refresh) throws ApiException {
+	public CacheInfo releaseDomainCache(String projectId, String domainId, RefreshCacheType refresh)
+			throws ApiException {
 		Object localVarPostBody = null;
 
 		// verify the required parameter 'projectId' is set
@@ -1737,7 +1738,7 @@ public class ModelApi extends BaseApi {
 		String[] localVarAuthNames = new String[] { "kraken_auth" };
 
 		if (refresh != null) {
-			localVarQueryParams.addAll(getApiClient().parameterToPairs("", "type", refresh));
+			localVarQueryParams.addAll(getApiClient().parameterToPairs("", "method", refresh));
 		}
 
 		Type localVarReturnType = new TypeToken<CacheInfo>() {
@@ -3345,7 +3346,7 @@ public class ModelApi extends BaseApi {
 		String[] localVarAuthNames = new String[] { "kraken_auth" };
 
 		if (refresh != null) {
-			localVarQueryParams.addAll(getApiClient().parameterToPairs("", "type", refresh));
+			localVarQueryParams.addAll(getApiClient().parameterToPairs("", "method", refresh));
 		}
 
 		Type localVarReturnType = new TypeToken<CacheInfo>() {
