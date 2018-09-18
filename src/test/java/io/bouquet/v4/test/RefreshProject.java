@@ -28,7 +28,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import io.bouquet.v4.ApiClient;
 import io.bouquet.v4.ApiException;
 import io.bouquet.v4.api.ModelApi;
-import io.bouquet.v4.client.APIUtils.Refresh;
+import io.bouquet.v4.client.APIUtils.RefreshCacheType;
 import io.bouquet.v4.client.CacheConfiguration;
 import io.bouquet.v4.client.CacheConfiguration.ClearAnalysis;
 import io.bouquet.v4.client.CacheConfiguration.ClearFlag;
@@ -208,7 +208,7 @@ public class RefreshProject extends ClientEngine {
 				try {
 					if (refreshDomains) {
 						logger.debug("Refresh domain " + domain.getName());
-						api.releaseDomainCache(project.getOid(), domainId, Refresh.HARD);
+						api.releaseDomainCache(project.getOid(), domainId, RefreshCacheType.HARD);
 					} else {
 						logger.debug("Processing domain " + domain.getName());
 					}

@@ -30,7 +30,7 @@ import io.bouquet.v4.ApiException;
 
 public class APIUtils {
 
-	public enum Refresh {
+	public enum RefreshCacheType {
 		HARD, SOFT
 	};
 

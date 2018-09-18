@@ -32,7 +32,7 @@ import io.bouquet.v4.ApiResponse;
 import io.bouquet.v4.Pair;
 import io.bouquet.v4.ProgressRequestBody;
 import io.bouquet.v4.ProgressResponseBody;
-import io.bouquet.v4.client.APIUtils.Refresh;
+import io.bouquet.v4.client.APIUtils.RefreshCacheType;
 import io.bouquet.v4.client.JWTConfiguration;
 import io.bouquet.v4.client.LoginConfiguration;
 import io.bouquet.v4.model.AccessRight;
@@ -1711,7 +1711,7 @@ public class ModelApi extends BaseApi {
 	 * @return CacheInfo
 	 * @throws ApiException if fails to make API call
 	 */
-	public CacheInfo releaseDomainCache(String projectId, String domainId, Refresh refresh) throws ApiException {
+	public CacheInfo releaseDomainCache(String projectId, String domainId, RefreshCacheType refresh) throws ApiException {
 		Object localVarPostBody = null;
 
 		// verify the required parameter 'projectId' is set
@@ -1737,7 +1737,7 @@ public class ModelApi extends BaseApi {
 		String[] localVarAuthNames = new String[] { "kraken_auth" };
 
 		if (refresh != null) {
-			localVarQueryParams.addAll(getApiClient().parameterToPairs("", "method", refresh));
+			localVarQueryParams.addAll(getApiClient().parameterToPairs("", "type", refresh));
 		}
 
 		Type localVarReturnType = new TypeToken<CacheInfo>() {
@@ -3326,7 +3326,7 @@ public class ModelApi extends BaseApi {
 	 * @return Boolean
 	 * @throws ApiException if fails to make API call
 	 */
-	public CacheInfo releaseProjectCache(String projectId, Refresh refresh) throws ApiException {
+	public CacheInfo releaseProjectCache(String projectId, RefreshCacheType refresh) throws ApiException {
 		Object localVarPostBody = null;
 
 		// verify the required parameter 'projectId' is set
@@ -3345,7 +3345,7 @@ public class ModelApi extends BaseApi {
 		String[] localVarAuthNames = new String[] { "kraken_auth" };
 
 		if (refresh != null) {
-			localVarQueryParams.addAll(getApiClient().parameterToPairs("", "method", refresh));
+			localVarQueryParams.addAll(getApiClient().parameterToPairs("", "type", refresh));
 		}
 
 		Type localVarReturnType = new TypeToken<CacheInfo>() {
