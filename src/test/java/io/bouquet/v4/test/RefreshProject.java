@@ -24,6 +24,12 @@ import org.apache.log4j.PropertyConfigurator;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.squid.kraken.v4.model.Bookmark;
+import com.squid.kraken.v4.model.DataTable;
+import com.squid.kraken.v4.model.Dimension;
+import com.squid.kraken.v4.model.Domain;
+import com.squid.kraken.v4.model.Project;
+import com.squid.kraken.v4.model.ProjectAnalysisJob;
 
 import io.bouquet.v4.ApiClient;
 import io.bouquet.v4.ApiException;
@@ -36,12 +42,6 @@ import io.bouquet.v4.client.CacheConfiguration.ComparePeriod;
 import io.bouquet.v4.client.CacheConfiguration.RefreshType;
 import io.bouquet.v4.client.ClientEngine;
 import io.bouquet.v4.client.LoginConfiguration;
-import io.bouquet.v4.model.Bookmark;
-import io.bouquet.v4.model.DataTable;
-import io.bouquet.v4.model.Dimension;
-import io.bouquet.v4.model.Domain;
-import io.bouquet.v4.model.Project;
-import io.bouquet.v4.model.ProjectAnalysisJob;
 
 /**
  * Refresh caches for a given project Steps are : - Invalidate project caches -

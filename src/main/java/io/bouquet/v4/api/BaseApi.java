@@ -23,6 +23,7 @@ import java.util.Map;
 
 import com.google.gson.reflect.TypeToken;
 import com.squareup.okhttp.Call;
+import com.squid.kraken.v4.model.AccessToken;
 
 import io.bouquet.v4.ApiClient;
 import io.bouquet.v4.ApiException;
@@ -30,7 +31,6 @@ import io.bouquet.v4.ApiResponse;
 import io.bouquet.v4.Pair;
 import io.bouquet.v4.client.JWTConfiguration;
 import io.bouquet.v4.client.LoginConfiguration;
-import io.bouquet.v4.model.AccessToken;
 
 public class BaseApi {
 

@@ -25,22 +25,22 @@ import org.joda.time.DateTime;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.squid.kraken.v4.model.Bookmark;
+import com.squid.kraken.v4.model.ChosenMetric;
+import com.squid.kraken.v4.model.Dimension;
+import com.squid.kraken.v4.model.Domain;
+import com.squid.kraken.v4.model.DomainPK;
+import com.squid.kraken.v4.model.Expression;
+import com.squid.kraken.v4.model.Metric;
+import com.squid.kraken.v4.model.Project;
+import com.squid.kraken.v4.model.ReferencePK;
+import com.squid.kraken.v4.model.Relation;
 
 import io.bouquet.v4.ApiClient;
 import io.bouquet.v4.ApiException;
 import io.bouquet.v4.api.ModelApi;
 import io.bouquet.v4.client.ClientEngine;
 import io.bouquet.v4.client.LoginConfiguration;
-import io.bouquet.v4.model.Bookmark;
-import io.bouquet.v4.model.ChosenMetric;
-import io.bouquet.v4.model.Dimension;
-import io.bouquet.v4.model.Domain;
-import io.bouquet.v4.model.DomainPK;
-import io.bouquet.v4.model.Expression;
-import io.bouquet.v4.model.Metric;
-import io.bouquet.v4.model.Project;
-import io.bouquet.v4.model.ReferencePKObject;
-import io.bouquet.v4.model.Relation;
 
 /**
  * Simple class wich will read all availailable projects created
@@ -202,7 +202,7 @@ public class BenchmarchProjectRead extends ClientEngine {
 			for (ChosenMetric metric: bookmark.getConfig().getChosenMetrics()) {
 				Expression expr = metric.getExpression();
 				if (expr!=null) {
-					for (ReferencePKObject ref:expr.getReferences()) {
+					for (ReferencePK ref:expr.getReferences()) {
 						Object o = ref.getReference();
 						System.out.println(o.toString());
 					}

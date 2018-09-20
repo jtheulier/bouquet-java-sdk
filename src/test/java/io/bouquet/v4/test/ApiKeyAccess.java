@@ -17,9 +17,10 @@ package io.bouquet.v4.test;
 
 import java.util.List;
 
+import com.squid.kraken.v4.model.User;
+
 import io.bouquet.v4.ApiClient;
 import io.bouquet.v4.api.ModelApi;
-import io.bouquet.v4.model.User;
 
 /**
  * Test class to get an access token from a JWT key (found in a Client object)

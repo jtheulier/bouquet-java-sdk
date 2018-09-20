@@ -24,6 +24,10 @@ import java.util.Map;
 
 import com.google.gson.reflect.TypeToken;
 import com.squareup.okhttp.Call;
+import com.squid.kraken.v4.model.AnalyticsQuery;
+import com.squid.kraken.v4.model.Bookmark;
+import com.squid.kraken.v4.model.Facet;
+import com.squid.kraken.v4.model.QueryWorkerJobStatus;
 
 import io.bouquet.v4.ApiCallback;
 import io.bouquet.v4.ApiClient;
@@ -34,10 +38,6 @@ import io.bouquet.v4.ProgressRequestBody;
 import io.bouquet.v4.ProgressResponseBody;
 import io.bouquet.v4.client.JWTConfiguration;
 import io.bouquet.v4.client.LoginConfiguration;
-import io.bouquet.v4.model.AnalyticsQuery;
-import io.bouquet.v4.model.Bookmark;
-import io.bouquet.v4.model.Facet;
-import io.bouquet.v4.model.QueryWorkerJobStatus;
 
 public class AnalyticsApi extends BaseApi {
 
