@@ -18,6 +18,8 @@ package com.squid.kraken.v4.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.SerializedName;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -26,7 +28,7 @@ import io.swagger.annotations.ApiModelProperty;
  * DimensionOption
  */
 
-public class DimensionOption extends Base  {
+public class DimensionOption extends Base {
 
 	@SerializedName("id")
 	private DimensionOptionPK id = null;
@@ -55,6 +57,12 @@ public class DimensionOption extends Base  {
 	@SerializedName("userFilter")
 	private List<String> userFilter = new ArrayList<String>();
 
+	public String projectName = null;
+
+	public String domainName = null;
+
+	public String dimensionName = null;
+
 	public DimensionOption id(DimensionOptionPK id) {
 		this.id = id;
 		return this;
@@ -62,6 +70,7 @@ public class DimensionOption extends Base  {
 
 	/**
 	 * The object Composite Id (Primary Key)
+	 * 
 	 * @return id
 	 **/
 	@ApiModelProperty(example = "null", value = "The object Composite Id (Primary Key)")
@@ -80,6 +89,7 @@ public class DimensionOption extends Base  {
 
 	/**
 	 * Get mandatorySelection
+	 * 
 	 * @return mandatorySelection
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -98,6 +108,7 @@ public class DimensionOption extends Base  {
 
 	/**
 	 * Get singleSelection
+	 * 
 	 * @return singleSelection
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -116,6 +127,7 @@ public class DimensionOption extends Base  {
 
 	/**
 	 * Get defaultSelection
+	 * 
 	 * @return defaultSelection
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -127,13 +139,15 @@ public class DimensionOption extends Base  {
 		this.defaultSelection = defaultSelection;
 	}
 
-	public DimensionOption unmodifiableSelection(Boolean unmodifiableSelection) {
+	public DimensionOption unmodifiableSelection(
+			Boolean unmodifiableSelection) {
 		this.unmodifiableSelection = unmodifiableSelection;
 		return this;
 	}
 
 	/**
 	 * Get unmodifiableSelection
+	 * 
 	 * @return unmodifiableSelection
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -152,6 +166,7 @@ public class DimensionOption extends Base  {
 
 	/**
 	 * Get hidden
+	 * 
 	 * @return hidden
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -175,6 +190,7 @@ public class DimensionOption extends Base  {
 
 	/**
 	 * Get name
+	 * 
 	 * @return name
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -188,6 +204,7 @@ public class DimensionOption extends Base  {
 
 	/**
 	 * Get groupFilter
+	 * 
 	 * @return groupFilter
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -211,6 +228,7 @@ public class DimensionOption extends Base  {
 
 	/**
 	 * Get userFilter
+	 * 
 	 * @return userFilter
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -221,5 +239,34 @@ public class DimensionOption extends Base  {
 	public void setUserFilter(List<String> userFilter) {
 		this.userFilter = userFilter;
 	}
-}
 
+	@JsonIgnore
+	public String getProjectName() {
+		return projectName;
+	}
+
+	@JsonProperty
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+
+	@JsonIgnore
+	public String getDomainName() {
+		return domainName;
+	}
+
+	@JsonProperty
+	public void setDomainName(String domainName) {
+		this.domainName = domainName;
+	}
+
+	@JsonIgnore
+	public String getDimensionName() {
+		return dimensionName;
+	}
+
+	@JsonProperty
+	public void setDimensionName(String dimensionName) {
+		this.dimensionName = dimensionName;
+	}
+}

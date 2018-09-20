@@ -19,11 +19,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class CustomerInfo extends RoleBase  {
+@JsonIgnoreProperties(value = {"authMode", "bookmarkfolders", ""})
+public class CustomerInfo extends RoleBase {
 
 	private String id = null;
 	private String defaultLocale = null;
@@ -48,7 +51,9 @@ public class CustomerInfo extends RoleBase  {
 
 	private List<AccessControlGroup> accessControlGroups;
 
-	//private SubscriptionStatus subscriptionStatus;
+	private List<String> oauthRedirects;
+
+	// private SubscriptionStatus subscriptionStatus;
 
 	private int accessTokenExpiration;
 
@@ -57,6 +62,10 @@ public class CustomerInfo extends RoleBase  {
 	private String privateCertificate;
 
 	private String publicCertificate;
+
+	@SerializedName("_children")
+	@JsonProperty("_children")
+	private List<String> children = new ArrayList<String>();
 
 	/**
 	 **/
@@ -74,7 +83,6 @@ public class CustomerInfo extends RoleBase  {
 		this.id = id;
 	}
 
-
 	/**
 	 **/
 	public CustomerInfo defaultLocale(String defaultLocale) {
@@ -90,7 +98,6 @@ public class CustomerInfo extends RoleBase  {
 	public void setDefaultLocale(String defaultLocale) {
 		this.defaultLocale = defaultLocale;
 	}
-
 
 	/**
 	 **/
@@ -108,7 +115,6 @@ public class CustomerInfo extends RoleBase  {
 		this.accessRights = accessRights;
 	}
 
-
 	/**
 	 **/
 	public CustomerInfo awsclientId(String awsclientId) {
@@ -124,7 +130,6 @@ public class CustomerInfo extends RoleBase  {
 	public void setAwsclientId(String awsclientId) {
 		this.awsclientId = awsclientId;
 	}
-
 
 	/**
 	 **/
@@ -142,7 +147,6 @@ public class CustomerInfo extends RoleBase  {
 		this.clients = clients;
 	}
 
-
 	/**
 	 **/
 	public CustomerInfo projects(List<Project> projects) {
@@ -158,7 +162,6 @@ public class CustomerInfo extends RoleBase  {
 	public void setProjects(List<Project> projects) {
 		this.projects = projects;
 	}
-
 
 	/**
 	 **/
@@ -176,7 +179,6 @@ public class CustomerInfo extends RoleBase  {
 		this.userGroups = userGroups;
 	}
 
-
 	/**
 	 **/
 	public CustomerInfo users(List<User> users) {
@@ -193,7 +195,6 @@ public class CustomerInfo extends RoleBase  {
 		this.users = users;
 	}
 
-
 	/**
 	 **/
 	public CustomerInfo states(List<State> states) {
@@ -209,7 +210,6 @@ public class CustomerInfo extends RoleBase  {
 	public void setStates(List<State> states) {
 		this.states = states;
 	}
-
 
 	/**
 	 **/
@@ -244,7 +244,7 @@ public class CustomerInfo extends RoleBase  {
 
 	/**
 	 **/
-	public  CustomerInfo description(String description) {
+	public CustomerInfo description(String description) {
 		this.description = description;
 		return this;
 	}
@@ -295,7 +295,8 @@ public class CustomerInfo extends RoleBase  {
 
 	/**
 	 **/
-	public CustomerInfo accessControlGroups(List<AccessControlGroup> accessControlGroups) {
+	public CustomerInfo accessControlGroups(
+			List<AccessControlGroup> accessControlGroups) {
 		this.accessControlGroups = accessControlGroups;
 		return this;
 	}
@@ -306,7 +307,8 @@ public class CustomerInfo extends RoleBase  {
 		return accessControlGroups;
 	}
 
-	public void setAccessControlGroups(List<AccessControlGroup> accessControlGroups) {
+	public void setAccessControlGroups(
+			List<AccessControlGroup> accessControlGroups) {
 		this.accessControlGroups = accessControlGroups;
 	}
 
@@ -380,7 +382,8 @@ public class CustomerInfo extends RoleBase  {
 
 	/**
 	 **/
-	public CustomerInfo oauthEndPoints(Map<String, List<String>> oauthEndPoints) {
+	public CustomerInfo oauthEndPoints(
+			Map<String, List<String>> oauthEndPoints) {
 		this.oauthEndPoints = oauthEndPoints;
 		return this;
 	}
@@ -394,5 +397,20 @@ public class CustomerInfo extends RoleBase  {
 	public void setOauthEndPoints(Map<String, List<String>> oauthEndPoints) {
 		this.oauthEndPoints = oauthEndPoints;
 	}
-}
 
+	public List<String> getOauthRedirects() {
+		return oauthRedirects;
+	}
+
+	public void setOauthRedirects(List<String> oauthRedirects) {
+		this.oauthRedirects = oauthRedirects;
+	}
+
+	public List<String> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<String> children) {
+		this.children = children;
+	}
+}
