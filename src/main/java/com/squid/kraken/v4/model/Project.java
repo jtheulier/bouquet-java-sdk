@@ -30,10 +30,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Project
  */
 
-public class Project extends VersionedBase {
-	@SerializedName("id")
-	private ProjectPK id = null;
-
+public class Project extends VersionedBase<ProjectPK> {
 	@SerializedName("accessRights")
 	private List<AccessRight> accessRights = new ArrayList<AccessRight>();
 
@@ -79,9 +76,6 @@ public class Project extends VersionedBase {
 	@SerializedName("bookmarks")
 	private List<Bookmark> bookmarks = new ArrayList<Bookmark>();
 
-	@SerializedName("oid")
-	private String oid = null;
-
 	@SerializedName("objectType")
 	private String objectType = null;
 
@@ -95,25 +89,6 @@ public class Project extends VersionedBase {
 	@SerializedName("credentials")
 	private Credentials credentials = null;
 
-	public Project id(ProjectPK id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * The object Composite Id (Primary Key)
-	 * 
-	 * @return id
-	 **/
-	@ApiModelProperty(example = "null", value = "The object Composite Id (Primary Key)")
-	public ProjectPK getId() {
-		return id;
-	}
-
-	public void setId(ProjectPK id) {
-		this.id = id;
-	}
-
 	public Project accessRights(List<AccessRight> accessRights) {
 		this.accessRights = accessRights;
 		return this;
@@ -126,7 +101,7 @@ public class Project extends VersionedBase {
 
 	/**
 	 * The ACL for this object
-	 * 
+	 *
 	 * @return accessRights
 	 **/
 	@ApiModelProperty(example = "null", value = "The ACL for this object")
@@ -145,7 +120,7 @@ public class Project extends VersionedBase {
 
 	/**
 	 * Get description
-	 * 
+	 *
 	 * @return description
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -164,7 +139,7 @@ public class Project extends VersionedBase {
 
 	/**
 	 * The DataBase JDBC URL (requires WRITE role to view)
-	 * 
+	 *
 	 * @return dbUrl
 	 **/
 	@ApiModelProperty(example = "null", value = "The DataBase JDBC URL (requires WRITE role to view)")
@@ -183,7 +158,7 @@ public class Project extends VersionedBase {
 
 	/**
 	 * The DataBase JDBC user (requires WRITE role to view)
-	 * 
+	 *
 	 * @return dbUser
 	 **/
 	@ApiModelProperty(example = "null", value = "The DataBase JDBC user (requires WRITE role to view)")
@@ -202,7 +177,7 @@ public class Project extends VersionedBase {
 
 	/**
 	 * The DataBase JDBC password (write-only)
-	 * 
+	 *
 	 * @return dbPassword
 	 **/
 	@ApiModelProperty(example = "null", value = "The DataBase JDBC password (write-only)")
@@ -228,7 +203,7 @@ public class Project extends VersionedBase {
 	 * The DataBase Schemas enabled (requires WRITE role). The list of available
 	 * discovered Schemas can be found via the {projectId}/schemas-suggestion
 	 * method
-	 * 
+	 *
 	 * @return dbSchemas
 	 **/
 	@ApiModelProperty(example = "null", value = "The DataBase Schemas enabled (requires WRITE role). The list of available discovered Schemas can be found via the {projectId}/schemas-suggestion method")
@@ -247,7 +222,7 @@ public class Project extends VersionedBase {
 
 	/**
 	 * Deprecated : An optional configuration (json) object
-	 * 
+	 *
 	 * @return config
 	 **/
 	@ApiModelProperty(example = "null", value = "Deprecated : An optional configuration (json) object")
@@ -261,7 +236,7 @@ public class Project extends VersionedBase {
 
 	/**
 	 * The DataBase JDBC password length
-	 * 
+	 *
 	 * @return dbPasswordLength
 	 **/
 	@ApiModelProperty(example = "null", value = "The DataBase JDBC password length")
@@ -276,7 +251,7 @@ public class Project extends VersionedBase {
 
 	/**
 	 * The DataBase vendor ID to use for connecting
-	 * 
+	 *
 	 * @return dbVendorId
 	 **/
 	@ApiModelProperty(example = "null", value = "The DataBase vendor ID to use for connecting")
@@ -300,7 +275,7 @@ public class Project extends VersionedBase {
 
 	/**
 	 * The DataBase JDBC URL arguments
-	 * 
+	 *
 	 * @return dbArguments
 	 **/
 	@ApiModelProperty(example = "null", value = "The DataBase JDBC URL arguments")
@@ -319,7 +294,7 @@ public class Project extends VersionedBase {
 
 	/**
 	 * Get internalVersion
-	 * 
+	 *
 	 * @return internalVersion
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -343,7 +318,7 @@ public class Project extends VersionedBase {
 
 	/**
 	 * Get domains
-	 * 
+	 *
 	 * @return domains
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -362,7 +337,7 @@ public class Project extends VersionedBase {
 
 	/**
 	 * If the Project is using In Memory Extension
-	 * 
+	 *
 	 * @return usingInMemExt
 	 **/
 	@ApiModelProperty(example = "null", value = "If the Project is using In Memory Extension")
@@ -386,7 +361,7 @@ public class Project extends VersionedBase {
 
 	/**
 	 * Get relations
-	 * 
+	 *
 	 * @return relations
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -410,7 +385,7 @@ public class Project extends VersionedBase {
 
 	/**
 	 * Get bookmarks
-	 * 
+	 *
 	 * @return bookmarks
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -423,18 +398,8 @@ public class Project extends VersionedBase {
 	}
 
 	/**
-	 * The Object Id
-	 * 
-	 * @return oid
-	 **/
-	@ApiModelProperty(example = "null", value = "The Object Id")
-	public String getOid() {
-		return oid;
-	}
-
-	/**
 	 * Get objectType
-	 * 
+	 *
 	 * @return objectType
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -454,7 +419,7 @@ public class Project extends VersionedBase {
 
 	/**
 	 * Get children
-	 * 
+	 *
 	 * @return children
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -473,7 +438,7 @@ public class Project extends VersionedBase {
 
 	/**
 	 * Get name
-	 * 
+	 *
 	 * @return name
 	 **/
 	@ApiModelProperty(example = "null", value = "")

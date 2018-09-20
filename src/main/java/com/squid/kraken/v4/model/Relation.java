@@ -27,10 +27,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Relation
  */
 
-public class Relation extends DynamicObject  {
-	@SerializedName("id")
-	private RelationPK id = null;
-
+public class Relation extends DynamicObject<RelationPK> {
 	@SerializedName("accessRights")
 	private List<AccessRight> accessRights = new ArrayList<AccessRight>();
 
@@ -108,33 +105,12 @@ public class Relation extends DynamicObject  {
 	@SerializedName("joinExpression")
 	private Expression joinExpression = null;
 
-	@SerializedName("oid")
-	private String oid = null;
-
 	@SerializedName("objectType")
 	private String objectType = null;
 
 
 	@SerializedName("name")
 	private String name = null;
-
-	public Relation id(RelationPK id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * The object Composite Id (Primary Key)
-	 * @return id
-	 **/
-	@ApiModelProperty(example = "null", value = "The object Composite Id (Primary Key)")
-	public RelationPK getId() {
-		return id;
-	}
-
-	public void setId(RelationPK id) {
-		this.id = id;
-	}
 
 	public Relation accessRights(List<AccessRight> accessRights) {
 		this.accessRights = accessRights;
@@ -301,15 +277,6 @@ public class Relation extends DynamicObject  {
 
 	public void setJoinExpression(Expression joinExpression) {
 		this.joinExpression = joinExpression;
-	}
-
-	/**
-	 * The Object Id
-	 * @return oid
-	 **/
-	@ApiModelProperty(example = "null", value = "The Object Id")
-	public String getOid() {
-		return oid;
 	}
 
 	/**

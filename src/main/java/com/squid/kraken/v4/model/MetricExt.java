@@ -27,10 +27,7 @@ import io.swagger.annotations.ApiModelProperty;
  * MetricExt
  */
 
-public class MetricExt extends VersionedBase  {
-	@SerializedName("id")
-	private MetricPK id = null;
-
+public class MetricExt extends VersionedBase<MetricPK> {
 	@SerializedName("accessRights")
 	private List<AccessRight> accessRights = new ArrayList<AccessRight>();
 
@@ -104,32 +101,11 @@ public class MetricExt extends VersionedBase  {
 	@SerializedName("dynamic")
 	private Boolean dynamic = false;
 
-	@SerializedName("oid")
-	private String oid = null;
-
 	@SerializedName("objectType")
 	private String objectType = null;
 
 	@SerializedName("name")
 	private String name = null;
-
-	public MetricExt id(MetricPK id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * The object Composite Id (Primary Key)
-	 * @return id
-	 **/
-	@ApiModelProperty(example = "null", value = "The object Composite Id (Primary Key)")
-	public MetricPK getId() {
-		return id;
-	}
-
-	public void setId(MetricPK id) {
-		this.id = id;
-	}
 
 	public MetricExt accessRights(List<AccessRight> accessRights) {
 		this.accessRights = accessRights;
@@ -260,15 +236,6 @@ public class MetricExt extends VersionedBase  {
 
 	public void setDynamic(Boolean dynamic) {
 		this.dynamic = dynamic;
-	}
-
-	/**
-	 * The Object Id
-	 * @return oid
-	 **/
-	@ApiModelProperty(example = "null", value = "The Object Id")
-	public String getOid() {
-		return oid;
 	}
 
 	/**

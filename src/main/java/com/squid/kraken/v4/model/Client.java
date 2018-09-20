@@ -20,16 +20,14 @@ import java.util.List;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class Client extends VersionedBase   {
+public class Client extends VersionedBase<ClientPK> {
 
-	private ClientPK id = null;
 	private List<AccessRight> accessRights = new ArrayList<AccessRight>();
 	private String secret = null;
 	private List<String> urls = new ArrayList<String>();
 	private String config = null;
 	private String jwtkeyPublic = null;
 	private String jwtkeyPrivate = null;
-	private String oid = null;
 	private String objectType = null;
 	private ClientSSOConfiguration sso;
 	private Boolean forceClientSecret = Boolean.FALSE;
@@ -37,23 +35,6 @@ public class Client extends VersionedBase   {
 	private boolean bypassApiKey = Boolean.FALSE;
 
 	private String name = null;
-
-
-	/**
-	 * The object Composite Id (Primary Key)
-	 **/
-	public Client id(ClientPK id) {
-		this.id = id;
-		return this;
-	}
-
-	@ApiModelProperty(example = "null", value = "The object Composite Id (Primary Key)")
-	public ClientPK getId() {
-		return id;
-	}
-	public void setId(ClientPK id) {
-		this.id = id;
-	}
 
 
 	/**
@@ -150,12 +131,6 @@ public class Client extends VersionedBase   {
 	}
 	public void setJwtkeyPrivate(String jwtkeyPrivate) {
 		this.jwtkeyPrivate = jwtkeyPrivate;
-	}
-
-
-	@ApiModelProperty(example = "null", value = "The Object Id")
-	public String getOid() {
-		return oid;
 	}
 
 

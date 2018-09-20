@@ -28,10 +28,7 @@ import io.swagger.annotations.ApiModelProperty;
  * DimensionOption
  */
 
-public class DimensionOption extends Base {
-
-	@SerializedName("id")
-	private DimensionOptionPK id = null;
+public class DimensionOption extends ModelBase<DimensionOptionPK> {
 
 	@SerializedName("mandatorySelection")
 	private Boolean mandatorySelection = false;
@@ -63,25 +60,6 @@ public class DimensionOption extends Base {
 
 	public String dimensionName = null;
 
-	public DimensionOption id(DimensionOptionPK id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * The object Composite Id (Primary Key)
-	 * 
-	 * @return id
-	 **/
-	@ApiModelProperty(example = "null", value = "The object Composite Id (Primary Key)")
-	public DimensionOptionPK getId() {
-		return id;
-	}
-
-	public void setId(DimensionOptionPK id) {
-		this.id = id;
-	}
-
 	public DimensionOption mandatorySelection(Boolean mandatorySelection) {
 		this.mandatorySelection = mandatorySelection;
 		return this;
@@ -89,7 +67,7 @@ public class DimensionOption extends Base {
 
 	/**
 	 * Get mandatorySelection
-	 * 
+	 *
 	 * @return mandatorySelection
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -108,7 +86,7 @@ public class DimensionOption extends Base {
 
 	/**
 	 * Get singleSelection
-	 * 
+	 *
 	 * @return singleSelection
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -127,7 +105,7 @@ public class DimensionOption extends Base {
 
 	/**
 	 * Get defaultSelection
-	 * 
+	 *
 	 * @return defaultSelection
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -147,7 +125,7 @@ public class DimensionOption extends Base {
 
 	/**
 	 * Get unmodifiableSelection
-	 * 
+	 *
 	 * @return unmodifiableSelection
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -166,7 +144,7 @@ public class DimensionOption extends Base {
 
 	/**
 	 * Get hidden
-	 * 
+	 *
 	 * @return hidden
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -190,7 +168,7 @@ public class DimensionOption extends Base {
 
 	/**
 	 * Get name
-	 * 
+	 *
 	 * @return name
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -204,7 +182,7 @@ public class DimensionOption extends Base {
 
 	/**
 	 * Get groupFilter
-	 * 
+	 *
 	 * @return groupFilter
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -228,7 +206,7 @@ public class DimensionOption extends Base {
 
 	/**
 	 * Get userFilter
-	 * 
+	 *
 	 * @return userFilter
 	 **/
 	@ApiModelProperty(example = "null", value = "")

@@ -22,33 +22,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class State extends VersionedBase  {
+public class State extends VersionedBase<StatePK> {
 
-	private StatePK id = null;
 	private List<AccessRight> accessRights = new ArrayList<AccessRight>();
 	private Long creationTime = null;
 	private String shortcutId = null;
 	private String config = null;
-	private String oid = null;
+
 	private String objectType = null;
-
-	/**
-	 * The object Composite Id (Primary Key)
-	 **/
-	public State id(StatePK id) {
-		this.id = id;
-		return this;
-	}
-
-	@ApiModelProperty(example = "null", value = "The object Composite Id (Primary Key)")
-	@JsonProperty("id")
-	public StatePK getId() {
-		return id;
-	}
-	public void setId(StatePK id) {
-		this.id = id;
-	}
-
 
 	/**
 	 * The ACL for this object
@@ -116,13 +97,6 @@ public class State extends VersionedBase  {
 	}
 	public void setConfig(String config) {
 		this.config = config;
-	}
-
-
-	@ApiModelProperty(example = "null", value = "The Object Id")
-	@JsonProperty("oid")
-	public String getOid() {
-		return oid;
 	}
 
 

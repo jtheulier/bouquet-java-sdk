@@ -27,9 +27,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Attribute
  */
 
-public class Attribute extends VersionedBase  {
-	@SerializedName("id")
-	private AttributePK id = null;
+public class Attribute extends VersionedBase<AttributePK> {
 
 	@SerializedName("accessRights")
 	private List<AccessRight> accessRights = new ArrayList<AccessRight>();
@@ -40,32 +38,11 @@ public class Attribute extends VersionedBase  {
 	@SerializedName("expression")
 	private Expression expression = null;
 
-	@SerializedName("oid")
-	private String oid = null;
-
 	@SerializedName("objectType")
 	private String objectType = null;
 
 	@SerializedName("name")
 	private String name = null;
-
-	public Attribute id(AttributePK id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * The object Composite Id (Primary Key)
-	 * @return id
-	 **/
-	@ApiModelProperty(example = "null", value = "The object Composite Id (Primary Key)")
-	public AttributePK getId() {
-		return id;
-	}
-
-	public void setId(AttributePK id) {
-		this.id = id;
-	}
 
 	public Attribute accessRights(List<AccessRight> accessRights) {
 		this.accessRights = accessRights;
@@ -124,15 +101,6 @@ public class Attribute extends VersionedBase  {
 
 	public void setExpression(Expression expression) {
 		this.expression = expression;
-	}
-
-	/**
-	 * The Object Id
-	 * @return oid
-	 **/
-	@ApiModelProperty(example = "null", value = "The Object Id")
-	public String getOid() {
-		return oid;
 	}
 
 	/**

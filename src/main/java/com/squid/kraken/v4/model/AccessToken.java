@@ -21,7 +21,7 @@ import com.google.gson.annotations.SerializedName;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class AccessToken extends Base {
+public class AccessToken extends ModelBase<AccessTokenPK> {
 
 	public enum TypeEnum {
 		NORMAL("NORMAL"), RESET_PWD("RESET_PWD"), CODE("CODE"), REFRESH(
@@ -42,12 +42,11 @@ public class AccessToken extends Base {
 
 	private TypeEnum type = null;
 	private Long expirationDateMillis = null;
-	private AccessTokenPK id = null;
 	private String customerId = null;
 	private String userId = null;
 	private String clientId = null;
 	private String refreshToken = null;
-	private String oid = null;
+
 	private String objectType = null;
 
 	@SerializedName("access_token")
@@ -84,23 +83,6 @@ public class AccessToken extends Base {
 	}
 	public void setExpirationDateMillis(Long expirationDateMillis) {
 		this.expirationDateMillis = expirationDateMillis;
-	}
-
-	/**
-	 * The object Composite Id (Primary Key)
-	 **/
-	public AccessToken id(AccessTokenPK id) {
-		this.id = id;
-		return this;
-	}
-
-	@ApiModelProperty(example = "null", value = "The object Composite Id (Primary Key)")
-	@JsonProperty("id")
-	public AccessTokenPK getId() {
-		return id;
-	}
-	public void setId(AccessTokenPK id) {
-		this.id = id;
 	}
 
 	@ApiModelProperty(example = "null", value = "")
@@ -155,23 +137,6 @@ public class AccessToken extends Base {
 	}
 	public void setRefreshToken(String refreshToken) {
 		this.refreshToken = refreshToken;
-	}
-
-	/**
-	 * The Object Id
-	 **/
-	public AccessToken oid(String oid) {
-		this.oid = oid;
-		return this;
-	}
-
-	@ApiModelProperty(example = "null", value = "The Object Id")
-	@JsonProperty("oid")
-	public String getOid() {
-		return oid;
-	}
-	public void setOid(String oid) {
-		this.oid = oid;
 	}
 
 	/**

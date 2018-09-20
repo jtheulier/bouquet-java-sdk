@@ -16,6 +16,7 @@
 package com.squid.kraken.v4.model;
 
 import com.google.gson.annotations.SerializedName;
+import com.squid.kraken.v4.model.RoleBase.RoleEnum;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -23,7 +24,9 @@ import io.swagger.annotations.ApiModelProperty;
  * AccessRight
  */
 
-public class AccessRight extends RoleBase  {
+public class AccessRight
+//extends RoleBase<AccessRightPK>
+{
 
 	@SerializedName("role")
 	private RoleEnum role = null;
@@ -43,13 +46,11 @@ public class AccessRight extends RoleBase  {
 	 * Get role
 	 * @return role
 	 **/
-	@Override
 	@ApiModelProperty(example = "null", value = "")
 	public RoleEnum getRole() {
 		return role;
 	}
 
-	@Override
 	public void setRole(RoleEnum role) {
 		this.role = role;
 	}

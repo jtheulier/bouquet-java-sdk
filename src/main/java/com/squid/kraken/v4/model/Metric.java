@@ -26,10 +26,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Metric
  */
 
-public class Metric extends DynamicObject  {
-	@SerializedName("id")
-	private MetricPK id = null;
-
+public class Metric extends DynamicObject<MetricPK> {
 	@SerializedName("accessRights")
 	private List<AccessRight> accessRights = new ArrayList<AccessRight>();
 
@@ -94,32 +91,11 @@ public class Metric extends DynamicObject  {
 	@SerializedName("valueType")
 	private ValueTypeEnum valueType = null;
 
-	@SerializedName("oid")
-	private String oid = null;
-
 	@SerializedName("objectType")
 	private String objectType = null;
 
 	@SerializedName("name")
 	private String name = null;
-
-	public Metric id(MetricPK id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * The object Composite Id (Primary Key)
-	 * @return id
-	 **/
-	@ApiModelProperty(example = "null", value = "The object Composite Id (Primary Key)")
-	public MetricPK getId() {
-		return id;
-	}
-
-	public void setId(MetricPK id) {
-		this.id = id;
-	}
 
 	public Metric accessRights(List<AccessRight> accessRights) {
 		this.accessRights = accessRights;
@@ -196,15 +172,6 @@ public class Metric extends DynamicObject  {
 
 	public void setValueType(ValueTypeEnum valueType) {
 		this.valueType = valueType;
-	}
-
-	/**
-	 * The Object Id
-	 * @return oid
-	 **/
-	@ApiModelProperty(example = "null", value = "The Object Id")
-	public String getOid() {
-		return oid;
 	}
 
 	/**

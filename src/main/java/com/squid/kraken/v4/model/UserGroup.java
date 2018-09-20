@@ -20,51 +20,12 @@ import java.util.List;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class UserGroup extends Base  {
+public class UserGroup extends RoleBase<UserGroupPK>  {
 
-	private UserGroupPK id = null;
 	private List<AccessRight> accessRights = new ArrayList<AccessRight>();
-	private String oid = null;
+
 	private String objectType = null;
-
-
-	public enum RoleEnum {
-		NONE("NONE"),
-		READ("READ"),
-		WRITE("WRITE"),
-		OWNER("OWNER");
-
-		private String value;
-
-		RoleEnum(String value) {
-			this.value = value;
-		}
-
-		@Override
-		public String toString() {
-			return value;
-		}
-	}
-
-	private RoleEnum role = null;
 	private String name = null;
-
-
-	/**
-	 * The object Composite Id (Primary Key)
-	 **/
-	public UserGroup id(UserGroupPK id) {
-		this.id = id;
-		return this;
-	}
-
-	@ApiModelProperty(example = "null", value = "The object Composite Id (Primary Key)")
-	public UserGroupPK getId() {
-		return id;
-	}
-	public void setId(UserGroupPK id) {
-		this.id = id;
-	}
 
 
 	/**
@@ -84,21 +45,9 @@ public class UserGroup extends Base  {
 	}
 
 
-	@ApiModelProperty(example = "null", value = "The Object Id")
-	public String getOid() {
-		return oid;
-	}
-
-
 	@ApiModelProperty(example = "null", value = "")
 	public String getObjectType() {
 		return objectType;
-	}
-
-
-	@ApiModelProperty(example = "null", value = "The role of the current User (passed in the context) over this object")
-	public RoleEnum getRole() {
-		return role;
 	}
 
 

@@ -26,9 +26,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Bookmark
  */
 
-public class Bookmark extends DynamicObject  {
-	@SerializedName("id")
-	private BookmarkPK id = null;
+public class Bookmark extends DynamicObject<BookmarkPK> {
 
 	@SerializedName("accessRights")
 	private List<AccessRight> accessRights = new ArrayList<AccessRight>();
@@ -45,32 +43,11 @@ public class Bookmark extends DynamicObject  {
 	@SerializedName("reference")
 	private String reference = null;
 
-	@SerializedName("oid")
-	private String oid = null;
-
 	@SerializedName("objectType")
 	private String objectType = null;
 
 	@SerializedName("name")
 	private String name = null;
-
-	public Bookmark id(BookmarkPK id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * The object Composite Id (Primary Key)
-	 * @return id
-	 **/
-	@ApiModelProperty(example = "null", value = "The object Composite Id (Primary Key)")
-	public BookmarkPK getId() {
-		return id;
-	}
-
-	public void setId(BookmarkPK id) {
-		this.id = id;
-	}
 
 	public Bookmark accessRights(List<AccessRight> accessRights) {
 		this.accessRights = accessRights;
@@ -165,15 +142,6 @@ public class Bookmark extends DynamicObject  {
 
 	public void setReference(String reference) {
 		this.reference = reference;
-	}
-
-	/**
-	 * The Object Id
-	 * @return oid
-	 **/
-	@ApiModelProperty(example = "null", value = "The Object Id")
-	public String getOid() {
-		return oid;
 	}
 
 	/**

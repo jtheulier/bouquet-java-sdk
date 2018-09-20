@@ -14,14 +14,13 @@
  * limitations under the License.
  *******************************************************************************/
 package com.squid.kraken.v4.model;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class RoleBase extends Base {
+public abstract class RoleBase<PK extends BasePK> extends ModelBase<PK> {
 
 	@Expose(serialize = false, deserialize = true)
 	public String ownerId;
@@ -61,7 +60,7 @@ public class RoleBase extends Base {
 	private RoleEnum role = null;
 	/**
 	 * The role of the current User (passed in the context) over this object
-	 * 
+	 *
 	 * @return role
 	 **/
 	@ApiModelProperty(example = "null", value = "The role of the current User (passed in the context) over this object")

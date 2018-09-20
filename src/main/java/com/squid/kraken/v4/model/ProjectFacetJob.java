@@ -23,9 +23,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class ProjectFacetJob extends VersionedBase  {
+public class ProjectFacetJob extends VersionedBase<ProjectFacetJobPK> {
 
-	private ProjectFacetJobPK id = null;
 	private List<AccessRight> accessRights = new ArrayList<AccessRight>();
 
 
@@ -58,26 +57,8 @@ public class ProjectFacetJob extends VersionedBase  {
 	private FacetSelection selection = null;
 	private Integer engineVersion = null;
 	private FacetSelection results = null;
-	private String oid = null;
+
 	private String objectType = null;
-
-	/**
-	 * The object Composite Id (Primary Key)
-	 **/
-	public ProjectFacetJob id(ProjectFacetJobPK id) {
-		this.id = id;
-		return this;
-	}
-
-	@ApiModelProperty(example = "null", value = "The object Composite Id (Primary Key)")
-	@JsonProperty("id")
-	public ProjectFacetJobPK getId() {
-		return id;
-	}
-	public void setId(ProjectFacetJobPK id) {
-		this.id = id;
-	}
-
 
 	/**
 	 * The ACL for this object
@@ -251,13 +232,6 @@ public class ProjectFacetJob extends VersionedBase  {
 	}
 	public void setResults(FacetSelection results) {
 		this.results = results;
-	}
-
-
-	@ApiModelProperty(example = "null", value = "The Object Id")
-	@JsonProperty("oid")
-	public String getOid() {
-		return oid;
 	}
 
 

@@ -25,7 +25,7 @@ import io.swagger.annotations.ApiModelProperty;
  */
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "type")
-public class ReferencePK extends Base {
+public class ReferencePK extends BasePK {
 	@SerializedName("reference")
 	protected Object reference = null;
 

@@ -31,25 +31,25 @@ import io.swagger.annotations.ApiModelProperty;
  * @author sergefantino
  *
  */
-public class AccessControlGroupPK extends BasePK {
+public class CustomerPK extends BasePK {
 
-	private String accessControlGroupId = null;
+	private String customerId = null;
 
 
 	/**
 	 **/
-	public AccessControlGroupPK accessControlGroupId(String accessControlGroupId) {
-		this.accessControlGroupId = accessControlGroupId;
+	public CustomerPK customerId(String customerId) {
+		this.customerId = customerId;
 		return this;
 	}
 
 	@ApiModelProperty(example = "null", value = "")
-	@JsonProperty("accessControlGroupId")
-	public String getAccessControlGroupId() {
-		return accessControlGroupId;
+	@JsonProperty("customerId")
+	public String getCustomerId() {
+		return customerId;
 	}
 
-	public void setAccessControlGroupId(String accessControlGroupId) {
-		this.accessControlGroupId = accessControlGroupId;
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
 	}
 }

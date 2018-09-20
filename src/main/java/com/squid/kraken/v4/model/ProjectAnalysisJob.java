@@ -28,10 +28,7 @@ import io.swagger.annotations.ApiModelProperty;
  * ProjectAnalysisJob
  */
 
-public class ProjectAnalysisJob extends VersionedBase  {
-	@SerializedName("id")
-	private ProjectAnalysisJobPK id = null;
-
+public class ProjectAnalysisJob extends VersionedBase<ProjectAnalysisJobPK> {
 	@SerializedName("accessRights")
 	private List<AccessRight> accessRights = new ArrayList<AccessRight>();
 
@@ -120,30 +117,8 @@ public class ProjectAnalysisJob extends VersionedBase  {
 	@SerializedName("results")
 	private DataTable results = null;
 
-	@SerializedName("oid")
-	private String oid = null;
-
 	@SerializedName("objectType")
 	private String objectType = null;
-
-
-	public ProjectAnalysisJob id(ProjectAnalysisJobPK id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * The object Composite Id (Primary Key)
-	 * @return id
-	 **/
-	@ApiModelProperty(example = "null", value = "The object Composite Id (Primary Key)")
-	public ProjectAnalysisJobPK getId() {
-		return id;
-	}
-
-	public void setId(ProjectAnalysisJobPK id) {
-		this.id = id;
-	}
 
 	public ProjectAnalysisJob accessRights(List<AccessRight> accessRights) {
 		this.accessRights = accessRights;
@@ -544,15 +519,6 @@ public class ProjectAnalysisJob extends VersionedBase  {
 
 	public void setResults(DataTable results) {
 		this.results = results;
-	}
-
-	/**
-	 * The Object Id
-	 * @return oid
-	 **/
-	@ApiModelProperty(example = "null", value = "The Object Id")
-	public String getOid() {
-		return oid;
 	}
 
 	/**

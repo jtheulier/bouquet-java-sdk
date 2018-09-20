@@ -26,10 +26,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Domain
  */
 
-public class Domain extends DynamicObject  {
-	@SerializedName("id")
-	private DomainPK id = null;
-
+public class Domain extends DynamicObject<DomainPK> {
 	@SerializedName("accessRights")
 	private List<AccessRight> accessRights = new ArrayList<AccessRight>();
 
@@ -51,9 +48,6 @@ public class Domain extends DynamicObject  {
 	@SerializedName("dimensions")
 	private List<Dimension> dimensions = new ArrayList<Dimension>();
 
-	@SerializedName("oid")
-	private String oid = null;
-
 	@SerializedName("objectType")
 	private String objectType = null;
 
@@ -62,24 +56,6 @@ public class Domain extends DynamicObject  {
 
 	@SerializedName("name")
 	private String name = null;
-
-	public Domain id(DomainPK id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * The object Composite Id (Primary Key)
-	 * @return id
-	 **/
-	@ApiModelProperty(example = "null", value = "The object Composite Id (Primary Key)")
-	public DomainPK getId() {
-		return id;
-	}
-
-	public void setId(DomainPK id) {
-		this.id = id;
-	}
 
 	public Domain accessRights(List<AccessRight> accessRights) {
 		this.accessRights = accessRights;
@@ -220,15 +196,6 @@ public class Domain extends DynamicObject  {
 
 	public void setDimensions(List<Dimension> dimensions) {
 		this.dimensions = dimensions;
-	}
-
-	/**
-	 * The Object Id
-	 * @return oid
-	 **/
-	@ApiModelProperty(example = "null", value = "The Object Id")
-	public String getOid() {
-		return oid;
 	}
 
 	/**

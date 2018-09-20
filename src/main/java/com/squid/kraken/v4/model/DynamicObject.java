@@ -4,18 +4,13 @@ import com.google.gson.annotations.SerializedName;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class DynamicObject extends VersionedBase {
+public class DynamicObject<PK extends BasePK> extends VersionedBase<PK> {
 
 	@SerializedName("dynamic")
 	private Boolean dynamic = false;
 
 	@SerializedName("hidden")
 	private Boolean hidden = false;
-
-	public DynamicObject dynamic(Boolean dynamic) {
-		this.dynamic = dynamic;
-		return this;
-	}
 
 	/**
 	 * indicates if the object is automatically generated. This property can be updated.
@@ -28,11 +23,6 @@ public class DynamicObject extends VersionedBase {
 
 	public void setDynamic(Boolean dynamic) {
 		this.dynamic = dynamic;
-	}
-
-	public DynamicObject hidden(Boolean hidden) {
-		this.hidden = hidden;
-		return this;
 	}
 
 	/**

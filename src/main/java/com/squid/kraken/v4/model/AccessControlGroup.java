@@ -20,9 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.swagger.annotations.ApiModelProperty;
-
-public class AccessControlGroup extends Base {
+public class AccessControlGroup extends ModelBase<AccessControlGroupPK> {
 
 	public enum AccessLevel {
 		EDITOR("EDITOR","Editor"),   // allow to edit
@@ -62,8 +60,6 @@ public class AccessControlGroup extends Base {
 
 	};
 
-	private AccessControlGroupPK id;
-
 	private String name;
 
 	private List<SharedProject> sharedProjects = new ArrayList<SharedProject>();
@@ -74,23 +70,7 @@ public class AccessControlGroup extends Base {
 	 *
 	 */
 	public AccessControlGroup() {
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * The object Composite Id (Primary Key)
-	 **/
-	public AccessControlGroup id(AccessControlGroupPK id) {
-		this.id = id;
-		return this;
-	}
-
-	@ApiModelProperty(example = "null", value = "The object Composite Id (Primary Key)")
-	public AccessControlGroupPK getId() {
-		return id;
-	}
-	public void setId(AccessControlGroupPK id) {
-		this.id = id;
+		super();
 	}
 
 	/**

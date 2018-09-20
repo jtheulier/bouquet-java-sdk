@@ -23,7 +23,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Col
  */
 
-public class Col extends VersionedBase  {
+public class Col  {
 
 	@SerializedName("name")
 	private String name = null;

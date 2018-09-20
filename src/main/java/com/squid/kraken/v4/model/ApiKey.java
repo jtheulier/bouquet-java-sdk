@@ -20,11 +20,10 @@ import java.util.List;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class ApiKey extends VersionedBase   {
+public class ApiKey extends VersionedBase<ApiKeyPK>   {
 
-	private ApiKeyPK id = null;
 	private List<AccessRight> accessRights = new ArrayList<AccessRight>();
-	private String oid = null;
+
 	private String objectType = null;
 	private String clientId;
 	private String userId;
@@ -33,23 +32,6 @@ public class ApiKey extends VersionedBase   {
 	private long expirationDateMillis;
 	private long lastUsedDate;
 	private long createdDate;
-
-	/**
-	 * The object Composite Id (Primary Key)
-	 **/
-	public ApiKey id(ApiKeyPK id) {
-		this.id = id;
-		return this;
-	}
-
-	@ApiModelProperty(example = "null", value = "The object Composite Id (Primary Key)")
-	public ApiKeyPK getId() {
-		return id;
-	}
-	public void setId(ApiKeyPK id) {
-		this.id = id;
-	}
-
 
 	/**
 	 * The ACL for this object
@@ -145,12 +127,6 @@ public class ApiKey extends VersionedBase   {
 	}
 	public void setLastUsedDate(long lastUsedDate) {
 		this.lastUsedDate = lastUsedDate;
-	}
-
-
-	@ApiModelProperty(example = "null", value = "The Object Id")
-	public String getOid() {
-		return oid;
 	}
 
 

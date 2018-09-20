@@ -22,9 +22,8 @@ import java.util.Map;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class User extends VersionedBase  {
+public class User extends VersionedBase<UserPK> {
 
-	private UserPK id = null;
 	private List<AccessRight> accessRights = new ArrayList<AccessRight>();
 	private String login = null;
 	private String email = null;
@@ -32,30 +31,13 @@ public class User extends VersionedBase  {
 	private List<String> groupsAndUpgrades = new ArrayList<String>();
 	private List<SharedProject> sharedProjects = new ArrayList<SharedProject>();
 	private Map<String, String> attributes = new HashMap<String, String>();
-	private String oid = null;
+
 	private String objectType = null;
 	private String password = null;
 	private List<String> upgrades = new ArrayList<String>();
 	private String givenName;
 	private String familyName;
 	private String authId;
-
-	/**
-	 * The object Composite Id (Primary Key)
-	 **/
-	public User id(UserPK id) {
-		this.id = id;
-		return this;
-	}
-
-	@ApiModelProperty(example = "null", value = "The object Composite Id (Primary Key)")
-	public UserPK getId() {
-		return id;
-	}
-	public void setId(UserPK id) {
-		this.id = id;
-	}
-
 
 	/**
 	 * The ACL for this object
@@ -151,12 +133,6 @@ public class User extends VersionedBase  {
 	}
 	public void setAttributes(Map<String, String> attributes) {
 		this.attributes = attributes;
-	}
-
-
-	@ApiModelProperty(example = "null", value = "The Object Id")
-	public String getOid() {
-		return oid;
 	}
 
 

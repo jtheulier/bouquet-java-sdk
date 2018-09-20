@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class AccessTokenPK extends Base  {
+public class AccessTokenPK extends BasePK  {
 
 	private String tokenId = null;
 

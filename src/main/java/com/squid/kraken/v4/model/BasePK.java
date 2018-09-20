@@ -17,7 +17,7 @@ package com.squid.kraken.v4.model;
 
 import io.bouquet.v4.ApiException;
 
-public abstract class BasePK extends Base implements ApiPK {
+public abstract class BasePK implements ApiPK {
 
 	@Override
 	public String getApiUri(boolean allValues) throws ApiException {

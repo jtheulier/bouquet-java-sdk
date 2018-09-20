@@ -26,9 +26,8 @@ import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModelProperty;
 
 @JsonIgnoreProperties(value = {"authMode", "bookmarkfolders", ""})
-public class CustomerInfo extends RoleBase {
+public class CustomerInfo extends RoleBase<CustomerPK> {
 
-	private String id = null;
 	private String defaultLocale = null;
 	private List<AccessRight> accessRights = new ArrayList<AccessRight>();
 	private String awsclientId = null;
@@ -66,22 +65,6 @@ public class CustomerInfo extends RoleBase {
 	@SerializedName("_children")
 	@JsonProperty("_children")
 	private List<String> children = new ArrayList<String>();
-
-	/**
-	 **/
-	public CustomerInfo id(String id) {
-		this.id = id;
-		return this;
-	}
-
-	@ApiModelProperty(example = "null", value = "")
-	@JsonProperty("id")
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	/**
 	 **/

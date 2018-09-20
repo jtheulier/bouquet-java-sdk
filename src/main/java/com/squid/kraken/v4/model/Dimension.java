@@ -27,9 +27,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Dimension
  */
 
-public class Dimension extends DynamicObject {
-	@SerializedName("id")
-	private DimensionPK id = null;
+public class Dimension extends DynamicObject<DimensionPK> {
 
 	@SerializedName("accessRights")
 	private List<AccessRight> accessRights = new ArrayList<AccessRight>();
@@ -138,9 +136,6 @@ public class Dimension extends DynamicObject {
 	@SerializedName("valueType")
 	private ValueTypeEnum valueType = null;
 
-	@SerializedName("oid")
-	private String oid = null;
-
 	@SerializedName("objectType")
 	private String objectType = null;
 
@@ -150,25 +145,6 @@ public class Dimension extends DynamicObject {
 
 	@SerializedName("name")
 	private String name = null;
-
-	public Dimension id(DimensionPK id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * The object Composite Id (Primary Key)
-	 * 
-	 * @return id
-	 **/
-	@ApiModelProperty(example = "null", value = "The object Composite Id (Primary Key)")
-	public DimensionPK getId() {
-		return id;
-	}
-
-	public void setId(DimensionPK id) {
-		this.id = id;
-	}
 
 	public Dimension accessRights(List<AccessRight> accessRights) {
 		this.accessRights = accessRights;
@@ -182,7 +158,7 @@ public class Dimension extends DynamicObject {
 
 	/**
 	 * The ACL for this object
-	 * 
+	 *
 	 * @return accessRights
 	 **/
 	@ApiModelProperty(example = "null", value = "The ACL for this object")
@@ -201,7 +177,7 @@ public class Dimension extends DynamicObject {
 
 	/**
 	 * Get description
-	 * 
+	 *
 	 * @return description
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -220,7 +196,7 @@ public class Dimension extends DynamicObject {
 
 	/**
 	 * Get type
-	 * 
+	 *
 	 * @return type
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -239,7 +215,7 @@ public class Dimension extends DynamicObject {
 
 	/**
 	 * Get expression
-	 * 
+	 *
 	 * @return expression
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -258,7 +234,7 @@ public class Dimension extends DynamicObject {
 
 	/**
 	 * Get parentId
-	 * 
+	 *
 	 * @return parentId
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -282,7 +258,7 @@ public class Dimension extends DynamicObject {
 
 	/**
 	 * Get options
-	 * 
+	 *
 	 * @return options
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -301,7 +277,7 @@ public class Dimension extends DynamicObject {
 
 	/**
 	 * Get visible
-	 * 
+	 *
 	 * @return visible
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -325,7 +301,7 @@ public class Dimension extends DynamicObject {
 
 	/**
 	 * Get attributes
-	 * 
+	 *
 	 * @return attributes
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -344,7 +320,7 @@ public class Dimension extends DynamicObject {
 
 	/**
 	 * Get valueType
-	 * 
+	 *
 	 * @return valueType
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -357,18 +333,8 @@ public class Dimension extends DynamicObject {
 	}
 
 	/**
-	 * The Object Id
-	 * 
-	 * @return oid
-	 **/
-	@ApiModelProperty(example = "null", value = "The Object Id")
-	public String getOid() {
-		return oid;
-	}
-
-	/**
 	 * Get objectType
-	 * 
+	 *
 	 * @return objectType
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -388,7 +354,7 @@ public class Dimension extends DynamicObject {
 
 	/**
 	 * Get children
-	 * 
+	 *
 	 * @return children
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -407,7 +373,7 @@ public class Dimension extends DynamicObject {
 
 	/**
 	 * Get name
-	 * 
+	 *
 	 * @return name
 	 **/
 	@ApiModelProperty(example = "null", value = "")

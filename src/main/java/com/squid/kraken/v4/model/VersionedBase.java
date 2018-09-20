@@ -20,7 +20,7 @@ import com.google.gson.annotations.SerializedName;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class VersionedBase extends RoleBase {
+public class VersionedBase<PK extends BasePK> extends RoleBase<PK> {
 
 	@SerializedName("_vctrl")
 	@JsonProperty("_vctrl")
@@ -28,7 +28,7 @@ public class VersionedBase extends RoleBase {
 
 	/**
 	 * Internal version control value. (used by optimistic-locking mechanism)
-	 * 
+	 *
 	 * @return vctrl
 	 **/
 	@ApiModelProperty(example = "null", value = "Internal version control value. (used by optimistic-locking mechanism)")
