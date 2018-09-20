@@ -381,3 +381,44 @@ class LocalDateTypeAdapter extends TypeAdapter<LocalDate> {
 		}
 	}
 }
+
+/**
+ * Gson Adapter for Joda LocalDate type
+ */
+class ApiExceptionTypeAdapter extends TypeAdapter<ApiException> {
+	@Override
+	public void write(JsonWriter out, ApiException exception)
+			throws IOException {
+		;
+	}
+
+	@Override
+	public ApiException read(JsonReader in) throws IOException {
+		in.beginObject();
+		String message = null;
+		int code = 0;
+		String redirectURL = null;
+		String clientId = null;
+		String type = null;
+		while (in.hasNext()) {
+			switch (in.nextName()) {
+				case "code" :
+					code = in.nextInt();
+					break;
+				case "type" :
+					type = in.nextString();
+				case "error" :
+					message = in.nextString();
+				case "redirectURL" :
+					redirectURL = in.nextString();
+				case "clientId" :
+					clientId = in.nextString();
+			}
+		}
+		ApiException ae = new ApiException(code, message);
+		ae.setType(type);
+		ae.setRedirectURL(redirectURL);
+		ae.setClientId(clientId);
+		return ae;
+	}
+}

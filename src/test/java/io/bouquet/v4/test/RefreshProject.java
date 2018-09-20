@@ -92,12 +92,15 @@ public class RefreshProject extends ClientEngine {
 		}
 	}
 
-	public void run(String baseUrl, LoginConfiguration clientConfiguration, CacheConfiguration cacheConfiguration)
-			throws ApiException, JsonParseException, JsonMappingException, IOException, InterruptedException {
+	public void run(String baseUrl, LoginConfiguration clientConfiguration,
+			CacheConfiguration cacheConfiguration)
+			throws ApiException, JsonParseException, JsonMappingException,
+			IOException, InterruptedException {
 		ApiClient sourceClient = ApiClient.buildClient(baseUrl);
 		sourceClient.setConnectTimeout(0);
 		ModelApi api = new ModelApi(sourceClient, clientConfiguration);
-		Project project = api.getProject(cacheConfiguration.getProjectId(), true);
+		Project project = api.getProject(cacheConfiguration.getProjectId(),
+				true);
 		// logger.debug("Start refresh for project");
 		boolean refreshDomains = true;
 		if (project != null) {
@@ -118,7 +121,8 @@ public class RefreshProject extends ClientEngine {
 			}
 
 			if (cacheConfiguration.getRefreshType() == RefreshType.BOOKMARKS
-					|| cacheConfiguration.getClearAnalysis() == ClearAnalysis.TRUE
+					|| cacheConfiguration
+							.getClearAnalysis() == ClearAnalysis.TRUE
 					|| cacheConfiguration.getRefreshType() == RefreshType.ALL) {
 				try {
 					removeAnalyses(api, project);
@@ -131,76 +135,98 @@ public class RefreshProject extends ClientEngine {
 			if (cacheConfiguration.getRefreshType() == RefreshType.BOOKMARKS
 					|| cacheConfiguration.getRefreshType() == RefreshType.ALL) {
 				try {
-					refreshBookmarks(api, project, refreshDomains, cacheConfiguration.getDefaultComparePeriod());
+					refreshBookmarks(api, project, refreshDomains,
+							cacheConfiguration.getDefaultComparePeriod());
 					refreshDomains = false;
 				} catch (ApiException ae) {
 					hasError = true;
 				}
 			}
 			if (hasError) {
-				throw new ApiException("Some domains could not be refreshed, please check logs");
+				throw new ApiException(
+						"Some domains could not be refreshed, please check logs");
 			}
 		}
 	}
 
-	private void removeAnalyses(ModelApi api, Project project) throws ApiException, InterruptedException {
+	private void removeAnalyses(ModelApi api, Project project)
+			throws ApiException, InterruptedException {
 		List<ProjectAnalysisJob> jobs = api.getAnalysisJobs(project.getOid());
 		for (ProjectAnalysisJob job : jobs) {
 			if (job.getDomains() != null && job.getDomains().size() > 0) {
-				boolean result = api.deleteAnalysisJob(job.getId().getProjectId(), job.getId().getAnalysisJobId());
+				boolean result = api.deleteAnalysisJob(
+						job.getId().getProjectId(),
+						job.getId().getAnalysisJobId());
 				if (result == false) {
-					logger.debug("Could not delete analysis job " + job.getId().getAnalysisJobId());
+					logger.debug("Could not delete analysis job "
+							+ job.getId().getAnalysisJobId());
 				}
 			}
 		}
 	}
 
-	private void refreshBookmarks(ModelApi api, Project project, boolean refreshDomains,
-			ComparePeriod defaultComparePeriod) throws ApiException, InterruptedException {
+	private void refreshBookmarks(ModelApi api, Project project,
+			boolean refreshDomains, ComparePeriod defaultComparePeriod)
+			throws ApiException, InterruptedException {
 		boolean hasError = false;
 		int limit = 1000;
 		List<String> refreshedDomains = new ArrayList<String>();
 		for (Bookmark bookmark : project.getBookmarks()) {
-			if (bookmark.getPath() != null && bookmark.getPath().startsWith("/SHARED")
+			if (bookmark.getPath() != null
+					&& bookmark.getPath().startsWith("/SHARED")
 					&& bookmark.getConfig() != null) {
 				try {
-					if (refreshDomains && refreshedDomains.contains(bookmark.getConfig().getDomain()) == false) {
-						logger.debug("Refresh domain " + bookmark.getConfig().getDomain());
-						// api.refreshCache(project.getOid(), bookmark.getConfig().getDomain());
+					if (refreshDomains && refreshedDomains.contains(
+							bookmark.getConfig().getDomain()) == false) {
+						logger.debug("Refresh domain "
+								+ bookmark.getConfig().getDomain());
+						// api.refreshCache(project.getOid(),
+						// bookmark.getConfig().getDomain());
 						refreshedDomains.add(bookmark.getConfig().getDomain());
 					}
 
-					logger.debug("Start to refresh Bookmark " + bookmark.getPath() + "/" + bookmark.getName());
-					ProjectAnalysisJob analysis = buildAnalysisFromBookmark(api, bookmark, true, defaultComparePeriod);
+					logger.debug("Start to refresh Bookmark "
+							+ bookmark.getPath() + "/" + bookmark.getName());
+					ProjectAnalysisJob analysis = buildAnalysisFromBookmark(api,
+							bookmark, true, defaultComparePeriod);
 					analysis.setLimit(new Long(limit));
-					analysis = api.setAnalysisJob(analysis.getId().getProjectId(), analysis, 10000, limit, 1, true,
-							null, null);
-					Object analysisResult = getAnalysisJobResults(api, analysis, 10000, limit, 1, false, null, null, 3);
+					analysis = api.setAnalysisJob(
+							analysis.getId().getProjectId(), analysis, 10000,
+							limit, 1, true, null, null);
+					Object analysisResult = getAnalysisJobResults(api, analysis,
+							10000, limit, 1, false, null, null, 3);
 
-					analysis = buildAnalysisFromBookmark(api, bookmark, false, defaultComparePeriod);
+					analysis = buildAnalysisFromBookmark(api, bookmark, false,
+							defaultComparePeriod);
 					analysis.setLimit(new Long(limit));
-					analysis = api.setAnalysisJob(analysis.getId().getProjectId(), analysis, 10000, limit, 1, true,
-							null, null);
-					analysisResult = getAnalysisJobResults(api, analysis, 10000, limit, 1, false, null, null, 3);
-					if (analysisResult != null && analysisResult instanceof DataTable) {
-						logger.debug(
-								"Bookmark detail & summary refreshed " + bookmark.getPath() + "/" + bookmark.getName());
+					analysis = api.setAnalysisJob(
+							analysis.getId().getProjectId(), analysis, 10000,
+							limit, 1, true, null, null);
+					analysisResult = getAnalysisJobResults(api, analysis, 10000,
+							limit, 1, false, null, null, 3);
+					if (analysisResult != null
+							&& analysisResult instanceof DataTable) {
+						logger.debug("Bookmark detail & summary refreshed "
+								+ bookmark.getPath() + "/"
+								+ bookmark.getName());
 					}
 
 				} catch (ApiException ae) {
 					hasError = true;
-					logger.debug("Bookmark " + bookmark.getPath() + "/" + bookmark.getName() + " has errors: "
-							+ ae.getMessage() + " with " + ae.getResponseBody(), ae);
+					logger.debug("Bookmark " + bookmark.getPath() + "/"
+							+ bookmark.getName() + " has errors: "
+							+ ae.getMessage(), ae);
 				}
 			}
 		}
 		if (hasError) {
-			throw new ApiException("Some bookmarks could not be refreshed, please check logs");
+			throw new ApiException(
+					"Some bookmarks could not be refreshed, please check logs");
 		}
 	}
 
-	private void refreshFacets(ModelApi api, Project project, boolean refreshDomains)
-			throws ApiException, InterruptedException {
+	private void refreshFacets(ModelApi api, Project project,
+			boolean refreshDomains) throws ApiException, InterruptedException {
 		boolean hasError = false;
 		for (Domain domain : api.getDomains(project.getOid())) {
 			String domainId = domain.getOid();
@@ -208,21 +234,25 @@ public class RefreshProject extends ClientEngine {
 				try {
 					if (refreshDomains) {
 						logger.debug("Refresh domain " + domain.getName());
-						api.releaseDomainCache(project.getOid(), domainId, RefreshCacheType.HARD);
+						api.releaseDomainCache(project.getOid(), domainId,
+								RefreshCacheType.HARD);
 					} else {
 						logger.debug("Processing domain " + domain.getName());
 					}
 					domain = api.getDomain(project.getOid(), domainId, true);
-					List<Dimension> dimensions = api.getDimensions(project.getOid(), domain.getOid());
+					List<Dimension> dimensions = api
+							.getDimensions(project.getOid(), domain.getOid());
 					executeFacetJob(api, domain, dimensions, true);
 				} catch (ApiException ae) {
 					hasError = true;
-					logger.debug("Domain " + domain.getName() + " has errors", ae);
+					logger.debug("Domain " + domain.getName() + " has errors",
+							ae);
 				}
 			}
 		}
 		if (hasError) {
-			throw new ApiException("Some domains could not be refreshed, please check logs");
+			throw new ApiException(
+					"Some domains could not be refreshed, please check logs");
 		}
 	}
 }

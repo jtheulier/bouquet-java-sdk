@@ -32,6 +32,7 @@ import org.apache.log4j.Logger;
 import com.squid.kraken.v4.model.Bookmark;
 import com.squid.kraken.v4.model.ChosenMetric;
 import com.squid.kraken.v4.model.Dimension;
+import com.squid.kraken.v4.model.Dimension.TypeEnum;
 import com.squid.kraken.v4.model.Domain;
 import com.squid.kraken.v4.model.DomainPK;
 import com.squid.kraken.v4.model.Expression;
@@ -41,13 +42,12 @@ import com.squid.kraken.v4.model.FacetMemberInterval;
 import com.squid.kraken.v4.model.FacetSelection;
 import com.squid.kraken.v4.model.Metric;
 import com.squid.kraken.v4.model.OrderBy;
+import com.squid.kraken.v4.model.OrderBy.DirectionEnum;
 import com.squid.kraken.v4.model.ProjectAnalysisJob;
 import com.squid.kraken.v4.model.ProjectAnalysisJobPK;
 import com.squid.kraken.v4.model.ProjectFacetJob;
 import com.squid.kraken.v4.model.ProjectFacetJobPK;
 import com.squid.kraken.v4.model.RollUp;
-import com.squid.kraken.v4.model.Dimension.TypeEnum;
-import com.squid.kraken.v4.model.OrderBy.DirectionEnum;
 
 import io.bouquet.v4.ApiException;
 import io.bouquet.v4.api.ModelApi;
@@ -194,9 +194,7 @@ public class ClientEngine {
 								logger.debug(
 										"Error occured while checking facet '"
 												+ facetName + "' :"
-												+ ae.getMessage()
-												+ " with body "
-												+ ae.getResponseBody());
+												+ ae.getMessage());
 								throw ae;
 							}
 						}

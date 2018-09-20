@@ -21,7 +21,8 @@ import java.util.Map;
 /**
  * API response returned by API call.
  *
- * @param T The type of data that is deserialized from response body
+ * @param T
+ *            The type of data that is deserialized from response body
  */
 
 public class ApiResponse<T> {
@@ -30,19 +31,25 @@ public class ApiResponse<T> {
 	final private T data;
 
 	/**
-	 * @param statusCode The status code of HTTP response
-	 * @param headers The headers of HTTP response
+	 * @param statusCode
+	 *            The status code of HTTP response
+	 * @param headers
+	 *            The headers of HTTP response
 	 */
 	public ApiResponse(int statusCode, Map<String, List<String>> headers) {
 		this(statusCode, headers, null);
 	}
 
 	/**
-	 * @param statusCode The status code of HTTP response
-	 * @param headers The headers of HTTP response
-	 * @param data The object deserialized from response bod
+	 * @param statusCode
+	 *            The status code of HTTP response
+	 * @param headers
+	 *            The headers of HTTP response
+	 * @param data
+	 *            The object deserialized from response bod
 	 */
-	public ApiResponse(int statusCode, Map<String, List<String>> headers, T data) {
+	public ApiResponse(int statusCode, Map<String, List<String>> headers,
+			T data) {
 		this.statusCode = statusCode;
 		this.headers = headers;
 		this.data = data;
@@ -57,8 +64,11 @@ public class ApiResponse<T> {
 	}
 
 	public T getData() throws ApiException {
-		if (getStatusCode()>=400) {
-			throw new ApiException(getStatusCode(), getHeaders(), getData().toString());
+		if (data instanceof ApiException) {
+			throw ((ApiException) data);
+		}
+		if (getStatusCode() >= 400) {
+			throw new ApiException(getStatusCode(), getData().toString());
 		}
 		return data;
 	}

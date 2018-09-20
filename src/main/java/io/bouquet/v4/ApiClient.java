@@ -903,10 +903,9 @@ public class ApiClient {
 			// Expecting string, return the raw response body.
 			return (T) respBody;
 		} else {
-			throw new ApiException(
+			throw new ApiException(response.code(),
 					"Content type \"" + contentType
-							+ "\" is not supported for type: " + returnType,
-					response.code(), response.headers().toMultimap(), respBody);
+							+ "\" is not supported for type: " + returnType);
 		}
 	}
 
@@ -1154,17 +1153,12 @@ public class ApiClient {
 				return deserialize(response, returnType);
 			}
 		} else {
-			String respBody = null;
-			if (response.body() != null) {
-				try {
-					respBody = response.body().string();
-				} catch (IOException e) {
-					throw new ApiException(response.message(), e,
-							response.code(), response.headers().toMultimap());
-				}
+			try {
+				return deserialize(response, ApiException.class);
+			} catch (Exception e) {
+				throw new ApiException(e);
+
 			}
-			throw new ApiException(response.message(), response.code(),
-					response.headers().toMultimap(), respBody);
 		}
 	}
 

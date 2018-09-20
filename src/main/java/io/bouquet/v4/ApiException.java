@@ -15,82 +15,78 @@
  *******************************************************************************/
 package io.bouquet.v4;
 
-import java.util.Map;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ApiException extends Exception {
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 331264493464766708L;
-	private int code = 0;
-    private Map<String, List<String>> responseHeaders = null;
-    private String responseBody = null;
 
-    public ApiException() {}
+	@JsonProperty("code")
+	private int statusCode = 400;
 
-    public ApiException(Throwable throwable) {
-        super(throwable);
-    }
+	private String type = null;
 
-    public ApiException(String message) {
-        super(message);
-    }
+	private String redirectURL = null;
 
-    public ApiException(String message, Throwable throwable, int code, Map<String, List<String>> responseHeaders, String responseBody) {
-        super(message, throwable);
-        this.code = code;
-        this.responseHeaders = responseHeaders;
-        this.responseBody = responseBody;
-    }
+	private String clientId = null;
 
-    public ApiException(String message, int code, Map<String, List<String>> responseHeaders, String responseBody) {
-        this(message, (Throwable) null, code, responseHeaders, responseBody);
-    }
+	public ApiException() {
+	}
 
-    public ApiException(String message, Throwable throwable, int code, Map<String, List<String>> responseHeaders) {
-        this(message, throwable, code, responseHeaders, null);
-    }
+	public ApiException(int statusCode, String message) {
+		super(message);
+		this.statusCode = statusCode;
+	}
 
-    public ApiException(int code, Map<String, List<String>> responseHeaders, String responseBody) {
-        this((String) null, (Throwable) null, code, responseHeaders, responseBody);
-    }
+	public ApiException(String message, Throwable cause) {
+		super(message, cause);
+	}
 
-    public ApiException(int code, String message) {
-        super(message);
-        this.code = code;
-    }
+	public ApiException(int statusCode, String message, Throwable cause) {
+		super(message, cause);
+		this.statusCode = statusCode;
+	}
 
-    public ApiException(int code, String message, Map<String, List<String>> responseHeaders, String responseBody) {
-        this(code, message);
-        this.responseHeaders = responseHeaders;
-        this.responseBody = responseBody;
-    }
+	public ApiException(String message) {
+		super(message);
+	}
 
-    /**
-     * Get the HTTP status code.
-     *
-     * @return HTTP status code
-     */
-    public int getCode() {
-        return code;
-    }
+	public ApiException(Throwable cause) {
+		super(cause);
+	}
 
-    /**
-     * Get the HTTP response headers.
-     *
-     * @return A map of list of string
-     */
-    public Map<String, List<String>> getResponseHeaders() {
-        return responseHeaders;
-    }
+	public int getStatusCode() {
+		return statusCode;
+	}
 
-    /**
-     * Get the HTTP response body.
-     *
-     * @return Response body in the form of string
-     */
-    public String getResponseBody() {
-        return responseBody;
-    }
+	public void setStatusCode(int code) {
+		this.statusCode = code;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getRedirectURL() {
+		return redirectURL;
+	}
+
+	public void setRedirectURL(String redirectURL) {
+		this.redirectURL = redirectURL;
+	}
+
+	public String getClientId() {
+		return clientId;
+	}
+
+	public void setClientId(String clientId) {
+		this.clientId = clientId;
+	}
+
 }

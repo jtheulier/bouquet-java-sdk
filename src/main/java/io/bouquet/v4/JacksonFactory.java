@@ -34,6 +34,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
@@ -58,6 +59,8 @@ public class JacksonFactory extends GsonFactory implements JsonFactory {
 		module.addDeserializer(DateTime.class, new DateTimeTypeDeserializer());
 		module.addSerializer(Date.class, new DateTypeSerializer(apiClient));
 		module.addDeserializer(Date.class, new DateTypeDeserializer(apiClient));
+		module.addDeserializer(ApiException.class,
+				new ApiExceptionDeserializer());
 		objectMapper.registerModule(module);
 	}
 
@@ -233,4 +236,32 @@ class LocalDateTypeDeserializer extends JsonDeserializer<LocalDate> {
 
 		}
 	}
+}
+
+class ApiExceptionDeserializer extends JsonDeserializer<ApiException> {
+
+	@Override
+	public ApiException deserialize(JsonParser jp, DeserializationContext ctxt)
+			throws IOException, JsonProcessingException {
+		JsonNode studyNode = jp.readValueAsTree();
+		String message = studyNode.get("error").asText();
+		int code = studyNode.get("code").asInt();
+		ApiException ae = new ApiException(code, message);
+		JsonNode node = studyNode.get("redirectURL");
+		if (node != null) {
+			ae.setRedirectURL(node.asText());
+		}
+		node = studyNode.get("clientId");
+		if (node != null) {
+			ae.setClientId(node.asText());
+		}
+		node = studyNode.get("type");
+		if (node != null) {
+			ae.setType(node.asText());
+		}
+
+		return ae;
+
+	}
+
 }
