@@ -43,6 +43,8 @@ import com.squid.kraken.v4.model.ExpressionSuggestion;
 import com.squid.kraken.v4.model.Facet;
 import com.squid.kraken.v4.model.FacetSelection;
 import com.squid.kraken.v4.model.Metric;
+import com.squid.kraken.v4.model.MyBookmarkSelection;
+import com.squid.kraken.v4.model.MyBookmarkSelectionPK;
 import com.squid.kraken.v4.model.Project;
 import com.squid.kraken.v4.model.ProjectAnalysisJob;
 import com.squid.kraken.v4.model.ProjectFacetJob;
@@ -66,7 +68,7 @@ import io.bouquet.v4.client.LoginConfiguration;
  * groups & projects Handle authentication through JWT token. To get a JWT
  * private key, you have to generate a new Client. With this JWT private key you
  * can connect to OpenBouquet server to request an access token for a given user
- * 
+ *
  * @author jtheulier
  *
  */
@@ -131,7 +133,7 @@ public class ModelApi extends BaseApi {
 	public DatabaseInfo getDatabaseStatus(String projectId,
 			final ProgressResponseBody.ProgressListener progressListener,
 			final ProgressRequestBody.ProgressRequestListener progressRequestListener)
-			throws ApiException {
+					throws ApiException {
 		Object localVarPostBody = null;
 
 		// verify the required parameter 'projectId' is set
@@ -167,20 +169,20 @@ public class ModelApi extends BaseApi {
 
 		if (progressListener != null) {
 			getApiClient().getHttpClient().networkInterceptors()
-					.add(new com.squareup.okhttp.Interceptor() {
-						@Override
-						public com.squareup.okhttp.Response intercept(
-								com.squareup.okhttp.Interceptor.Chain chain)
+			.add(new com.squareup.okhttp.Interceptor() {
+				@Override
+				public com.squareup.okhttp.Response intercept(
+						com.squareup.okhttp.Interceptor.Chain chain)
 								throws IOException {
-							com.squareup.okhttp.Response originalResponse = chain
-									.proceed(chain.request());
-							return originalResponse.newBuilder()
-									.body(new ProgressResponseBody(
-											originalResponse.body(),
-											progressListener))
-									.build();
-						}
-					});
+					com.squareup.okhttp.Response originalResponse = chain
+							.proceed(chain.request());
+					return originalResponse.newBuilder()
+							.body(new ProgressResponseBody(
+									originalResponse.body(),
+									progressListener))
+							.build();
+				}
+			});
 		}
 
 		String[] localVarAuthNames = new String[]{"kraken_auth"};
@@ -606,7 +608,7 @@ public class ModelApi extends BaseApi {
 	 */
 	public ExpressionSuggestion validateProjectConnection(String url,
 			String username, String password, String projectId)
-			throws ApiException {
+					throws ApiException {
 		Object localVarPostBody = null;
 
 		// create path and map variables
@@ -619,7 +621,7 @@ public class ModelApi extends BaseApi {
 		Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
 		localVarQueryParams
-				.addAll(getApiClient().parameterToPairs("", "url", url));
+		.addAll(getApiClient().parameterToPairs("", "url", url));
 
 		localVarQueryParams.addAll(
 				getApiClient().parameterToPairs("", "username", username));
@@ -1013,7 +1015,7 @@ public class ModelApi extends BaseApi {
 	public ProjectAnalysisJob putAnalysisJob(String projectId,
 			ProjectAnalysisJob body, Integer timeout, Integer maxResults,
 			Integer startIndex, Boolean lazy, String format, String compression)
-			throws ApiException {
+					throws ApiException {
 		Object localVarPostBody = body;
 
 		// verify the required parameter 'projectId' is set
@@ -1047,7 +1049,7 @@ public class ModelApi extends BaseApi {
 		}
 		if (lazy != null) {
 			localVarQueryParams
-					.addAll(getApiClient().parameterToPairs("", "lazy", lazy));
+			.addAll(getApiClient().parameterToPairs("", "lazy", lazy));
 		}
 		if (format != null) {
 			localVarQueryParams.addAll(
@@ -1093,7 +1095,7 @@ public class ModelApi extends BaseApi {
 	public ProjectAnalysisJob setAnalysisJob(String projectId,
 			ProjectAnalysisJob body, Integer timeout, Integer maxResults,
 			Integer startIndex, Boolean lazy, String format, String compression)
-			throws ApiException {
+					throws ApiException {
 		Object localVarPostBody = body;
 
 		// verify the required parameter 'projectId' is set
@@ -1123,10 +1125,10 @@ public class ModelApi extends BaseApi {
 				getApiClient().parameterToPairs("", "startIndex", startIndex));
 
 		localVarQueryParams
-				.addAll(getApiClient().parameterToPairs("", "lazy", lazy));
+		.addAll(getApiClient().parameterToPairs("", "lazy", lazy));
 
 		localVarQueryParams
-				.addAll(getApiClient().parameterToPairs("", "format", format));
+		.addAll(getApiClient().parameterToPairs("", "format", format));
 
 		localVarQueryParams.addAll(getApiClient().parameterToPairs("",
 				"compression", compression));
@@ -1281,7 +1283,7 @@ public class ModelApi extends BaseApi {
 	public InputStream getAnalysisJobResultsAsFile(String projectId,
 			String jobId, String ext, Integer timeout, Integer maxResults,
 			Integer startIndex, Boolean lazy, String type, String template)
-			throws ApiException {
+					throws ApiException {
 		Object localVarPostBody = null;
 
 		// verify the required parameter 'projectId' is set
@@ -1331,11 +1333,11 @@ public class ModelApi extends BaseApi {
 		}
 		if (lazy != null) {
 			localVarQueryParams
-					.addAll(getApiClient().parameterToPairs("", "lazy", lazy));
+			.addAll(getApiClient().parameterToPairs("", "lazy", lazy));
 		}
 		if (type != null) {
 			localVarQueryParams
-					.addAll(getApiClient().parameterToPairs("", "type", type));
+			.addAll(getApiClient().parameterToPairs("", "type", type));
 		}
 		if (template != null) {
 			localVarQueryParams.addAll(
@@ -1417,7 +1419,7 @@ public class ModelApi extends BaseApi {
 		Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
 		localVarQueryParams
-				.addAll(getApiClient().parameterToPairs("", "lazy", lazy));
+		.addAll(getApiClient().parameterToPairs("", "lazy", lazy));
 
 		if (timeout != null) {
 			localVarFormParams.put("timeout", timeout);
@@ -1517,11 +1519,11 @@ public class ModelApi extends BaseApi {
 		}
 		if (lazy != null) {
 			localVarQueryParams
-					.addAll(getApiClient().parameterToPairs("", "lazy", lazy));
+			.addAll(getApiClient().parameterToPairs("", "lazy", lazy));
 		}
 		if (type != null) {
 			localVarQueryParams
-					.addAll(getApiClient().parameterToPairs("", "type", type));
+			.addAll(getApiClient().parameterToPairs("", "type", type));
 		}
 		if (template != null) {
 			localVarQueryParams.addAll(
@@ -1566,7 +1568,7 @@ public class ModelApi extends BaseApi {
 	public Object getAnalysisJobResults(String projectId, String jobId,
 			Integer timeout, Integer maxResults, Integer startIndex,
 			Boolean lazy, String format, String compression)
-			throws ApiException {
+					throws ApiException {
 		Object localVarPostBody = null;
 
 		// verify the required parameter 'projectId' is set
@@ -1608,7 +1610,7 @@ public class ModelApi extends BaseApi {
 		}
 		if (lazy != null) {
 			localVarQueryParams
-					.addAll(getApiClient().parameterToPairs("", "lazy", lazy));
+			.addAll(getApiClient().parameterToPairs("", "lazy", lazy));
 		}
 		if (format != null) {
 			localVarQueryParams.addAll(
@@ -1771,7 +1773,7 @@ public class ModelApi extends BaseApi {
 				getApiClient().parameterToPairs("", "expression", expression));
 
 		localVarQueryParams
-				.addAll(getApiClient().parameterToPairs("", "offset", offset));
+		.addAll(getApiClient().parameterToPairs("", "offset", offset));
 		String[] localVarAuthNames = new String[]{"kraken_auth"};
 
 		Type localVarReturnType = new TypeToken<ExpressionSuggestion>() {
@@ -2532,7 +2534,7 @@ public class ModelApi extends BaseApi {
 	 * Updates an Attribute
 	 *
 	 * - * @param body the atrtibute to update
-	 * 
+	 *
 	 * @return Attribute
 	 * @throws ApiException
 	 *             if fails to make API call
@@ -2870,7 +2872,7 @@ public class ModelApi extends BaseApi {
 	 * Updates an DimensionOption
 	 *
 	 * - * @param body the atrtibute to update
-	 * 
+	 *
 	 * @return DimensionOption
 	 * @throws ApiException
 	 *             if fails to make API call
@@ -3829,7 +3831,7 @@ public class ModelApi extends BaseApi {
 				getApiClient().parameterToPairs("", "startIndex", startIndex));
 
 		localVarQueryParams
-				.addAll(getApiClient().parameterToPairs("", "format", format));
+		.addAll(getApiClient().parameterToPairs("", "format", format));
 
 		localVarQueryParams.addAll(getApiClient().parameterToPairs("",
 				"compression", compression));
@@ -3900,7 +3902,7 @@ public class ModelApi extends BaseApi {
 		Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
 		localVarQueryParams
-				.addAll(getApiClient().parameterToPairs("", "filter", filter));
+		.addAll(getApiClient().parameterToPairs("", "filter", filter));
 
 		localVarQueryParams.addAll(
 				getApiClient().parameterToPairs("", "timeout", timeout));
@@ -4144,7 +4146,7 @@ public class ModelApi extends BaseApi {
 				getApiClient().parameterToPairs("", "expression", expression));
 
 		localVarQueryParams
-				.addAll(getApiClient().parameterToPairs("", "offset", offset));
+		.addAll(getApiClient().parameterToPairs("", "offset", offset));
 		String[] localVarAuthNames = new String[]{"kraken_auth"};
 
 		Type localVarReturnType = new TypeToken<ExpressionSuggestion>() {
@@ -5221,9 +5223,9 @@ public class ModelApi extends BaseApi {
 		localVarQueryParams.addAll(
 				getApiClient().parameterToPairs("", "clientId", clientId));
 		localVarQueryParams
-				.addAll(getApiClient().parameterToPairs("", "email", email));
+		.addAll(getApiClient().parameterToPairs("", "email", email));
 		localVarQueryParams
-				.addAll(getApiClient().parameterToPairs("", "lang", lang));
+		.addAll(getApiClient().parameterToPairs("", "lang", lang));
 		localVarQueryParams.addAll(
 				getApiClient().parameterToPairs("", "link_url", linkUrl));
 
@@ -5276,9 +5278,9 @@ public class ModelApi extends BaseApi {
 		localVarQueryParams.addAll(
 				getApiClient().parameterToPairs("", "clientId", clientId));
 		localVarQueryParams
-				.addAll(getApiClient().parameterToPairs("", "email", email));
+		.addAll(getApiClient().parameterToPairs("", "email", email));
 		localVarQueryParams
-				.addAll(getApiClient().parameterToPairs("", "lang", lang));
+		.addAll(getApiClient().parameterToPairs("", "lang", lang));
 		localVarQueryParams.addAll(
 				getApiClient().parameterToPairs("", "link_url", linkUrl));
 
@@ -5485,5 +5487,190 @@ public class ModelApi extends BaseApi {
 				id.getApiUri(true), null);
 
 	}
+
+	/**
+	 * Deletes a MyBookmarkSelection
+	 *
+	 * @param internalJobId
+	 * @return Boolean
+	 * @throws ApiException
+	 *             if fails to make API call
+	 */
+	public Boolean deleteMyBookmarkSelection(String internalJobId) throws ApiException {
+		Object localVarPostBody = null;
+
+		// verify the required parameter 'internalJobId' is set
+		if (internalJobId == null) {
+			throw new ApiException(400,
+					"Missing the required parameter 'internalJobId' when calling deleteMyBookmarkSelection");
+		}
+
+		// create path and map variables
+		String localVarPath = "/rs/internalanalysisjobs/{internalJobId}"
+				.replaceAll("\\{format\\}", "json")
+				.replaceAll("\\{" + "internalJobId" + "\\}",
+						getApiClient().escapeString(internalJobId.toString()));
+
+		// query params
+		List<Pair> localVarQueryParams = new ArrayList<Pair>();
+		Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+		Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+		String[] localVarAuthNames = new String[]{"kraken_auth"};
+
+		Type localVarReturnType = new TypeToken<Boolean>() {
+		}.getType();
+
+		Call call = getApiClient().buildCall(localVarPath, "DELETE",
+				localVarQueryParams, localVarPostBody, localVarHeaderParams,
+				localVarFormParams, localVarAuthNames, null);
+		ApiResponse<Boolean> resp = getApiClient().execute(call,
+				localVarReturnType);
+		return resp.getData();
+
+	}
+
+	/**
+	 * Gets a MyBookmarkSelection
+	 *
+	 * @param projectId
+	 * @param MyBookmarkSelectionId
+	 * @param deepread
+	 * @return MyBookmarkSelection
+	 * @throws ApiException
+	 *             if fails to make API call
+	 */
+	public MyBookmarkSelection getMyBookmarkSelection(String projectId, String bookmarkId, String MyBookmarkSelectionId,
+			Boolean deepread) throws ApiException {
+		Object localVarPostBody = null;
+
+		// verify the required parameter 'projectId' is set
+		if (projectId == null) {
+			throw new ApiException(400,
+					"Missing the required parameter 'projectId' when calling getMyBookmarkSelection");
+		}
+
+		// verify the required parameter 'MyBookmarkSelectionId' is set
+		if (MyBookmarkSelectionId == null) {
+			throw new ApiException(400,
+					"Missing the required parameter 'MyBookmarkSelectionId' when calling getMyBookmarkSelection");
+		}
+
+		// create path and map variables
+		String localVarPath = "/rs/projects/{projectId}/MyBookmarkSelections/{MyBookmarkSelectionId}"
+				.replaceAll("\\{format\\}", "json")
+				.replaceAll("\\{" + "projectId" + "\\}",
+						getApiClient().escapeString(projectId.toString()))
+				.replaceAll("\\{" + "MyBookmarkSelectionId" + "\\}",
+						getApiClient().escapeString(MyBookmarkSelectionId.toString()));
+
+		// query params
+		List<Pair> localVarQueryParams = new ArrayList<Pair>();
+		Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+		Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+		localVarQueryParams.addAll(
+				getApiClient().parameterToPairs("", "deepread", deepread));
+		String[] localVarAuthNames = new String[]{"kraken_auth"};
+
+		Type localVarReturnType = new TypeToken<MyBookmarkSelection>() {
+		}.getType();
+
+		Call call = getApiClient().buildCall(localVarPath, "GET",
+				localVarQueryParams, localVarPostBody, localVarHeaderParams,
+				localVarFormParams, localVarAuthNames, null);
+		ApiResponse<MyBookmarkSelection> resp = getApiClient().execute(call,
+				localVarReturnType);
+		return resp.getData();
+
+	}
+
+	/**
+	 * Updates a MyBookmarkSelection
+	 *
+	 * @param body
+	 *            the MyBookmarkSelection to update
+	 * @return MyBookmarkSelection
+	 * @throws ApiException
+	 *             if fails to make API call
+	 */
+	public MyBookmarkSelection updateMyBookmarkSelection(MyBookmarkSelection body) throws ApiException {
+		return getApiClient().callApi(ApiClient.Method.PUT,
+				body.getId().getApiUri(false), body);
+	}
+
+	/**
+	 * Get all MyBookmarkSelections for the Project
+	 *
+	 * @param projectId
+	 * @return List<InlineResponse200>
+	 * @throws ApiException
+	 *             if fails to make API call
+	 */
+	public List<MyBookmarkSelection> getMyBookmarkSelections(String projectId, String bookmarkId) throws ApiException {
+		Object localVarPostBody = null;
+
+		// verify the required parameter 'projectId' is set
+		if (projectId == null) {
+			throw new ApiException(400,
+					"Missing the required parameter 'projectId' when calling getMyBookmarkSelections");
+		}
+
+		// create path and map variables
+		String localVarPath = "/rs/projects/{projectId}/bookmarks/{bookmarkId}/myselections"
+				.replaceAll("\\{format\\}", "json")
+				.replaceAll("\\{" + "projectId" + "\\}",
+						getApiClient().escapeString(projectId.toString()))
+				.replaceAll("\\{" + "bookmarkId" + "\\}",
+						getApiClient().escapeString(bookmarkId.toString()));
+
+		// query params
+		List<Pair> localVarQueryParams = new ArrayList<Pair>();
+		Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+		Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+		String[] localVarAuthNames = new String[]{"kraken_auth"};
+		Type localVarReturnType = new TypeToken<List<MyBookmarkSelection>>() {
+		}.getType();
+
+		Call call = getApiClient().buildCall(localVarPath, "GET",
+				localVarQueryParams, localVarPostBody, localVarHeaderParams,
+				localVarFormParams, localVarAuthNames, null);
+		ApiResponse<List<MyBookmarkSelection>> resp = getApiClient().execute(call,
+				localVarReturnType);
+		return resp.getData();
+
+	}
+
+	/**
+	 * Creates a MyBookmarkSelection, if MyBookmarkSelection's oid is set, it will be created under
+	 * this id
+	 *
+	 * @param projectId
+	 * @param MyBookmarkSelectionId
+	 * @param body
+	 * @return MyBookmarkSelection
+	 * @throws ApiException
+	 *             if fails to make API call
+	 */
+	public MyBookmarkSelection setMyBookmarkSelection(String projectId, String bookmarkId, MyBookmarkSelection body)
+			throws ApiException {
+		return getApiClient().callApi(ApiClient.Method.POST,
+				body.getId().getApiUri(false), body);
+	}
+
+	/**
+	 * Deletes a MyBookmarkSelection
+	 *
+	 * @param projectId
+	 * @param MyBookmarkSelectionId
+	 * @return Boolean
+	 * @throws ApiException
+	 *             if fails to make API call
+	 */
+	public Boolean deleteMyBookmarkSelection(MyBookmarkSelectionPK id) throws ApiException {
+		return getApiClient().callApi(ApiClient.Method.DELETE,
+				id.getApiUri(true), null);
+
+	}
+
 
 }

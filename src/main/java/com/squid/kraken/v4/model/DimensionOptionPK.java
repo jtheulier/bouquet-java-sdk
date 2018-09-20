@@ -22,7 +22,7 @@ import io.bouquet.v4.client.APIUtils;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * AttributePK
+ * DimensionOptionPK
  */
 
 public class DimensionOptionPK extends DimensionPK  {
