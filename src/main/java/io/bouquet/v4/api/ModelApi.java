@@ -2087,7 +2087,7 @@ public class ModelApi extends BaseApi {
 
 		if (refresh != null) {
 			localVarQueryParams.addAll(
-					getApiClient().parameterToPairs("", "type", refresh));
+					getApiClient().parameterToPairs("", "method", refresh));
 		}
 
 		Type localVarReturnType = new TypeToken<CacheInfo>() {
@@ -3997,7 +3997,7 @@ public class ModelApi extends BaseApi {
 
 		if (refresh != null) {
 			localVarQueryParams.addAll(
-					getApiClient().parameterToPairs("", "type", refresh));
+					getApiClient().parameterToPairs("", "method", refresh));
 		}
 
 		Type localVarReturnType = new TypeToken<CacheInfo>() {
