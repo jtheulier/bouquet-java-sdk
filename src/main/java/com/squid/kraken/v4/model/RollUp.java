@@ -20,15 +20,21 @@ import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * a Rollup allows to specify which dimension to use for the sub-total level. The dimension is defined by its indice in the analysis job, starting at 0. In order to compute a grand-total, use indice -1. It is also possible to define how to sort sub-total using the position, default to FIRST.
+ * a Rollup allows to specify which dimension to use for the sub-total level.
+ * The dimension is defined by its indice in the analysis job, starting at 0. In
+ * order to compute a grand-total, use indice -1. It is also possible to define
+ * how to sort sub-total using the position, default to FIRST.
  */
 
-public class RollUp extends Base  {
+public class RollUp extends Base {
 	@SerializedName("col")
 	private Integer col = null;
 
+	private boolean complementaryAxes;
+
 	/**
-	 * define how to sort the sub-total, either before the detailled data (FIRST) or after (LAST)
+	 * define how to sort the sub-total, either before the detailled data
+	 * (FIRST) or after (LAST)
 	 */
 	public enum PositionEnum {
 		@SerializedName("FIRST")
@@ -59,6 +65,7 @@ public class RollUp extends Base  {
 
 	/**
 	 * the indice of the dimension to rollup on, or -1 to compute a grand-total.
+	 * 
 	 * @return col
 	 **/
 	@ApiModelProperty(example = "0", value = "the indice of the dimension to rollup on, or -1 to compute a grand-total.")
@@ -76,7 +83,9 @@ public class RollUp extends Base  {
 	}
 
 	/**
-	 * define how to sort the sub-total, either before the detailled data (FIRST) or after (LAST)
+	 * define how to sort the sub-total, either before the detailled data
+	 * (FIRST) or after (LAST)
+	 * 
 	 * @return position
 	 **/
 	@ApiModelProperty(example = "FIRST", value = "define how to sort the sub-total, either before the detailled data (FIRST) or after (LAST)")
@@ -88,5 +97,12 @@ public class RollUp extends Base  {
 		this.position = position;
 	}
 
-}
+	public boolean isComplementaryAxes() {
+		return complementaryAxes;
+	}
 
+	public void setComplementaryAxes(boolean complementaryAxes) {
+		this.complementaryAxes = complementaryAxes;
+	}
+
+}

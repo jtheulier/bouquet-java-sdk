@@ -15,7 +15,6 @@
  *******************************************************************************/
 package com.squid.kraken.v4.model;
 
-import java.beans.Expression;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,6 +55,7 @@ public class Attribute extends VersionedBase<AttributePK> {
 
 	/**
 	 * The ACL for this object
+	 * 
 	 * @return accessRights
 	 **/
 	@ApiModelProperty(example = "null", value = "The ACL for this object")
@@ -74,6 +74,7 @@ public class Attribute extends VersionedBase<AttributePK> {
 
 	/**
 	 * Get description
+	 * 
 	 * @return description
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -92,6 +93,7 @@ public class Attribute extends VersionedBase<AttributePK> {
 
 	/**
 	 * Get expression
+	 * 
 	 * @return expression
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -104,7 +106,6 @@ public class Attribute extends VersionedBase<AttributePK> {
 	}
 
 	/**
-	 * Get objectType
 	 * @return objectType
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -119,6 +120,7 @@ public class Attribute extends VersionedBase<AttributePK> {
 
 	/**
 	 * Get name
+	 * 
 	 * @return name
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -131,4 +133,3 @@ public class Attribute extends VersionedBase<AttributePK> {
 	}
 
 }
-

@@ -15,7 +15,6 @@
  *******************************************************************************/
 package com.squid.kraken.v4.model;
 
-import java.beans.Expression;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -108,7 +107,6 @@ public class Relation extends DynamicObject<RelationPK> {
 	@SerializedName("objectType")
 	private String objectType = null;
 
-
 	@SerializedName("name")
 	private String name = null;
 
@@ -124,6 +122,7 @@ public class Relation extends DynamicObject<RelationPK> {
 
 	/**
 	 * The ACL for this object
+	 * 
 	 * @return accessRights
 	 **/
 	@ApiModelProperty(example = "null", value = "The ACL for this object")
@@ -142,6 +141,7 @@ public class Relation extends DynamicObject<RelationPK> {
 
 	/**
 	 * Get description
+	 * 
 	 * @return description
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -160,6 +160,7 @@ public class Relation extends DynamicObject<RelationPK> {
 
 	/**
 	 * Get leftId
+	 * 
 	 * @return leftId
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -178,6 +179,7 @@ public class Relation extends DynamicObject<RelationPK> {
 
 	/**
 	 * Get leftCardinality
+	 * 
 	 * @return leftCardinality
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -196,6 +198,7 @@ public class Relation extends DynamicObject<RelationPK> {
 
 	/**
 	 * Get rightId
+	 * 
 	 * @return rightId
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -214,6 +217,7 @@ public class Relation extends DynamicObject<RelationPK> {
 
 	/**
 	 * Get rightCardinality
+	 * 
 	 * @return rightCardinality
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -232,6 +236,7 @@ public class Relation extends DynamicObject<RelationPK> {
 
 	/**
 	 * Get leftName
+	 * 
 	 * @return leftName
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -250,6 +255,7 @@ public class Relation extends DynamicObject<RelationPK> {
 
 	/**
 	 * Get rightName
+	 * 
 	 * @return rightName
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -268,6 +274,7 @@ public class Relation extends DynamicObject<RelationPK> {
 
 	/**
 	 * Get joinExpression
+	 * 
 	 * @return joinExpression
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -281,6 +288,7 @@ public class Relation extends DynamicObject<RelationPK> {
 
 	/**
 	 * Get objectType
+	 * 
 	 * @return objectType
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -295,6 +303,7 @@ public class Relation extends DynamicObject<RelationPK> {
 
 	/**
 	 * Get name
+	 * 
 	 * @return name
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -307,4 +316,3 @@ public class Relation extends DynamicObject<RelationPK> {
 	}
 
 }
-

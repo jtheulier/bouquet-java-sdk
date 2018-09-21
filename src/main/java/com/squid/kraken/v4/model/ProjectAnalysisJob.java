@@ -91,7 +91,7 @@ public class ProjectAnalysisJob extends VersionedBase<ProjectAnalysisJobPK> {
 	private List<Metric> metricList = new ArrayList<Metric>();
 
 	@SerializedName("facets")
-	private List<Expression> facets = new ArrayList<Expression>();
+	private List<FacetExpression> facets = new ArrayList<FacetExpression>();
 
 	@SerializedName("rollups")
 	private List<RollUp> rollups = new ArrayList<RollUp>();
@@ -125,13 +125,15 @@ public class ProjectAnalysisJob extends VersionedBase<ProjectAnalysisJobPK> {
 		return this;
 	}
 
-	public ProjectAnalysisJob addAccessRightsItem(AccessRight accessRightsItem) {
+	public ProjectAnalysisJob addAccessRightsItem(
+			AccessRight accessRightsItem) {
 		this.accessRights.add(accessRightsItem);
 		return this;
 	}
 
 	/**
 	 * The ACL for this object
+	 * 
 	 * @return accessRights
 	 **/
 	@ApiModelProperty(example = "null", value = "The ACL for this object")
@@ -145,6 +147,7 @@ public class ProjectAnalysisJob extends VersionedBase<ProjectAnalysisJobPK> {
 
 	/**
 	 * Get status
+	 * 
 	 * @return status
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -159,6 +162,7 @@ public class ProjectAnalysisJob extends VersionedBase<ProjectAnalysisJobPK> {
 
 	/**
 	 * Get error
+	 * 
 	 * @return error
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -177,6 +181,7 @@ public class ProjectAnalysisJob extends VersionedBase<ProjectAnalysisJobPK> {
 
 	/**
 	 * Get statistics
+	 * 
 	 * @return statistics
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -190,6 +195,7 @@ public class ProjectAnalysisJob extends VersionedBase<ProjectAnalysisJobPK> {
 
 	/**
 	 * Get resultsSize
+	 * 
 	 * @return resultsSize
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -204,6 +210,7 @@ public class ProjectAnalysisJob extends VersionedBase<ProjectAnalysisJobPK> {
 
 	/**
 	 * Get temporary
+	 * 
 	 * @return temporary
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -222,6 +229,7 @@ public class ProjectAnalysisJob extends VersionedBase<ProjectAnalysisJobPK> {
 
 	/**
 	 * Get autoRun
+	 * 
 	 * @return autoRun
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -235,6 +243,7 @@ public class ProjectAnalysisJob extends VersionedBase<ProjectAnalysisJobPK> {
 
 	/**
 	 * Get creationTime
+	 * 
 	 * @return creationTime
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -254,6 +263,7 @@ public class ProjectAnalysisJob extends VersionedBase<ProjectAnalysisJobPK> {
 
 	/**
 	 * Get domains
+	 * 
 	 * @return domains
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -277,6 +287,7 @@ public class ProjectAnalysisJob extends VersionedBase<ProjectAnalysisJobPK> {
 
 	/**
 	 * Get dimensions
+	 * 
 	 * @return dimensions
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -300,6 +311,7 @@ public class ProjectAnalysisJob extends VersionedBase<ProjectAnalysisJobPK> {
 
 	/**
 	 * Get metrics
+	 * 
 	 * @return metrics
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -323,6 +335,7 @@ public class ProjectAnalysisJob extends VersionedBase<ProjectAnalysisJobPK> {
 
 	/**
 	 * Get metricList
+	 * 
 	 * @return metricList
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -334,26 +347,27 @@ public class ProjectAnalysisJob extends VersionedBase<ProjectAnalysisJobPK> {
 		this.metricList = metricList;
 	}
 
-	public ProjectAnalysisJob facets(List<Expression> facets) {
+	public ProjectAnalysisJob facets(List<FacetExpression> facets) {
 		this.facets = facets;
 		return this;
 	}
 
-	public ProjectAnalysisJob addFacetsItem(Expression facetsItem) {
+	public ProjectAnalysisJob addFacetsItem(FacetExpression facetsItem) {
 		this.facets.add(facetsItem);
 		return this;
 	}
 
 	/**
 	 * Get facets
+	 * 
 	 * @return facets
 	 **/
 	@ApiModelProperty(example = "null", value = "")
-	public List<Expression> getFacets() {
+	public List<FacetExpression> getFacets() {
 		return facets;
 	}
 
-	public void setFacets(List<Expression> facets) {
+	public void setFacets(List<FacetExpression> facets) {
 		this.facets = facets;
 	}
 
@@ -368,7 +382,15 @@ public class ProjectAnalysisJob extends VersionedBase<ProjectAnalysisJobPK> {
 	}
 
 	/**
-	 * compute rollup on the given dimensions. It is a list of indices that references the dimension in either dimensions or facets list. In order to compute a grand-total, use id=-1 (it should be the first in the list). If several levels are defined, the analysis will compute sub-total for: (level0), then (level0,level1)... If a rollup is specified, the resulting DataTable will have a new column 'GROUPING_ID' in first position that will return 0 if the row is the grand-total, 1 for the first level sub-total, ... and null if it is not a rollup row.
+	 * compute rollup on the given dimensions. It is a list of indices that
+	 * references the dimension in either dimensions or facets list. In order to
+	 * compute a grand-total, use id=-1 (it should be the first in the list). If
+	 * several levels are defined, the analysis will compute sub-total for:
+	 * (level0), then (level0,level1)... If a rollup is specified, the resulting
+	 * DataTable will have a new column 'GROUPING_ID' in first position that
+	 * will return 0 if the row is the grand-total, 1 for the first level
+	 * sub-total, ... and null if it is not a rollup row.
+	 * 
 	 * @return rollups
 	 **/
 	@ApiModelProperty(example = "null", value = "compute rollup on the given dimensions. It is a list of indices that references the dimension in either dimensions or facets list. In order to compute a grand-total, use id=-1 (it should be the first in the list). If several levels are defined, the analysis will compute sub-total for: (level0), then (level0,level1)... If a rollup is specified, the resulting DataTable will have a new column 'GROUPING_ID' in first position that will return 0 if the row is the grand-total, 1 for the first level sub-total, ... and null if it is not a rollup row.")
@@ -387,6 +409,7 @@ public class ProjectAnalysisJob extends VersionedBase<ProjectAnalysisJobPK> {
 
 	/**
 	 * Get selection
+	 * 
 	 * @return selection
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -410,6 +433,7 @@ public class ProjectAnalysisJob extends VersionedBase<ProjectAnalysisJobPK> {
 
 	/**
 	 * Get orderBy
+	 * 
 	 * @return orderBy
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -428,6 +452,7 @@ public class ProjectAnalysisJob extends VersionedBase<ProjectAnalysisJobPK> {
 
 	/**
 	 * Get offset
+	 * 
 	 * @return offset
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -446,6 +471,7 @@ public class ProjectAnalysisJob extends VersionedBase<ProjectAnalysisJobPK> {
 
 	/**
 	 * Get limit
+	 * 
 	 * @return limit
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -469,6 +495,7 @@ public class ProjectAnalysisJob extends VersionedBase<ProjectAnalysisJobPK> {
 
 	/**
 	 * Get beyondLimit
+	 * 
 	 * @return beyondLimit
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -485,13 +512,15 @@ public class ProjectAnalysisJob extends VersionedBase<ProjectAnalysisJobPK> {
 		return this;
 	}
 
-	public ProjectAnalysisJob putOptionKeysItem(String key, Object optionKeysItem) {
+	public ProjectAnalysisJob putOptionKeysItem(String key,
+			Object optionKeysItem) {
 		this.optionKeys.put(key, optionKeysItem);
 		return this;
 	}
 
 	/**
 	 * Get optionKeys
+	 * 
 	 * @return optionKeys
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -510,6 +539,7 @@ public class ProjectAnalysisJob extends VersionedBase<ProjectAnalysisJobPK> {
 
 	/**
 	 * Get results
+	 * 
 	 * @return results
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -523,6 +553,7 @@ public class ProjectAnalysisJob extends VersionedBase<ProjectAnalysisJobPK> {
 
 	/**
 	 * Get objectType
+	 * 
 	 * @return objectType
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -531,4 +562,3 @@ public class ProjectAnalysisJob extends VersionedBase<ProjectAnalysisJobPK> {
 	}
 
 }
-

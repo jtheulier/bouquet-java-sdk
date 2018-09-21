@@ -26,7 +26,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Facet
  */
 
-public class Facet extends Base   {
+public class Facet extends Base {
 	@SerializedName("items")
 	private List<? extends FacetMember> items = new ArrayList<FacetMember>();
 
@@ -63,6 +63,9 @@ public class Facet extends Base   {
 	@SerializedName("done")
 	private Boolean done = false;
 
+	@SerializedName("dataType")
+	private String dataType;
+
 	public Facet items(List<? extends FacetMember> items) {
 		this.items = items;
 		return this;
@@ -70,6 +73,7 @@ public class Facet extends Base   {
 
 	/**
 	 * Get items
+	 * 
 	 * @return items
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -88,6 +92,7 @@ public class Facet extends Base   {
 
 	/**
 	 * Get selectedItems
+	 * 
 	 * @return selectedItems
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -106,6 +111,7 @@ public class Facet extends Base   {
 
 	/**
 	 * Get dimension
+	 * 
 	 * @return dimension
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -124,6 +130,7 @@ public class Facet extends Base   {
 
 	/**
 	 * Get name
+	 * 
 	 * @return name
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -142,6 +149,7 @@ public class Facet extends Base   {
 
 	/**
 	 * Get id
+	 * 
 	 * @return id
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -160,6 +168,7 @@ public class Facet extends Base   {
 
 	/**
 	 * Get hasMore
+	 * 
 	 * @return hasMore
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -178,6 +187,7 @@ public class Facet extends Base   {
 
 	/**
 	 * Get error
+	 * 
 	 * @return error
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -196,6 +206,7 @@ public class Facet extends Base   {
 
 	/**
 	 * Get errorMessage
+	 * 
 	 * @return errorMessage
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -214,6 +225,7 @@ public class Facet extends Base   {
 
 	/**
 	 * Get proxy
+	 * 
 	 * @return proxy
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -232,6 +244,7 @@ public class Facet extends Base   {
 
 	/**
 	 * Get totalSize
+	 * 
 	 * @return totalSize
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -250,6 +263,7 @@ public class Facet extends Base   {
 
 	/**
 	 * Get compositeName
+	 * 
 	 * @return compositeName
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -268,6 +282,7 @@ public class Facet extends Base   {
 
 	/**
 	 * Get done
+	 * 
 	 * @return done
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -287,8 +302,16 @@ public class Facet extends Base   {
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-		return this.getDimension().getId().equals(((Facet)o).getDimension().getId());
+		return this.getDimension().getId()
+				.equals(((Facet) o).getDimension().getId());
+	}
+
+	public String getDataType() {
+		return dataType;
+	}
+
+	public void setDataType(String dataType) {
+		this.dataType = dataType;
 	}
 
 }
-

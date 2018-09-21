@@ -30,9 +30,6 @@ public class Expression extends Base {
 	@SerializedName("value")
 	private String value = null;
 
-	@SerializedName("name")
-	private String name = null;
-
 	private int level = 0;// level of references (0=no model references, 1=at
 							// least one indirect reference, ...)
 
@@ -45,6 +42,10 @@ public class Expression extends Base {
 	 */
 	@SerializedName("references")
 	private transient List<ReferencePK> references = new ArrayList<ReferencePK>();
+
+	public Expression(String value2) {
+		// TODO Auto-generated constructor stub
+	}
 
 	public Expression value(String value) {
 		this.value = value;
@@ -65,32 +66,11 @@ public class Expression extends Base {
 		this.value = value;
 	}
 
-	public Expression name(String name) {
-		this.name = name;
-		return this;
+	public Expression() {
 	}
 
-	/**
-	 * Get name
-	 * 
-	 * @return name
-	 **/
-	@ApiModelProperty(example = "null", value = "")
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Expression references(List<ReferencePK> references) {
-		this.references = references;
-		return this;
-	}
-
-	public Expression addReferencesItem(ReferencePK referencesItem) {
-		this.references.add(referencesItem);
+	public Expression name(String value) {
+		this.value = value;
 		return this;
 	}
 

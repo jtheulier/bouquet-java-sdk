@@ -155,6 +155,7 @@ public class ApiClient {
 		verifyingSsl = true;
 
 		json = new JacksonFactory(this);
+		// json = new GsonFactory(this);
 
 		/*
 		 * Use RFC3339 format for date and datetime. See
