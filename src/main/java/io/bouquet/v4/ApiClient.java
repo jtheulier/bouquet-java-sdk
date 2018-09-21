@@ -154,8 +154,8 @@ public class ApiClient {
 		httpClient.setWriteTimeout(0, TimeUnit.SECONDS);
 		verifyingSsl = true;
 
-		// json = new JacksonFactory(this);
-		json = new GsonFactory(this);
+		json = new JacksonFactory(this);
+		// json = new GsonFactory(this);
 
 		/*
 		 * Use RFC3339 format for date and datetime. See

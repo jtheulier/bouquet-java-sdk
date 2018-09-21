@@ -39,6 +39,7 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 
 public class JacksonFactory extends GsonFactory implements JsonFactory {
 	ObjectMapper objectMapper = new ObjectMapper();
@@ -96,12 +97,13 @@ public class JacksonFactory extends GsonFactory implements JsonFactory {
 	@SuppressWarnings("unchecked")
 	public <T> T deserialize(String body, Type returnType) {
 		try {
+
 			if (getClient().isLenientOnJson()) {
 				return (T) objectMapper.readValue(new StringReader(body),
 						returnType.getClass());
 			} else {
-				return (T) objectMapper.readValue(body,
-						Class.forName(returnType.getTypeName()));
+				Class classT = TypeFactory.rawClass(returnType);
+				return (T) objectMapper.readValue(body, classT);
 			}
 		} catch (JsonParseException | JsonMappingException e) {
 			// Fallback processing when failed to parse JSON form response body:
@@ -117,10 +119,6 @@ public class JacksonFactory extends GsonFactory implements JsonFactory {
 				e.printStackTrace();
 			return null;
 		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}

@@ -18,7 +18,6 @@ package com.squid.kraken.v4.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.gson.annotations.SerializedName;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -27,7 +26,6 @@ import io.swagger.annotations.ApiModelProperty;
  * Facet
  */
 
-@JsonIgnoreProperties({"dataType"})
 public class Facet extends Base {
 	@SerializedName("items")
 	private List<? extends FacetMember> items = new ArrayList<FacetMember>();
@@ -64,6 +62,9 @@ public class Facet extends Base {
 
 	@SerializedName("done")
 	private Boolean done = false;
+
+	@SerializedName("dataType")
+	private String dataType;
 
 	public Facet items(List<? extends FacetMember> items) {
 		this.items = items;
@@ -303,6 +304,14 @@ public class Facet extends Base {
 		}
 		return this.getDimension().getId()
 				.equals(((Facet) o).getDimension().getId());
+	}
+
+	public String getDataType() {
+		return dataType;
+	}
+
+	public void setDataType(String dataType) {
+		this.dataType = dataType;
 	}
 
 }

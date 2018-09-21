@@ -37,6 +37,7 @@ import com.squid.kraken.v4.model.Domain;
 import com.squid.kraken.v4.model.DomainPK;
 import com.squid.kraken.v4.model.Expression;
 import com.squid.kraken.v4.model.Facet;
+import com.squid.kraken.v4.model.FacetExpression;
 import com.squid.kraken.v4.model.FacetMember;
 import com.squid.kraken.v4.model.FacetMemberInterval;
 import com.squid.kraken.v4.model.FacetSelection;
@@ -301,7 +302,7 @@ public class ClientEngine {
 			domains.add(domain);
 			analysis.setDomains(domains);
 
-			List<Expression> facets = new ArrayList<Expression>();
+			List<FacetExpression> facets = new ArrayList<FacetExpression>();
 			List<String> dims = bookmark.getConfig().getChosenDimensions();
 
 			List<RollUp> rollups = new ArrayList<RollUp>();
@@ -313,7 +314,7 @@ public class ClientEngine {
 				Map<String, String> periods = bookmark.getConfig().getPeriod()
 						.any();
 				if (periods != null) {
-					Expression expression = new Expression();
+					FacetExpression expression = new FacetExpression();
 					Entry<String, String> period = periods.entrySet().iterator()
 							.next();
 					expression.setValue("TO_DATE(" + period.getValue() + ")");
@@ -328,7 +329,7 @@ public class ClientEngine {
 
 			{
 				for (String dim : dims) {
-					Expression expression = new Expression();
+					FacetExpression expression = new FacetExpression();
 					expression.setValue(dim);
 					facets.add(expression);
 				}
