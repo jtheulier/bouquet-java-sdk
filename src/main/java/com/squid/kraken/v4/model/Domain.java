@@ -18,6 +18,7 @@ package com.squid.kraken.v4.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.SerializedName;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -26,7 +27,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Domain
  */
 
-public class Domain extends DynamicObject  {
+public class Domain extends DynamicObject {
 	@SerializedName("id")
 	private DomainPK id = null;
 
@@ -58,6 +59,7 @@ public class Domain extends DynamicObject  {
 	private String objectType = null;
 
 	@SerializedName("_children")
+	@JsonProperty("_children")
 	private List<String> children = new ArrayList<String>();
 
 	@SerializedName("name")
@@ -70,6 +72,7 @@ public class Domain extends DynamicObject  {
 
 	/**
 	 * The object Composite Id (Primary Key)
+	 * 
 	 * @return id
 	 **/
 	@ApiModelProperty(example = "null", value = "The object Composite Id (Primary Key)")
@@ -93,6 +96,7 @@ public class Domain extends DynamicObject  {
 
 	/**
 	 * The ACL for this object
+	 * 
 	 * @return accessRights
 	 **/
 	@ApiModelProperty(example = "null", value = "The ACL for this object")
@@ -111,6 +115,7 @@ public class Domain extends DynamicObject  {
 
 	/**
 	 * Get description
+	 * 
 	 * @return description
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -129,6 +134,7 @@ public class Domain extends DynamicObject  {
 
 	/**
 	 * Get subject
+	 * 
 	 * @return subject
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -147,6 +153,7 @@ public class Domain extends DynamicObject  {
 
 	/**
 	 * Get internalVersion
+	 * 
 	 * @return internalVersion
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -165,6 +172,7 @@ public class Domain extends DynamicObject  {
 
 	/**
 	 * Get options
+	 * 
 	 * @return options
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -188,6 +196,7 @@ public class Domain extends DynamicObject  {
 
 	/**
 	 * Get metrics
+	 * 
 	 * @return metrics
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -211,6 +220,7 @@ public class Domain extends DynamicObject  {
 
 	/**
 	 * Get dimensions
+	 * 
 	 * @return dimensions
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -224,6 +234,7 @@ public class Domain extends DynamicObject  {
 
 	/**
 	 * The Object Id
+	 * 
 	 * @return oid
 	 **/
 	@ApiModelProperty(example = "null", value = "The Object Id")
@@ -233,6 +244,7 @@ public class Domain extends DynamicObject  {
 
 	/**
 	 * Get objectType
+	 * 
 	 * @return objectType
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -252,6 +264,7 @@ public class Domain extends DynamicObject  {
 
 	/**
 	 * Get children
+	 * 
 	 * @return children
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -270,6 +283,7 @@ public class Domain extends DynamicObject  {
 
 	/**
 	 * Get name
+	 * 
 	 * @return name
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -282,4 +296,3 @@ public class Domain extends DynamicObject  {
 	}
 
 }
-
