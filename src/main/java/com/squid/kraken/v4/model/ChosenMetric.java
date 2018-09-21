@@ -23,6 +23,7 @@ public class ChosenMetric extends Base {
 
 	private String id = null;
 	private Expression expression = null;
+	private String name = null;
 
 	public ChosenMetric() {
 	}
@@ -58,5 +59,13 @@ public class ChosenMetric extends Base {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }
