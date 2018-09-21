@@ -15,7 +15,6 @@
  *******************************************************************************/
 package com.squid.kraken.v4.model;
 
-import java.beans.Expression;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +26,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Attribute
  */
 
-public class Attribute extends VersionedBase  {
+public class Attribute extends VersionedBase {
 	@SerializedName("id")
 	private AttributePK id = null;
 
@@ -56,6 +55,7 @@ public class Attribute extends VersionedBase  {
 
 	/**
 	 * The object Composite Id (Primary Key)
+	 * 
 	 * @return id
 	 **/
 	@ApiModelProperty(example = "null", value = "The object Composite Id (Primary Key)")
@@ -79,6 +79,7 @@ public class Attribute extends VersionedBase  {
 
 	/**
 	 * The ACL for this object
+	 * 
 	 * @return accessRights
 	 **/
 	@ApiModelProperty(example = "null", value = "The ACL for this object")
@@ -97,6 +98,7 @@ public class Attribute extends VersionedBase  {
 
 	/**
 	 * Get description
+	 * 
 	 * @return description
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -115,6 +117,7 @@ public class Attribute extends VersionedBase  {
 
 	/**
 	 * Get expression
+	 * 
 	 * @return expression
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -128,6 +131,7 @@ public class Attribute extends VersionedBase  {
 
 	/**
 	 * The Object Id
+	 * 
 	 * @return oid
 	 **/
 	@ApiModelProperty(example = "null", value = "The Object Id")
@@ -137,6 +141,7 @@ public class Attribute extends VersionedBase  {
 
 	/**
 	 * Get objectType
+	 * 
 	 * @return objectType
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -151,6 +156,7 @@ public class Attribute extends VersionedBase  {
 
 	/**
 	 * Get name
+	 * 
 	 * @return name
 	 **/
 	@ApiModelProperty(example = "null", value = "")
@@ -163,4 +169,3 @@ public class Attribute extends VersionedBase  {
 	}
 
 }
-
