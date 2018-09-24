@@ -56,20 +56,17 @@ public class GsonFactory implements JsonFactory {
 	/**
 	 * JSON constructor.
 	 *
-	 * @param getClient()
-	 *            An instance of ApiClient
+	 * @param getClient() An instance of ApiClient
 	 */
 	public GsonFactory(ApiClient apiClient) {
 		this.apiClient = apiClient;
 		JsonDeserializer<ChosenMetric> chosenMetricDeserializer = new JsonDeserializer<ChosenMetric>() {
 			@Override
-			public ChosenMetric deserialize(JsonElement json, Type typeOfT,
-					JsonDeserializationContext context)
+			public ChosenMetric deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
 					throws JsonParseException {
 				if (json.isJsonObject()) {
 					JsonObject jsonObject = json.getAsJsonObject();
-					Expression expression = gson.fromJson(jsonObject,
-							Expression.class);
+					Expression expression = gson.fromJson(jsonObject, Expression.class);
 					return new ChosenMetric(expression);
 				} else {
 					return new ChosenMetric(json.getAsString());
@@ -79,32 +76,26 @@ public class GsonFactory implements JsonFactory {
 		JsonSerializer<ChosenMetric> chosenMetricSerializer = new JsonSerializer<ChosenMetric>() {
 
 			@Override
-			public JsonElement serialize(ChosenMetric src, Type typeOfSrc,
-					JsonSerializationContext context) {
+			public JsonElement serialize(ChosenMetric src, Type typeOfSrc, JsonSerializationContext context) {
 				if (src.getId() != null) {
 					return new JsonPrimitive(src.getId());
 				} else {
-					return context.serialize(src.getExpression(),
-							Expression.class);
+					return context.serialize(src.getExpression(), Expression.class);
 				}
 			}
 
 		};
 		JsonDeserializer<FacetMember> facetMemberDeserializer = new JsonDeserializer<FacetMember>() {
 			@Override
-			public FacetMember deserialize(JsonElement json, Type typeOfT,
-					JsonDeserializationContext context)
+			public FacetMember deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
 					throws JsonParseException {
 				if (json.isJsonObject()) {
 					JsonObject jsonObject = json.getAsJsonObject();
 					if (jsonObject != null) {
 						if ("i".equals(jsonObject.get("type").getAsString())) {
-							return gson.fromJson(jsonObject,
-									FacetMemberInterval.class);
-						} else if ("v"
-								.equals(jsonObject.get("type").getAsString())) {
-							return gson.fromJson(jsonObject,
-									FacetMemberString.class);
+							return gson.fromJson(jsonObject, FacetMemberInterval.class);
+						} else if ("v".equals(jsonObject.get("type").getAsString())) {
+							return gson.fromJson(jsonObject, FacetMemberString.class);
 						} else {
 							// throw new ApiException("Invalid facet type");
 							return null;
@@ -123,8 +114,7 @@ public class GsonFactory implements JsonFactory {
 		JsonSerializer<FacetMember> facetMemberSerializer = new JsonSerializer<FacetMember>() {
 
 			@Override
-			public JsonElement serialize(FacetMember src, Type typeOfSrc,
-					JsonSerializationContext context) {
+			public JsonElement serialize(FacetMember src, Type typeOfSrc, JsonSerializationContext context) {
 				if (src instanceof FacetMemberInterval) {
 					return context.serialize(src, FacetMemberInterval.class);
 				} else if (src instanceof FacetMemberString) {
@@ -138,24 +128,17 @@ public class GsonFactory implements JsonFactory {
 
 		JsonDeserializer<Credentials> credentialsDeserializer = new JsonDeserializer<Credentials>() {
 			@Override
-			public Credentials deserialize(JsonElement json, Type typeOfT,
-					JsonDeserializationContext context)
+			public Credentials deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
 					throws JsonParseException {
 				if (json.isJsonObject()) {
 					JsonObject jsonObject = json.getAsJsonObject();
 					if (jsonObject != null) {
-						if ("API"
-								.equals(jsonObject.get("type").getAsString())) {
-							return gson.fromJson(jsonObject,
-									APICredentials.class);
-						} else if ("DBMS"
-								.equals(jsonObject.get("type").getAsString())) {
-							return gson.fromJson(jsonObject,
-									DBMSCredentials.class);
-						} else if ("REFRESH"
-								.equals(jsonObject.get("type").getAsString())) {
-							return gson.fromJson(jsonObject,
-									Oauth2RefreshCredentials.class);
+						if ("API".equals(jsonObject.get("type").getAsString())) {
+							return gson.fromJson(jsonObject, APICredentials.class);
+						} else if ("DBMS".equals(jsonObject.get("type").getAsString())) {
+							return gson.fromJson(jsonObject, DBMSCredentials.class);
+						} else if ("REFRESH".equals(jsonObject.get("type").getAsString())) {
+							return gson.fromJson(jsonObject, Oauth2RefreshCredentials.class);
 						} else {
 							// throw new ApiException("Invalid facet type");
 							return null;
@@ -175,15 +158,13 @@ public class GsonFactory implements JsonFactory {
 		JsonSerializer<Credentials> credentialsSerializer = new JsonSerializer<Credentials>() {
 
 			@Override
-			public JsonElement serialize(Credentials src, Type typeOfSrc,
-					JsonSerializationContext context) {
+			public JsonElement serialize(Credentials src, Type typeOfSrc, JsonSerializationContext context) {
 				if (src instanceof APICredentials) {
 					return context.serialize(src, APICredentials.class);
 				} else if (src instanceof DBMSCredentials) {
 					return context.serialize(src, DBMSCredentials.class);
 				} else if (src instanceof Oauth2RefreshCredentials) {
-					return context.serialize(src,
-							Oauth2RefreshCredentials.class);
+					return context.serialize(src, Oauth2RefreshCredentials.class);
 				} else {
 					return null;
 				}
@@ -191,26 +172,21 @@ public class GsonFactory implements JsonFactory {
 
 		};
 
-		gson = new GsonBuilder()
-				.registerTypeAdapter(Date.class, new DateAdapter(apiClient))
+		gson = new GsonBuilder().registerTypeAdapter(Date.class, new DateAdapter(apiClient))
 				.registerTypeAdapter(DateTime.class, new DateTimeTypeAdapter())
-				.registerTypeAdapter(LocalDate.class,
-						new LocalDateTypeAdapter())
+				.registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter())
 				.registerTypeAdapter(FacetMember.class, facetMemberDeserializer)
 				.registerTypeAdapter(FacetMember.class, facetMemberSerializer)
-				.registerTypeAdapter(ChosenMetric.class,
-						chosenMetricDeserializer)
+				.registerTypeAdapter(ChosenMetric.class, chosenMetricDeserializer)
 				.registerTypeAdapter(ChosenMetric.class, chosenMetricSerializer)
 				.registerTypeAdapter(Credentials.class, credentialsDeserializer)
-				.registerTypeAdapter(ChosenMetric.class, credentialsSerializer)
-				.create();
+				.registerTypeAdapter(ChosenMetric.class, credentialsSerializer).create();
 	}
 
 	/**
 	 * Serialize the given Java object into JSON string.
 	 *
-	 * @param obj
-	 *            Object
+	 * @param obj Object
 	 * @return String representation of the JSON
 	 */
 	public String serialize(Object obj) {
@@ -220,12 +196,9 @@ public class GsonFactory implements JsonFactory {
 	/**
 	 * Deserialize the given JSON string to Java object.
 	 *
-	 * @param <T>
-	 *            Type
-	 * @param body
-	 *            The JSON string
-	 * @param returnType
-	 *            The type to deserialize inot
+	 * @param            <T> Type
+	 * @param body       The JSON string
+	 * @param returnType The type to deserialize inot
 	 * @return The deserialized Java object
 	 */
 	@SuppressWarnings("unchecked")
@@ -258,6 +231,7 @@ public class GsonFactory implements JsonFactory {
 	public ApiClient getClient() {
 		return apiClient;
 	}
+
 }
 
 /**
@@ -269,8 +243,7 @@ class DateAdapter implements JsonSerializer<Date>, JsonDeserializer<Date> {
 	/**
 	 * Constructor for DateAdapter
 	 *
-	 * @param getClient()
-	 *            Api client
+	 * @param getClient() Api client
 	 */
 	public DateAdapter(ApiClient apiClient) {
 		super();
@@ -280,17 +253,13 @@ class DateAdapter implements JsonSerializer<Date>, JsonDeserializer<Date> {
 	/**
 	 * Serialize
 	 *
-	 * @param src
-	 *            Date
-	 * @param typeOfSrc
-	 *            Type
-	 * @param context
-	 *            Json Serialization Context
+	 * @param src       Date
+	 * @param typeOfSrc Type
+	 * @param context   Json Serialization Context
 	 * @return Json Element
 	 */
 	@Override
-	public JsonElement serialize(Date src, Type typeOfSrc,
-			JsonSerializationContext context) {
+	public JsonElement serialize(Date src, Type typeOfSrc, JsonSerializationContext context) {
 		if (src == null) {
 			return JsonNull.INSTANCE;
 		} else {
@@ -301,20 +270,15 @@ class DateAdapter implements JsonSerializer<Date>, JsonDeserializer<Date> {
 	/**
 	 * Deserialize
 	 *
-	 * @param json
-	 *            Json element
-	 * @param date
-	 *            Type
-	 * @param typeOfSrc
-	 *            Type
-	 * @param context
-	 *            Json Serialization Context
+	 * @param json      Json element
+	 * @param date      Type
+	 * @param typeOfSrc Type
+	 * @param context   Json Serialization Context
 	 * @return Date
 	 * @throw JsonParseException if fail to parse
 	 */
 	@Override
-	public Date deserialize(JsonElement json, Type date,
-			JsonDeserializationContext context) throws JsonParseException {
+	public Date deserialize(JsonElement json, Type date, JsonDeserializationContext context) throws JsonParseException {
 		String str = json.getAsJsonPrimitive().getAsString();
 		try {
 			return apiClient.parseDateOrDatetime(str);
@@ -343,12 +307,12 @@ class DateTimeTypeAdapter extends TypeAdapter<DateTime> {
 	@Override
 	public DateTime read(JsonReader in) throws IOException {
 		switch (in.peek()) {
-			case NULL :
-				in.nextNull();
-				return null;
-			default :
-				String date = in.nextString();
-				return formatter.parseDateTime(date);
+		case NULL:
+			in.nextNull();
+			return null;
+		default:
+			String date = in.nextString();
+			return formatter.parseDateTime(date);
 		}
 	}
 }
@@ -372,12 +336,12 @@ class LocalDateTypeAdapter extends TypeAdapter<LocalDate> {
 	@Override
 	public LocalDate read(JsonReader in) throws IOException {
 		switch (in.peek()) {
-			case NULL :
-				in.nextNull();
-				return null;
-			default :
-				String date = in.nextString();
-				return formatter.parseLocalDate(date);
+		case NULL:
+			in.nextNull();
+			return null;
+		default:
+			String date = in.nextString();
+			return formatter.parseLocalDate(date);
 		}
 	}
 }
@@ -387,8 +351,7 @@ class LocalDateTypeAdapter extends TypeAdapter<LocalDate> {
  */
 class ApiExceptionTypeAdapter extends TypeAdapter<ApiException> {
 	@Override
-	public void write(JsonWriter out, ApiException exception)
-			throws IOException {
+	public void write(JsonWriter out, ApiException exception) throws IOException {
 		;
 	}
 
@@ -402,17 +365,17 @@ class ApiExceptionTypeAdapter extends TypeAdapter<ApiException> {
 		String type = null;
 		while (in.hasNext()) {
 			switch (in.nextName()) {
-				case "code" :
-					code = in.nextInt();
-					break;
-				case "type" :
-					type = in.nextString();
-				case "error" :
-					message = in.nextString();
-				case "redirectURL" :
-					redirectURL = in.nextString();
-				case "clientId" :
-					clientId = in.nextString();
+			case "code":
+				code = in.nextInt();
+				break;
+			case "type":
+				type = in.nextString();
+			case "error":
+				message = in.nextString();
+			case "redirectURL":
+				redirectURL = in.nextString();
+			case "clientId":
+				clientId = in.nextString();
 			}
 		}
 		ApiException ae = new ApiException(code, message);

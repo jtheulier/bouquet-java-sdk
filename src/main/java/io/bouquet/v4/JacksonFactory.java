@@ -17,6 +17,7 @@ package io.bouquet.v4;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.time.format.DateTimeParseException;
 import java.util.Date;
@@ -32,6 +33,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -39,7 +41,13 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.databind.type.TypeFactory;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.squid.kraken.v4.model.ChosenMetric;
+import com.squid.kraken.v4.model.Expression;
 
 public class JacksonFactory extends GsonFactory implements JsonFactory {
 	ObjectMapper objectMapper = new ObjectMapper();
@@ -52,6 +60,40 @@ public class JacksonFactory extends GsonFactory implements JsonFactory {
 	 */
 	public JacksonFactory(ApiClient apiClient) {
 		super(apiClient);
+		//
+		JsonSerializer<ChosenMetric> chosenMetricSerializer = new JsonSerializer<ChosenMetric>() {
+
+			@Override
+			public void serialize(ChosenMetric src, JsonGenerator jgen,
+					SerializerProvider provider)
+					throws IOException, JsonProcessingException {
+				if (src.getId() != null) {
+					jgen.writeString(src.getId());
+				} else {
+					jgen.writeString(objectMapper.writeValueAsString(src.getExpression()));
+				}
+				
+			}
+
+		};
+		//
+		JsonDeserializer<ChosenMetric> chosenMetricDeserializer = new JsonDeserializer<ChosenMetric>() {
+
+			@Override
+			public ChosenMetric deserialize(JsonParser jp,
+					DeserializationContext ctxt)
+					throws IOException, JsonProcessingException {
+				JsonNode metricNode = jp.readValueAsTree();
+				if (metricNode.isObject()) {
+					return new ChosenMetric(objectMapper.readValue(metricNode.asText(), Expression.class));
+
+				} else {
+					return new ChosenMetric(metricNode.toString());
+				}
+			}
+
+		};
+		//
 		SimpleModule module = new SimpleModule();
 		module.addSerializer(LocalDate.class, new LocalDateTypeSerializer());
 		module.addDeserializer(LocalDate.class,
@@ -62,6 +104,9 @@ public class JacksonFactory extends GsonFactory implements JsonFactory {
 		module.addDeserializer(Date.class, new DateTypeDeserializer(apiClient));
 		module.addDeserializer(ApiException.class,
 				new ApiExceptionDeserializer());
+		module.addSerializer(ChosenMetric.class, chosenMetricSerializer);
+		module.addDeserializer(ChosenMetric.class,
+				chosenMetricDeserializer);
 		objectMapper.registerModule(module);
 	}
 
@@ -97,13 +142,22 @@ public class JacksonFactory extends GsonFactory implements JsonFactory {
 	@SuppressWarnings("unchecked")
 	public <T> T deserialize(String body, Type returnType) {
 		try {
+			JavaType javaType = objectMapper.getTypeFactory()
+					.constructType(returnType);
+			if (returnType instanceof ParameterizedType) {
+				Type[] types = ((ParameterizedType) returnType)
+						.getActualTypeArguments();
+				Type type = ((ParameterizedType) returnType).getRawType();
+				javaType = objectMapper.getTypeFactory()
+						.constructParametricType((Class<?>) type,
+								(Class<?>) types[0]);
+			}
 
 			if (getClient().isLenientOnJson()) {
 				return (T) objectMapper.readValue(new StringReader(body),
-						returnType.getClass());
+						javaType);
 			} else {
-				Class classT = TypeFactory.rawClass(returnType);
-				return (T) objectMapper.readValue(body, classT);
+				return (T) objectMapper.readValue(body, javaType);
 			}
 		} catch (JsonParseException | JsonMappingException e) {
 			// Fallback processing when failed to parse JSON form response body:
@@ -123,6 +177,7 @@ public class JacksonFactory extends GsonFactory implements JsonFactory {
 			return null;
 		}
 	}
+
 }
 /**
  * Jackson Adapter for java Util Date type

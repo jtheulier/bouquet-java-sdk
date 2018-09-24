@@ -62,8 +62,7 @@ public class ClientEngine {
 		super();
 	}
 
-	public void writeAnalysisResult(InputStream in, OutputStream out)
-			throws ApiException, IOException, FileNotFoundException {
+	public void writeAnalysisResult(InputStream in, OutputStream out) throws ApiException, IOException, FileNotFoundException {
 		if (in != null && out != null) {
 			try {
 				IOUtils.copy(in, out);
@@ -78,10 +77,7 @@ public class ClientEngine {
 		}
 	}
 
-	public Object getAnalysisJobResults(ModelApi api,
-			ProjectAnalysisJob analysis, Integer timeout, Integer maxResults,
-			Integer startIndex, Boolean lazy, String format, String compression,
-			int maxLoops) throws ApiException {
+	public Object getAnalysisJobResults(ModelApi api, ProjectAnalysisJob analysis, Integer timeout, Integer maxResults, Integer startIndex, Boolean lazy, String format, String compression, int maxLoops) throws ApiException {
 		boolean done = false;
 		int loops = 0;
 		String projectId = null;
@@ -92,21 +88,14 @@ public class ClientEngine {
 			jobId = analysis.getId().getAnalysisJobId();
 			while (!done) {
 				// Launch the execution
-				result = api.getAnalysisJobResults(projectId, jobId, timeout,
-						maxResults, startIndex, lazy, format, compression);
-				ProjectAnalysisJob analysisJob = api.getAnalysisJob(projectId,
-						jobId, null, 10000);
+				result = api.getAnalysisJobResults(projectId, jobId, timeout, maxResults, startIndex, lazy, format, compression);
+				ProjectAnalysisJob analysisJob = api.getAnalysisJob(projectId, jobId, null, 10000);
 				loops++;
-				if (result != null || (analysisJob != null
-						&& analysisJob.getStatus() != null && analysisJob
-								.getStatus() == ProjectAnalysisJob.StatusEnum.DONE)) {
+				if (result != null || (analysisJob != null && analysisJob.getStatus() != null && analysisJob.getStatus() == ProjectAnalysisJob.StatusEnum.DONE)) {
 					done = true;
 					if (result instanceof ApiException) {
-						if (((ApiException) result)
-								.getMessage() == "COMPUTING_IN_PROGRESS") {
-							result = api.getAnalysisJobResults(projectId, jobId,
-									timeout, maxResults, startIndex, lazy,
-									format, compression);
+						if (((ApiException) result).getMessage() == "COMPUTING_IN_PROGRESS") {
+							result = api.getAnalysisJobResults(projectId, jobId, timeout, maxResults, startIndex, lazy, format, compression);
 						}
 					}
 					return result;
@@ -129,9 +118,7 @@ public class ClientEngine {
 		return null;
 	}
 
-	public boolean executeFacetJob(ModelApi api, Domain domain,
-			List<Dimension> dimensions, boolean wait)
-			throws ApiException, InterruptedException {
+	public boolean executeFacetJob(ModelApi api, Domain domain, List<Dimension> dimensions, boolean wait) throws ApiException, InterruptedException {
 		ProjectFacetJob job = new ProjectFacetJob();
 		job.setDomains(Arrays.asList(domain.getId()));
 		ProjectFacetJobPK facetJobId = new ProjectFacetJobPK();
@@ -146,8 +133,7 @@ public class ClientEngine {
 		}
 		if (wait) {
 			int facetsNr = 0;
-			Domain facetsDomain = api.getDomain(domain.getId().getProjectId(),
-					domain.getId().getDomainId(), false);
+			Domain facetsDomain = api.getDomain(domain.getId().getProjectId(), domain.getId().getDomainId(), false);
 			while (retry > 0) {
 				// job = api.getOrStoreFacetJob(domain.getProjectId(),
 				// job.getId().getFacetJobId(), null, null);
@@ -160,42 +146,23 @@ public class ClientEngine {
 						for (Facet facet : remainingFacets) {
 							String facetName = facet.getName();
 							try {
-								facet = api.getFacet(
-										domain.getId().getProjectId(),
-										job.getId().getFacetJobId(),
-										facet.getId(), null, 10, 10, 0);
-								if (facet.isProxy() != null
-										&& facet.isProxy()) {
-									logger.debug("Proxied facet '" + facetName
-											+ "'");
+								facet = api.getFacet(domain.getId().getProjectId(), job.getId().getFacetJobId(), facet.getId(), null, 10, 10, 0);
+								if (facet.isProxy() != null && facet.isProxy()) {
+									logger.debug("Proxied facet '" + facetName + "'");
 									computingFacets.remove(facet);
-								} else if (facet.isError() != null
-										&& facet.isError() == false
-										&& (facet.isDone() == true)) {
-									if (facet.getDimension() != null && facet
-											.getDimension()
-											.getType() == TypeEnum.CATEGORICAL) {
-										logger.debug("Facet '" + facetName
-												+ "' done");
+								} else if (facet.isError() != null && facet.isError() == false && (facet.isDone() == true)) {
+									if (facet.getDimension() != null && facet.getDimension().getType() == TypeEnum.CATEGORICAL) {
+										logger.debug("Facet '" + facetName + "' done");
 									}
 									computingFacets.remove(facet);
-								} else if (facet.isDone() == true
-										&& facet.isHasMore() == false
-										&& facet.isError() == true) {
-									logger.debug("Facet '" + facetName
-											+ "' in error "
-											+ facet.getErrorMessage());
+								} else if (facet.isDone() == true && facet.isHasMore() == false && facet.isError() == true) {
+									logger.debug("Facet '" + facetName + "' in error " + facet.getErrorMessage());
 									computingFacets.remove(facet);
-
 								} else if (retry == 1) {
-									logger.debug("Ongoing processing on facet '"
-											+ facetName + "'");
+									logger.debug("Ongoing processing on facet '" + facetName + "'");
 								}
 							} catch (ApiException ae) {
-								logger.debug(
-										"Error occured while checking facet '"
-												+ facetName + "' :"
-												+ ae.getMessage());
+								logger.debug("Error occured while checking facet '" + facetName + "' :" + ae.getMessage());
 								throw ae;
 							}
 						}
@@ -218,72 +185,48 @@ public class ClientEngine {
 			}
 			if (job.getStatus() != ProjectFacetJob.StatusEnum.DONE) {
 
-				logger.debug("Processing facet job " + job.getStatus()
-						+ " on domain" + facetsDomain.getName());
+				logger.debug("Processing facet job " + job.getStatus() + " on domain" + facetsDomain.getName());
 			} else if (facetsNr > 0) {
-				logger.debug("Leaving facet job processing on domain "
-						+ facetsDomain.getName() + " with " + facetsNr
-						+ " still running");
+				logger.debug("Leaving facet job processing on domain " + facetsDomain.getName() + " with " + facetsNr + " still running");
 			}
 		}
 		return true;
 	}
 
-	public ProjectAnalysisJob buildAnalysisFromBookmark(ModelApi api,
-			Bookmark bookmark, boolean isSummary,
-			ComparePeriod defaultComparePeriod)
-			throws ApiException, InterruptedException {
+	@SuppressWarnings("unchecked")
+	public ProjectAnalysisJob buildAnalysisFromBookmark(ModelApi api, Bookmark bookmark, boolean isSummary, ComparePeriod defaultComparePeriod) throws ApiException, InterruptedException {
 
 		if (bookmark != null) {
 			ProjectAnalysisJob analysis = new ProjectAnalysisJob();
 
-			DomainPK domain = api.getDomain(bookmark.getId().getProjectId(),
-					bookmark.getConfig().getDomain(), false).getId();
+			DomainPK domain = api.getDomain(bookmark.getId().getProjectId(), bookmark.getConfig().getDomain(), false).getId();
 			// executeFacetJob(api, domain, false);
 
 			FacetSelection selection = new FacetSelection();
-			if (bookmark.getConfig() != null
-					&& bookmark.getConfig().getSelection() != null) {
-				selection.setFacets(
-						bookmark.getConfig().getSelection().getFacets());
-				selection.setRootFacets(
-						bookmark.getConfig().getSelection().getRootFacets());
-				selection.setCompareTo(
-						bookmark.getConfig().getSelection().getCompareTo());
+			if (bookmark.getConfig() != null && bookmark.getConfig().getSelection() != null) {
+				selection.setFacets(bookmark.getConfig().getSelection().getFacets());
+				selection.setRootFacets(bookmark.getConfig().getSelection().getRootFacets());
+				selection.setCompareTo(bookmark.getConfig().getSelection().getCompareTo());
 			}
-			if ((selection.getCompareTo() == null
-					|| selection.getCompareTo().size() == 0)
-					&& defaultComparePeriod != ComparePeriod.__NONE
-					&& bookmark.getConfig().getPeriod() != null) {
-				if (bookmark.getConfig().getPeriod().any() != null
-						&& bookmark.getConfig().getPeriod().any().size() == 1) {
+			if ((selection.getCompareTo() == null || selection.getCompareTo().size() == 0) && defaultComparePeriod != ComparePeriod.__NONE && bookmark.getConfig().getPeriod() != null) {
+				if (bookmark.getConfig().getPeriod().any() != null && bookmark.getConfig().getPeriod().any().size() == 1) {
 					FacetMemberInterval compare = new FacetMemberInterval();
 					compare.setType("i");
 					compare.setLowerBound(defaultComparePeriod.toString());
 					compare.setUpperBound(defaultComparePeriod.toString());
 					Facet facet = new Facet();
-					Dimension dim = api
-							.getDimension(bookmark.getId().getProjectId(),
-									bookmark.getConfig().getDomain(),
-									APIUtils.splitDomainObject(bookmark
-											.getConfig().getPeriod().any()
-											.values().iterator().next())[1],
-									true);
+					Dimension dim = api.getDimension(bookmark.getId().getProjectId(), bookmark.getConfig().getDomain(), APIUtils.splitDomainObject(bookmark.getConfig().getPeriod().any().values().iterator().next())[1], true);
 					facet.setDimension(dim);
 					facet.setName(dim.getName());
-					facet.setId("@'" + bookmark.getConfig().getDomain() + "'.@'"
-							+ dim.getOid() + "'");
-					facet.setSelectedItems(
-							new ArrayList<FacetMember>(Arrays.asList(compare)));
+					facet.setId("@'" + bookmark.getConfig().getDomain() + "'.@'" + dim.getOid() + "'");
+					facet.setSelectedItems(new ArrayList<FacetMember>(Arrays.asList(compare)));
 					facet.setError(false);
 					facet.setHasMore(false);
 					facet.setDone(true);
-					selection.setCompareTo(
-							new ArrayList<Facet>(Arrays.asList(facet)));
+					selection.setCompareTo(new ArrayList<Facet>(Arrays.asList(facet)));
 				}
 			}
-			if (selection.getCompareTo() != null
-					&& selection.getCompareTo().size() > 0)
+			if (selection.getCompareTo() != null && selection.getCompareTo().size() > 0)
 
 			{
 				analysis.setOptionKeys(new HashMap<String, Object>() {
@@ -307,16 +250,13 @@ public class ClientEngine {
 
 			List<RollUp> rollups = new ArrayList<RollUp>();
 			List<OrderBy> orderBys = new ArrayList<OrderBy>();
-			if ("timeAnalysis".equals(bookmark.getConfig().getCurrentAnalysis())
-					&& bookmark.getConfig().getPeriod() != null)
+			if ("timeAnalysis".equals(bookmark.getConfig().getCurrentAnalysis()) && bookmark.getConfig().getPeriod() != null)
 
 			{
-				Map<String, String> periods = bookmark.getConfig().getPeriod()
-						.any();
+				Map<String, String> periods = bookmark.getConfig().getPeriod().any();
 				if (periods != null) {
 					FacetExpression expression = new FacetExpression();
-					Entry<String, String> period = periods.entrySet().iterator()
-							.next();
+					Entry<String, String> period = periods.entrySet().iterator().next();
 					expression.setValue("TO_DATE(" + period.getValue() + ")");
 					facets.add(expression);
 					OrderBy timeOrder = new OrderBy();
@@ -346,8 +286,7 @@ public class ClientEngine {
 
 			{
 				for (OrderBy orderBy : bookmarkOrderBys) {
-					if (orderBy.getCol() != null
-							|| orderBy.getExpression().getValue() != null) {
+					if (orderBy.getCol() != null || orderBy.getExpression().getValue() != null) {
 						orderBys.add(orderBy);
 					}
 				}
@@ -362,16 +301,15 @@ public class ClientEngine {
 			if (isSummary)
 
 			{
-
+				if (bookmark.getConfig().getConfig() != null && bookmark.getConfig().getConfig().containsKey("kpiMetrics")) {
+					mets = (List<String>) bookmark.getConfig().getConfig().get("kpiMetrics");
+				}
 				if (mets != null) {
 					for (String met : mets) {
 						if (met != null) {
-							Metric metric = api.getMetric(
-									bookmark.getId().getProjectId(),
-									domain.getDomainId(), met, false);
+							Metric metric = api.getMetric(bookmark.getId().getProjectId(), domain.getDomainId(), met, false);
 							if (metric == null) {
-								throw new ApiException(
-										"Invalid metric Id " + met);
+								throw new ApiException("Invalid metric Id " + met);
 							}
 							metric.getAccessRights().clear();
 							metrics.add(metric);
@@ -383,14 +321,13 @@ public class ClientEngine {
 					private static final long serialVersionUID = -3511263422949970083L;
 					{
 						put("formatResults", true);
-						put("computeGrowth", false);
+						put("computeGrowth", true);
 					}
 				});
 			} else {
 				analysis.setOrderBy(orderBys);
 				analysis.setRollups(rollups);
-				List<ChosenMetric> choosens = bookmark.getConfig()
-						.getChosenMetrics();
+				List<ChosenMetric> choosens = bookmark.getConfig().getChosenMetrics();
 				if (mets == null) {
 					mets = new ArrayList<String>();
 					for (ChosenMetric choosen : choosens) {
@@ -401,28 +338,21 @@ public class ClientEngine {
 					for (String met : mets) {
 						for (ChosenMetric choosen : choosens) {
 							if (met.equals(choosen.getId())) {
-								if (choosen.getId() != null
-										&& choosen.getId().indexOf("@") == -1) {
-									Metric metric = api.getMetric(
-											bookmark.getId().getProjectId(),
-											domain.getDomainId(),
-											choosen.getId(), false);
+								if (choosen.getId() != null && choosen.getId().indexOf("@") == -1) {
+									Metric metric = api.getMetric(bookmark.getId().getProjectId(), domain.getDomainId(), choosen.getId(), false);
 									if (metric == null) {
-										throw new ApiException(
-												"Invalid metric Id " + met);
+										throw new ApiException("Invalid metric Id " + met);
 									}
 									metric.getAccessRights().clear();
 									metrics.add(metric);
 								} else if (choosen.getId() != null) {
 									Metric metric = new Metric();
-									metric.setExpression(new Expression()
-											.value(choosen.getId()));
+									metric.setExpression(new Expression().value(choosen.getId()));
 									metric.setDynamic(false);
 									metrics.add(metric);
 								} else if (choosen.getExpression() != null) {
 									Metric metric = new Metric();
-									metric.setExpression(
-											choosen.getExpression());
+									metric.setExpression(choosen.getExpression());
 									metric.setDynamic(false);
 									metrics.add(metric);
 								}

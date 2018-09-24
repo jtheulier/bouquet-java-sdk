@@ -7,4 +7,5 @@ public interface JsonFactory {
 	public String serialize(Object obj);
 
 	public <T> T deserialize(String body, Type returnType);
+
 }

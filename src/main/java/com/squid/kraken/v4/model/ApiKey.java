@@ -20,7 +20,7 @@ import java.util.List;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class ApiKey extends VersionedBase<ApiKeyPK>   {
+public class ApiKey extends ModelBase<ApiKeyPK> {
 
 	private List<AccessRight> accessRights = new ArrayList<AccessRight>();
 
@@ -45,10 +45,10 @@ public class ApiKey extends VersionedBase<ApiKeyPK>   {
 	public List<AccessRight> getAccessRights() {
 		return accessRights;
 	}
+
 	public void setAccessRights(List<AccessRight> accessRights) {
 		this.accessRights = accessRights;
 	}
-
 
 	/**
 	 **/
@@ -61,10 +61,10 @@ public class ApiKey extends VersionedBase<ApiKeyPK>   {
 	public String getClientId() {
 		return clientId;
 	}
+
 	public void setClientId(String clientId) {
 		this.clientId = clientId;
 	}
-
 
 	/**
 	 **/
@@ -77,10 +77,10 @@ public class ApiKey extends VersionedBase<ApiKeyPK>   {
 	public String getAssertion() {
 		return assertion;
 	}
+
 	public void setAssertion(String assertion) {
 		this.assertion = assertion;
 	}
-
 
 	/**
 	 **/
@@ -93,10 +93,10 @@ public class ApiKey extends VersionedBase<ApiKeyPK>   {
 	public String getTokenUrl() {
 		return tokenUrl;
 	}
+
 	public void setTokenUrl(String tokenUrl) {
 		this.tokenUrl = tokenUrl;
 	}
-
 
 	/**
 	 **/
@@ -109,10 +109,10 @@ public class ApiKey extends VersionedBase<ApiKeyPK>   {
 	public long getExpirationDateMillis() {
 		return expirationDateMillis;
 	}
+
 	public void setExpirationDateMillis(long expirationDateMillis) {
 		this.expirationDateMillis = expirationDateMillis;
 	}
-
 
 	/**
 	 **/
@@ -125,16 +125,15 @@ public class ApiKey extends VersionedBase<ApiKeyPK>   {
 	public long getLastUsedDate() {
 		return lastUsedDate;
 	}
+
 	public void setLastUsedDate(long lastUsedDate) {
 		this.lastUsedDate = lastUsedDate;
 	}
-
 
 	@ApiModelProperty(example = "null", value = "")
 	public String getObjectType() {
 		return objectType;
 	}
-
 
 	/**
 	 **/
@@ -147,6 +146,7 @@ public class ApiKey extends VersionedBase<ApiKeyPK>   {
 	public long getCreatedDate() {
 		return createdDate;
 	}
+
 	public void setCreatedDate(long createdDate) {
 		this.createdDate = createdDate;
 	}
@@ -161,6 +161,7 @@ public class ApiKey extends VersionedBase<ApiKeyPK>   {
 	@ApiModelProperty(example = "null", value = "")
 	/**
 	 * Returns the SSO definition auserIdciated with a client
+	 * 
 	 * @return the userId
 	 */
 	public String getUserId() {
@@ -172,4 +173,3 @@ public class ApiKey extends VersionedBase<ApiKeyPK>   {
 	}
 
 }
-

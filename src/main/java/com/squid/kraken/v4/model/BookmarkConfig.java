@@ -25,7 +25,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.swagger.annotations.ApiModelProperty;
 
-
 public class BookmarkConfig extends Base {
 
 	Integer limit;
@@ -45,7 +44,7 @@ public class BookmarkConfig extends Base {
 	List<RollUp> rollUps;
 	Boolean automaticTrigger;
 
-	private Map<String, Object> other = new HashMap<String, Object>();
+	private Map<String, Object> config = new HashMap<String, Object>();
 
 	String project;
 	String selectedMetric;
@@ -93,8 +92,6 @@ public class BookmarkConfig extends Base {
 			other.put(name, value);
 		}
 	}
-
-
 
 	public class Period {
 		String domainId;
@@ -287,14 +284,12 @@ public class BookmarkConfig extends Base {
 		this.orderByDirection = orderByDirection;
 	}
 
-	@JsonAnyGetter
-	public Map<String, Object> any() {
-		return other;
+	public Map<String, Object> getConfig() {
+		return config;
 	}
 
-	@JsonAnySetter
-	public void set(String name, Object value) {
-		other.put(name, value);
+	public void setConfig(String name, Object value) {
+		config.put(name, value);
 	}
 
 	public Boolean isAutomaticTrigger() {
