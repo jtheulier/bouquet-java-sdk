@@ -32,6 +32,12 @@ public class ChosenMetric extends Base {
 		this.id = id;
 	}
 
+	public ChosenMetric(String id, String name, Expression expression) {
+		this.id = id;
+		this.name = name;
+		this.expression = expression;
+	}
+
 	public ChosenMetric(Expression expression) {
 		this.expression = expression;
 	}

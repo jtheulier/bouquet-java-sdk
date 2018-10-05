@@ -21,10 +21,12 @@ import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.swagger.annotations.ApiModelProperty;
 
+@JsonIgnoreProperties(allowGetters = true, allowSetters = true, ignoreUnknown = true)
 public class BookmarkConfig extends Base {
 
 	Integer limit;
@@ -45,6 +47,8 @@ public class BookmarkConfig extends Base {
 	Boolean automaticTrigger;
 
 	private Map<String, Object> config = new HashMap<String, Object>();
+
+	private Map<String, Object> otherProperties = new HashMap<String, Object>();
 
 	String project;
 	String selectedMetric;
@@ -314,5 +318,15 @@ public class BookmarkConfig extends Base {
 
 	public void setAvailableMetrics(List<String> availableMetrics) {
 		this.availableMetrics = availableMetrics;
+	}
+
+	@JsonAnyGetter
+	public Map<String, Object> getOtherProperties() {
+		return otherProperties;
+	}
+
+	@JsonAnySetter
+	public void setOtherProperties(Map<String, Object> otherProperties) {
+		this.otherProperties = otherProperties;
 	}
 }

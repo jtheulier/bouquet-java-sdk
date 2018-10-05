@@ -51,6 +51,7 @@ import com.squid.kraken.v4.model.ProjectFacetJobPK;
 import com.squid.kraken.v4.model.RollUp;
 
 import io.bouquet.v4.ApiException;
+import io.bouquet.v4.ApiException.ApiError;
 import io.bouquet.v4.api.ModelApi;
 import io.bouquet.v4.client.CacheConfiguration.ComparePeriod;
 
@@ -162,8 +163,12 @@ public class ClientEngine {
 									logger.debug("Ongoing processing on facet '" + facetName + "'");
 								}
 							} catch (ApiException ae) {
-								logger.debug("Error occured while checking facet '" + facetName + "' :" + ae.getMessage());
-								throw ae;
+								if (ae.getApiError() == ApiError.COMPUTING_IN_PROGRESS) {
+									logger.debug("Facet is still conputing ");
+								} else {
+									logger.debug("Error occured while checking facet '" + facetName + "' :" + (ae.getMessage() != null ? ae.getMessage() : (ae.getApiError() != null ? ae.getApiError().toString() : "")));
+									throw ae;
+								}
 							}
 						}
 						facetsNr = computingFacets.size();

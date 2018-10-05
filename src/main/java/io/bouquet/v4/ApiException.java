@@ -21,6 +21,12 @@ public class ApiException extends Exception {
 	/**
 	 * 
 	 */
+	static public enum ApiError {
+	DUPLICATE_LOGIN, DUPLICATE_EMAIL, PASSWORD_REQUIRED, PASSWORD_INVALID_SIZE, PASSWORD_INVALID_CHAR, PASSWORD_INVALID_RULES, COMPUTING_IN_PROGRESS, COMPUTING_FAILED, NOT_IN_CACHE, CONCURRENT_MODIFICATION
+	};
+
+	private ApiError apiError;
+
 	private static final long serialVersionUID = 331264493464766708L;
 
 	@JsonProperty("code")
@@ -87,6 +93,14 @@ public class ApiException extends Exception {
 
 	public void setClientId(String clientId) {
 		this.clientId = clientId;
+	}
+
+	public ApiError getApiError() {
+		return apiError;
+	}
+
+	public void setApiError(ApiError apiError) {
+		this.apiError = apiError;
 	}
 
 }

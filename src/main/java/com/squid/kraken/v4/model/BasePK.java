@@ -27,5 +27,31 @@ public abstract class BasePK implements ApiPK {
 	private String getEndPoint() {
 		return "/rs";
 	}
-
+	/*
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			BasePK other = (BasePK) obj;
+			if (getId() == null) {
+				if (other.getId() != null)
+					return false;
+			} else if (!getId().equals(other.getId()))
+				return false;
+			if (getParent() == null) {
+				if (other.getParent() != null)
+					return false;
+			} else if (!getParent().equals(other.getParent()))
+				return false;
+			return true;
+		}
+	
+		protected abstract String getId();
+	
+		protected abstract BasePK getParent();
+	*/
 }

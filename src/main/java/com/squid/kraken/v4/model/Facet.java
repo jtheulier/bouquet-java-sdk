@@ -18,6 +18,7 @@ package com.squid.kraken.v4.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.gson.annotations.SerializedName;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -26,6 +27,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Facet
  */
 
+@JsonIgnoreProperties("apiError")
 public class Facet extends Base {
 	@SerializedName("items")
 	private List<? extends FacetMember> items = new ArrayList<FacetMember>();
@@ -302,8 +304,7 @@ public class Facet extends Base {
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-		return this.getDimension().getId()
-				.equals(((Facet) o).getDimension().getId());
+		return this.getId().equals(((Facet) o).getId());
 	}
 
 	public String getDataType() {

@@ -27,6 +27,7 @@ import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -41,13 +42,10 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
 import com.squid.kraken.v4.model.ChosenMetric;
 import com.squid.kraken.v4.model.Expression;
+
+import io.bouquet.v4.ApiException.ApiError;
 
 public class JacksonFactory extends GsonFactory implements JsonFactory {
 	ObjectMapper objectMapper = new ObjectMapper();
@@ -59,20 +57,21 @@ public class JacksonFactory extends GsonFactory implements JsonFactory {
 	 *            An instance of ApiClient
 	 */
 	public JacksonFactory(ApiClient apiClient) {
+
 		super(apiClient);
+
+		objectMapper.setSerializationInclusion(Include.NON_NULL);
 		//
 		JsonSerializer<ChosenMetric> chosenMetricSerializer = new JsonSerializer<ChosenMetric>() {
 
 			@Override
-			public void serialize(ChosenMetric src, JsonGenerator jgen,
-					SerializerProvider provider)
-					throws IOException, JsonProcessingException {
+			public void serialize(ChosenMetric src, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
 				if (src.getId() != null) {
 					jgen.writeString(src.getId());
 				} else {
 					jgen.writeString(objectMapper.writeValueAsString(src.getExpression()));
 				}
-				
+
 			}
 
 		};
@@ -80,12 +79,13 @@ public class JacksonFactory extends GsonFactory implements JsonFactory {
 		JsonDeserializer<ChosenMetric> chosenMetricDeserializer = new JsonDeserializer<ChosenMetric>() {
 
 			@Override
-			public ChosenMetric deserialize(JsonParser jp,
-					DeserializationContext ctxt)
-					throws IOException, JsonProcessingException {
+			public ChosenMetric deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
 				JsonNode metricNode = jp.readValueAsTree();
 				if (metricNode.isObject()) {
-					return new ChosenMetric(objectMapper.readValue(metricNode.asText(), Expression.class));
+					String id = (metricNode.get("id") != null) ? metricNode.get("id").asText() : null;
+					String name = (metricNode.get("name") != null) ? metricNode.get("name").asText() : null;
+					String expression = (metricNode.get("expression") != null) ? metricNode.get("expression").toString() : null;
+					return new ChosenMetric(id, name, objectMapper.readValue(expression, Expression.class));
 
 				} else {
 					return new ChosenMetric(metricNode.toString());
@@ -93,20 +93,18 @@ public class JacksonFactory extends GsonFactory implements JsonFactory {
 			}
 
 		};
+
 		//
 		SimpleModule module = new SimpleModule();
 		module.addSerializer(LocalDate.class, new LocalDateTypeSerializer());
-		module.addDeserializer(LocalDate.class,
-				new LocalDateTypeDeserializer());
+		module.addDeserializer(LocalDate.class, new LocalDateTypeDeserializer());
 		module.addSerializer(DateTime.class, new DateTimeTypeSerializer());
 		module.addDeserializer(DateTime.class, new DateTimeTypeDeserializer());
 		module.addSerializer(Date.class, new DateTypeSerializer(apiClient));
 		module.addDeserializer(Date.class, new DateTypeDeserializer(apiClient));
-		module.addDeserializer(ApiException.class,
-				new ApiExceptionDeserializer());
+		module.addDeserializer(ApiException.class, new ApiExceptionDeserializer());
 		module.addSerializer(ChosenMetric.class, chosenMetricSerializer);
-		module.addDeserializer(ChosenMetric.class,
-				chosenMetricDeserializer);
+		module.addDeserializer(ChosenMetric.class, chosenMetricDeserializer);
 		objectMapper.registerModule(module);
 	}
 
@@ -137,25 +135,23 @@ public class JacksonFactory extends GsonFactory implements JsonFactory {
 	 * @param returnType
 	 *            The type to deserialize inot
 	 * @return The deserialized Java object
+	 * @throws ApiException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
 	 * @throws IOException
 	 */
 	@SuppressWarnings("unchecked")
-	public <T> T deserialize(String body, Type returnType) {
+	public <T> T deserialize(String body, Type returnType) throws ApiException {
 		try {
-			JavaType javaType = objectMapper.getTypeFactory()
-					.constructType(returnType);
+			JavaType javaType = objectMapper.getTypeFactory().constructType(returnType);
 			if (returnType instanceof ParameterizedType) {
-				Type[] types = ((ParameterizedType) returnType)
-						.getActualTypeArguments();
+				Type[] types = ((ParameterizedType) returnType).getActualTypeArguments();
 				Type type = ((ParameterizedType) returnType).getRawType();
-				javaType = objectMapper.getTypeFactory()
-						.constructParametricType((Class<?>) type,
-								(Class<?>) types[0]);
+				javaType = objectMapper.getTypeFactory().constructParametricType((Class<?>) type, (Class<?>) types[0]);
 			}
 
 			if (getClient().isLenientOnJson()) {
-				return (T) objectMapper.readValue(new StringReader(body),
-						javaType);
+				return (T) objectMapper.readValue(new StringReader(body), javaType);
 			} else {
 				return (T) objectMapper.readValue(body, javaType);
 			}
@@ -169,8 +165,15 @@ public class JacksonFactory extends GsonFactory implements JsonFactory {
 				return (T) body;
 			else if (returnType.equals(Date.class))
 				return (T) getClient().parseDateOrDatetime(body);
-			else
-				e.printStackTrace();
+			else if (body != null && body.indexOf("apiError") != -1) {
+				try {
+					throw objectMapper.readValue(body, ApiException.class);
+				} catch (IOException e1) {
+					System.out.println(body);
+					e.printStackTrace();
+				}
+			}
+			e.printStackTrace();
 			return null;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -179,6 +182,7 @@ public class JacksonFactory extends GsonFactory implements JsonFactory {
 	}
 
 }
+
 /**
  * Jackson Adapter for java Util Date type
  */
@@ -186,17 +190,18 @@ class DateTypeSerializer extends JsonSerializer<Date> {
 	private final ApiClient apiClient;
 
 	static final DateTimeFormatter formatter = ISODateTimeFormat.date();
+
 	public DateTypeSerializer(ApiClient apiClient) {
 		this.apiClient = apiClient;
 	}
+
 	@Override
-	public void serialize(Date date, JsonGenerator jgen,
-			SerializerProvider provider)
-			throws IOException, JsonGenerationException {
+	public void serialize(Date date, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonGenerationException {
 		String value = apiClient.formatDatetime(date);
 		jgen.writeString(value);
 	}
 }
+
 class DateTypeDeserializer extends JsonDeserializer<Date> {
 	private final ApiClient apiClient;
 
@@ -212,12 +217,12 @@ class DateTypeDeserializer extends JsonDeserializer<Date> {
 	}
 
 	@Override
-	public Date deserialize(JsonParser jp, DeserializationContext ctxt)
-			throws IOException, JsonProcessingException {
+	public Date deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
 		String date = jp.getText();
 		return apiClient.parseDateOrDatetime(date);
 	}
 }
+
 /**
  * Jackson Adapter for Joda DateTime type
  */
@@ -226,9 +231,7 @@ class DateTimeTypeSerializer extends JsonSerializer<DateTime> {
 	static final DateTimeFormatter formatter = ISODateTimeFormat.date();
 
 	@Override
-	public void serialize(DateTime date, JsonGenerator jgen,
-			SerializerProvider provider)
-			throws IOException, JsonGenerationException {
+	public void serialize(DateTime date, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonGenerationException {
 		try {
 			String s = formatter.print(date);
 			jgen.writeString(s);
@@ -238,13 +241,13 @@ class DateTimeTypeSerializer extends JsonSerializer<DateTime> {
 		}
 	}
 }
+
 class DateTimeTypeDeserializer extends JsonDeserializer<DateTime> {
 
 	static final DateTimeFormatter formatter = ISODateTimeFormat.date();
 
 	@Override
-	public DateTime deserialize(JsonParser jp, DeserializationContext ctxt)
-			throws IOException, JsonProcessingException {
+	public DateTime deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
 		String date = jp.getText();
 		if (date == null) {
 			return null;
@@ -254,6 +257,7 @@ class DateTimeTypeDeserializer extends JsonDeserializer<DateTime> {
 		}
 	}
 }
+
 /**
  * Jackson Adapter for Joda LocalDate type
  */
@@ -262,9 +266,7 @@ class LocalDateTypeSerializer extends JsonSerializer<LocalDate> {
 	static final DateTimeFormatter formatter = ISODateTimeFormat.date();
 
 	@Override
-	public void serialize(LocalDate date, JsonGenerator jgen,
-			SerializerProvider provider)
-			throws IOException, JsonGenerationException {
+	public void serialize(LocalDate date, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonGenerationException {
 		try {
 			String s = formatter.print(date);
 			jgen.writeString(s);
@@ -274,13 +276,13 @@ class LocalDateTypeSerializer extends JsonSerializer<LocalDate> {
 		}
 	}
 }
+
 class LocalDateTypeDeserializer extends JsonDeserializer<LocalDate> {
 
 	static final DateTimeFormatter formatter = ISODateTimeFormat.date();
 
 	@Override
-	public LocalDate deserialize(JsonParser jp, DeserializationContext ctxt)
-			throws IOException, JsonProcessingException {
+	public LocalDate deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
 		String date = jp.getText();
 		if (date == null) {
 			return null;
@@ -294,13 +296,16 @@ class LocalDateTypeDeserializer extends JsonDeserializer<LocalDate> {
 class ApiExceptionDeserializer extends JsonDeserializer<ApiException> {
 
 	@Override
-	public ApiException deserialize(JsonParser jp, DeserializationContext ctxt)
-			throws IOException, JsonProcessingException {
+	public ApiException deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
 		JsonNode studyNode = jp.readValueAsTree();
-		String message = studyNode.get("error").asText();
+		JsonNode node = studyNode.get("error");
+		String message = null;
+		if (node != null) {
+			message = studyNode.get("error").asText();
+		}
 		int code = studyNode.get("code").asInt();
 		ApiException ae = new ApiException(code, message);
-		JsonNode node = studyNode.get("redirectURL");
+		node = studyNode.get("redirectURL");
 		if (node != null) {
 			ae.setRedirectURL(node.asText());
 		}
@@ -311,6 +316,10 @@ class ApiExceptionDeserializer extends JsonDeserializer<ApiException> {
 		node = studyNode.get("type");
 		if (node != null) {
 			ae.setType(node.asText());
+		}
+		node = studyNode.get("apiError");
+		if (node != null) {
+			ae.setApiError(ApiError.valueOf(node.asText()));
 		}
 
 		return ae;

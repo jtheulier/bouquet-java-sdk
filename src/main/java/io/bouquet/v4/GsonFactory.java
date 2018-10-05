@@ -62,8 +62,7 @@ public class GsonFactory implements JsonFactory {
 		this.apiClient = apiClient;
 		JsonDeserializer<ChosenMetric> chosenMetricDeserializer = new JsonDeserializer<ChosenMetric>() {
 			@Override
-			public ChosenMetric deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
-					throws JsonParseException {
+			public ChosenMetric deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
 				if (json.isJsonObject()) {
 					JsonObject jsonObject = json.getAsJsonObject();
 					Expression expression = gson.fromJson(jsonObject, Expression.class);
@@ -87,8 +86,7 @@ public class GsonFactory implements JsonFactory {
 		};
 		JsonDeserializer<FacetMember> facetMemberDeserializer = new JsonDeserializer<FacetMember>() {
 			@Override
-			public FacetMember deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
-					throws JsonParseException {
+			public FacetMember deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
 				if (json.isJsonObject()) {
 					JsonObject jsonObject = json.getAsJsonObject();
 					if (jsonObject != null) {
@@ -128,8 +126,7 @@ public class GsonFactory implements JsonFactory {
 
 		JsonDeserializer<Credentials> credentialsDeserializer = new JsonDeserializer<Credentials>() {
 			@Override
-			public Credentials deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
-					throws JsonParseException {
+			public Credentials deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
 				if (json.isJsonObject()) {
 					JsonObject jsonObject = json.getAsJsonObject();
 					if (jsonObject != null) {
@@ -172,14 +169,8 @@ public class GsonFactory implements JsonFactory {
 
 		};
 
-		gson = new GsonBuilder().registerTypeAdapter(Date.class, new DateAdapter(apiClient))
-				.registerTypeAdapter(DateTime.class, new DateTimeTypeAdapter())
-				.registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter())
-				.registerTypeAdapter(FacetMember.class, facetMemberDeserializer)
-				.registerTypeAdapter(FacetMember.class, facetMemberSerializer)
-				.registerTypeAdapter(ChosenMetric.class, chosenMetricDeserializer)
-				.registerTypeAdapter(ChosenMetric.class, chosenMetricSerializer)
-				.registerTypeAdapter(Credentials.class, credentialsDeserializer)
+		gson = new GsonBuilder().registerTypeAdapter(Date.class, new DateAdapter(apiClient)).registerTypeAdapter(DateTime.class, new DateTimeTypeAdapter()).registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter()).registerTypeAdapter(FacetMember.class, facetMemberDeserializer)
+				.registerTypeAdapter(FacetMember.class, facetMemberSerializer).registerTypeAdapter(ChosenMetric.class, chosenMetricDeserializer).registerTypeAdapter(ChosenMetric.class, chosenMetricSerializer).registerTypeAdapter(Credentials.class, credentialsDeserializer)
 				.registerTypeAdapter(ChosenMetric.class, credentialsSerializer).create();
 	}
 
@@ -202,7 +193,7 @@ public class GsonFactory implements JsonFactory {
 	 * @return The deserialized Java object
 	 */
 	@SuppressWarnings("unchecked")
-	public <T> T deserialize(String body, Type returnType) {
+	public <T> T deserialize(String body, Type returnType) throws ApiException {
 		try {
 			if (getClient().isLenientOnJson()) {
 				JsonReader jsonReader = new JsonReader(new StringReader(body));

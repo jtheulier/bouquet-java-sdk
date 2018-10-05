@@ -39,41 +39,25 @@ public class BaseApi {
 	public BaseApi(ApiClient apiClient, LoginConfiguration configuration) throws ApiException {
 		this.apiClient = apiClient;
 		AccessToken accesstoken;
-		try {
-			accesstoken = getAccessTokenWithLogin(configuration);
-			apiClient.setAccessToken(accesstoken.getId().getTokenId());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		accesstoken = getAccessTokenWithLogin(configuration);
+		apiClient.setAccessToken(accesstoken.getId().getTokenId());
 	}
-
 
 	public BaseApi(ApiClient apiClient, JWTConfiguration configuration) throws ApiException {
 		this.apiClient = apiClient;
 		AccessToken accesstoken;
-		try {
-			accesstoken =getAccessTokenWithJWT(configuration);
-			apiClient.setAccessToken(accesstoken.getId().getTokenId());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		accesstoken = getAccessTokenWithJWT(configuration);
+		apiClient.setAccessToken(accesstoken.getId().getTokenId());
 	}
 
-
-
-	public BaseApi(ApiClient apiClient, String clientId, String assertion) {
+	public BaseApi(ApiClient apiClient, String clientId, String assertion) throws ApiException {
 		this.apiClient = apiClient;
 		AccessToken accesstoken;
-		try {
-			accesstoken =getAccessTokenWitApiKey(assertion, clientId);
-			apiClient.setAccessToken(accesstoken.getId().getTokenId());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		accesstoken = getAccessTokenWitApiKey(assertion, clientId);
+		apiClient.setAccessToken(accesstoken.getId().getTokenId());
 	}
 
-
-	private AccessToken getAccessTokenWithJWT(JWTConfiguration configuration) throws Exception {
+	private AccessToken getAccessTokenWithJWT(JWTConfiguration configuration) throws ApiException {
 		if (configuration.getClientId() == null) {
 			throw new ApiException(400, "Missing the required parameter 'clientId' when calling getSSOToken");
 		}
@@ -95,22 +79,24 @@ public class BaseApi {
 
 		String[] localVarAuthNames = new String[] { "jwt_auth" };
 
-		Type localVarReturnType = new TypeToken<AccessToken>() {}.getType();
+		Type localVarReturnType = new TypeToken<AccessToken>() {
+		}.getType();
 
 		Call call = apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, null);
 		ApiResponse<AccessToken> resp = apiClient.execute(call, localVarReturnType);
 		return resp.getData();
 	}
 
-	private AccessToken getAccessTokenWitApiKey(String jwt, String clientId) throws Exception {
+	private AccessToken getAccessTokenWitApiKey(String jwt, String clientId) throws ApiException {
 		if (clientId == null) {
 			throw new ApiException(400, "Missing the required parameter 'clientId' when calling getAccessTokenWitApiKey");
 		}
 		if (jwt == null) {
-			throw new ApiException(400, "Missing the required parameter 'hwt' when calling getAccessTokenWitApiKey");
+			throw new ApiException(400, "Missing the required parameter 'jwt' when calling getAccessTokenWitApiKey");
 		}
 
-		this.apiClient.setApiKey(jwt, clientId);;
+		this.apiClient.setApiKey(jwt, clientId);
+		;
 
 		Object localVarPostBody = null;
 
@@ -124,14 +110,15 @@ public class BaseApi {
 
 		String[] localVarAuthNames = new String[] { "api_key_auth" };
 
-		Type localVarReturnType = new TypeToken<AccessToken>() {}.getType();
+		Type localVarReturnType = new TypeToken<AccessToken>() {
+		}.getType();
 
 		Call call = apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, null);
 		ApiResponse<AccessToken> resp = apiClient.execute(call, localVarReturnType);
 		return resp.getData();
 	}
 
-	private AccessToken getAccessTokenWithLogin(LoginConfiguration configuration) throws Exception {
+	private AccessToken getAccessTokenWithLogin(LoginConfiguration configuration) throws ApiException {
 		if (configuration.getClientId() == null) {
 			throw new ApiException(400, "Missing the required parameter 'clientId' when calling getAccessToken");
 		}
@@ -155,7 +142,8 @@ public class BaseApi {
 
 		String[] localVarAuthNames = new String[] { "basic_auth" };
 
-		Type localVarReturnType = new TypeToken<AccessToken>() {}.getType();
+		Type localVarReturnType = new TypeToken<AccessToken>() {
+		}.getType();
 
 		Call call = apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, null);
 		ApiResponse<AccessToken> resp = apiClient.execute(call, localVarReturnType);
