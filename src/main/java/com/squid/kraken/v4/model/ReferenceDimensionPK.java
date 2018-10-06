@@ -24,13 +24,13 @@
 package com.squid.kraken.v4.model;
 
 @SuppressWarnings("serial")
-public class ReferenceDimensionPK extends ReferencePK {
+public class ReferenceDimensionPK extends ReferencePK<DimensionPK> {
 
 	public ReferenceDimensionPK() {
 	}
 
 	public DimensionPK getReference() {
-		return (DimensionPK) reference;
+		return reference;
 	}
 
 }

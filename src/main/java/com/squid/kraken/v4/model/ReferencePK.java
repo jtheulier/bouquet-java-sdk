@@ -25,11 +25,11 @@ import io.swagger.annotations.ApiModelProperty;
  */
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "type")
-public class ReferencePK extends BasePK {
+public class ReferencePK<T> extends BasePK {
 	@SerializedName("reference")
-	protected Object reference = null;
+	protected T reference = null;
 
-	public ReferencePK reference(Object reference) {
+	public ReferencePK<T> reference(T reference) {
 		this.reference = reference;
 		return this;
 	}
@@ -40,11 +40,11 @@ public class ReferencePK extends BasePK {
 	 * @return reference
 	 **/
 	@ApiModelProperty(example = "null", value = "")
-	public Object getReference() {
+	public T getReference() {
 		return reference;
 	}
 
-	public void setReference(Object reference) {
+	public void setReference(T reference) {
 		this.reference = reference;
 	}
 }

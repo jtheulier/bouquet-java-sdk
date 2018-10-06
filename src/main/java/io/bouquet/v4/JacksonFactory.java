@@ -43,7 +43,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.squid.kraken.v4.model.ChosenMetric;
+import com.squid.kraken.v4.model.Col;
+import com.squid.kraken.v4.model.Col.OriginType;
+import com.squid.kraken.v4.model.Col.Role;
+import com.squid.kraken.v4.model.DimensionPK;
 import com.squid.kraken.v4.model.Expression;
+import com.squid.kraken.v4.model.ExtendedType;
+import com.squid.kraken.v4.model.MetricPK;
 
 import io.bouquet.v4.ApiException.ApiError;
 
@@ -73,7 +79,6 @@ public class JacksonFactory extends GsonFactory implements JsonFactory {
 				}
 
 			}
-
 		};
 		//
 		JsonDeserializer<ChosenMetric> chosenMetricDeserializer = new JsonDeserializer<ChosenMetric>() {
@@ -86,12 +91,47 @@ public class JacksonFactory extends GsonFactory implements JsonFactory {
 					String name = (metricNode.get("name") != null) ? metricNode.get("name").asText() : null;
 					String expression = (metricNode.get("expression") != null) ? metricNode.get("expression").toString() : null;
 					return new ChosenMetric(id, name, objectMapper.readValue(expression, Expression.class));
-
 				} else {
 					return new ChosenMetric(metricNode.toString());
 				}
 			}
+		};
 
+		//
+		JsonDeserializer<Col> colDeserializer = new JsonDeserializer<Col>() {
+
+			@Override
+			public Col deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+				JsonNode colNode = jp.readValueAsTree();
+				String id = (colNode.get("id") != null) ? colNode.get("id").asText() : null;
+				String name = (colNode.get("name") != null) ? colNode.get("name").asText() : null;
+				String definition = (colNode.get("definition") != null) ? colNode.get("definition").asText() : null;
+				ExtendedType extendedType = (colNode.get("extendedType") != null) ? objectMapper.readValue(colNode.get("extendedType").toString(), ExtendedType.class) : null;
+				OriginType originType = (colNode.get("originType") != null) ? objectMapper.readValue(colNode.get("originType").toString(), OriginType.class) : null;
+				String description = (colNode.get("description") != null) ? colNode.get("description").asText() : null;
+				String format = (colNode.get("format") != null) ? colNode.get("format").asText() : null;
+				Integer pos = (colNode.get("pos") != null) ? colNode.get("pos").asInt() : null;
+				String lname = (colNode.get("lname") != null) ? colNode.get("lname").asText() : null;
+				Role role = (colNode.get("role") != null) ? objectMapper.readValue(colNode.get("role").toString(), Role.class) : null;
+				Col col = new Col();
+				col.setId(id);
+				col.setName(name);
+				col.setDefinition(definition);
+				col.setExtendedType(extendedType);
+				col.setOriginType(originType);
+				col.setDescription(description);
+				col.setFormat(format);
+				col.setPos(pos);
+				col.setLname(lname);
+				col.setRole(role);
+				String pk = (colNode.get("pk") != null) ? colNode.get("pk").toString() : null;
+				if (role == Role.DOMAIN && pk != null) {
+					col.setPk(objectMapper.readValue(pk, DimensionPK.class));
+				} else if (role == Role.DOMAIN && pk != null) {
+					col.setPk(objectMapper.readValue(pk, MetricPK.class));
+				}
+				return col;
+			}
 		};
 
 		//
@@ -105,6 +145,7 @@ public class JacksonFactory extends GsonFactory implements JsonFactory {
 		module.addDeserializer(ApiException.class, new ApiExceptionDeserializer());
 		module.addSerializer(ChosenMetric.class, chosenMetricSerializer);
 		module.addDeserializer(ChosenMetric.class, chosenMetricDeserializer);
+		module.addDeserializer(Col.class, colDeserializer);
 		objectMapper.registerModule(module);
 	}
 

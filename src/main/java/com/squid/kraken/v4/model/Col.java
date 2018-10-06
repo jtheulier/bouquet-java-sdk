@@ -20,24 +20,19 @@ import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
+ * There is a custom deserializer in Jackson Factory if you have to add new fields
  * Col
  */
+public class Col {
 
-public class Col  {
-
-	@SerializedName("name")
-	private String name = null;
-
-	@SerializedName("definition")
-	private String definition = null;
-
-	@SerializedName("extendedType")
-	private ExtendedType extendedType = null;
+	public static enum Role {
+		DOMAIN, DATA
+	};
 
 	/**
 	 * Gets or Sets originType
 	 */
-	public enum OriginTypeEnum {
+	public static enum OriginType {
 		@SerializedName("USER")
 		USER("USER"),
 
@@ -52,7 +47,7 @@ public class Col  {
 
 		private String value;
 
-		OriginTypeEnum(String value) {
+		OriginType(String value) {
 			this.value = value;
 		}
 
@@ -62,8 +57,19 @@ public class Col  {
 		}
 	}
 
+	@SerializedName("name")
+	private String name = null;
+
+	@SerializedName("definition")
+	private String definition = null;
+
+	@SerializedName("extendedType")
+	private ExtendedType extendedType = null;
+
+	private BasePK pk;
+
 	@SerializedName("originType")
-	private OriginTypeEnum originType = null;
+	private OriginType originType = null;
 
 	@SerializedName("description")
 	private String description = null;
@@ -79,6 +85,16 @@ public class Col  {
 
 	@SerializedName("id")
 	private String id = null;
+
+	@SerializedName("role")
+	private Role role;
+
+	/**
+	 * There is a custom deserializer in Jackson Factory if you have to add new fields
+	 */
+	public Col() {
+
+	}
 
 	public Col name(String name) {
 		this.name = name;
@@ -134,7 +150,7 @@ public class Col  {
 		this.extendedType = extendedType;
 	}
 
-	public Col originType(OriginTypeEnum originType) {
+	public Col originType(OriginType originType) {
 		this.originType = originType;
 		return this;
 	}
@@ -144,11 +160,11 @@ public class Col  {
 	 * @return originType
 	 **/
 	@ApiModelProperty(example = "null", value = "")
-	public OriginTypeEnum getOriginType() {
+	public OriginType getOriginType() {
 		return originType;
 	}
 
-	public void setOriginType(OriginTypeEnum originType) {
+	public void setOriginType(OriginType originType) {
 		this.originType = originType;
 	}
 
@@ -241,5 +257,20 @@ public class Col  {
 	public void setId(String id) {
 		this.id = id;
 	}
-}
 
+	public BasePK getPk() {
+		return pk;
+	}
+
+	public void setPk(BasePK pk) {
+		this.pk = pk;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+}

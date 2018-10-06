@@ -24,14 +24,14 @@
 package com.squid.kraken.v4.model;
 
 @SuppressWarnings("serial")
-public class ReferenceMetricPK extends ReferencePK {
+public class ReferenceMetricPK extends ReferencePK<MetricPK> {
 
 	public ReferenceMetricPK() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public MetricPK getReference() {
-		return (MetricPK) reference;
+		return reference;
 	}
 
 }

@@ -41,12 +41,18 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import com.squid.kraken.v4.model.APICredentials;
 import com.squid.kraken.v4.model.ChosenMetric;
+import com.squid.kraken.v4.model.Col;
+import com.squid.kraken.v4.model.Col.OriginType;
+import com.squid.kraken.v4.model.Col.Role;
 import com.squid.kraken.v4.model.Credentials;
 import com.squid.kraken.v4.model.DBMSCredentials;
+import com.squid.kraken.v4.model.DimensionPK;
 import com.squid.kraken.v4.model.Expression;
+import com.squid.kraken.v4.model.ExtendedType;
 import com.squid.kraken.v4.model.FacetMember;
 import com.squid.kraken.v4.model.FacetMemberInterval;
 import com.squid.kraken.v4.model.FacetMemberString;
+import com.squid.kraken.v4.model.MetricPK;
 import com.squid.kraken.v4.model.Oauth2RefreshCredentials;
 
 public class GsonFactory implements JsonFactory {
@@ -169,9 +175,40 @@ public class GsonFactory implements JsonFactory {
 
 		};
 
+		JsonDeserializer<Col> colSerializer = new JsonDeserializer<Col>() {
+			@Override
+			public Col deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+				if (json.isJsonObject()) {
+					JsonObject jsonObject = json.getAsJsonObject();
+					Col col = new Col();
+					col.setId(jsonObject.get("id").getAsString());
+					col.setName(jsonObject.get("name").getAsString());
+					col.setDefinition(jsonObject.get("definition").getAsString());
+					col.setExtendedType(gson.fromJson(jsonObject.get("extendedType"), ExtendedType.class));
+					col.setOriginType(OriginType.valueOf(jsonObject.get("originType").getAsString()));
+					col.setDescription(jsonObject.get("description").getAsString());
+					col.setFormat(jsonObject.get("format").getAsString());
+					col.setPos(jsonObject.get("pos").getAsInt());
+					col.setLname(jsonObject.get("lname").getAsString());
+					col.setRole(Role.valueOf(jsonObject.get("role").getAsString()));
+					if (jsonObject != null) {
+						if (Role.DOMAIN == col.getRole()) {
+							col.setPk(gson.fromJson(jsonObject.get("pk"), DimensionPK.class));
+						} else if (Role.DATA == col.getRole()) {
+							col.setPk(gson.fromJson(jsonObject.get("pk"), MetricPK.class));
+						}
+					}
+					return col;
+
+				} else {
+					return null;
+				}
+			}
+		};
+
 		gson = new GsonBuilder().registerTypeAdapter(Date.class, new DateAdapter(apiClient)).registerTypeAdapter(DateTime.class, new DateTimeTypeAdapter()).registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter()).registerTypeAdapter(FacetMember.class, facetMemberDeserializer)
 				.registerTypeAdapter(FacetMember.class, facetMemberSerializer).registerTypeAdapter(ChosenMetric.class, chosenMetricDeserializer).registerTypeAdapter(ChosenMetric.class, chosenMetricSerializer).registerTypeAdapter(Credentials.class, credentialsDeserializer)
-				.registerTypeAdapter(ChosenMetric.class, credentialsSerializer).create();
+				.registerTypeAdapter(ChosenMetric.class, credentialsSerializer).registerTypeAdapter(Col.class, colSerializer).create();
 	}
 
 	/**
@@ -216,6 +253,8 @@ public class GsonFactory implements JsonFactory {
 				return (T) getClient().parseDateOrDatetime(body);
 			else
 				throw (e);
+		} catch (Exception e) {
+			throw e;
 		}
 	}
 
