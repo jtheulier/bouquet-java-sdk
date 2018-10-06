@@ -181,17 +181,37 @@ public class GsonFactory implements JsonFactory {
 				if (json.isJsonObject()) {
 					JsonObject jsonObject = json.getAsJsonObject();
 					Col col = new Col();
-					col.setId(jsonObject.get("id").getAsString());
-					col.setName(jsonObject.get("name").getAsString());
-					col.setDefinition(jsonObject.get("definition").getAsString());
-					col.setExtendedType(gson.fromJson(jsonObject.get("extendedType"), ExtendedType.class));
-					col.setOriginType(OriginType.valueOf(jsonObject.get("originType").getAsString()));
-					col.setDescription(jsonObject.get("description").getAsString());
-					col.setFormat(jsonObject.get("format").getAsString());
-					col.setPos(jsonObject.get("pos").getAsInt());
-					col.setLname(jsonObject.get("lname").getAsString());
-					col.setRole(Role.valueOf(jsonObject.get("role").getAsString()));
-					if (jsonObject != null) {
+					if (jsonObject.get("id").isJsonNull() == false) {
+						col.setId(jsonObject.get("id").getAsString());
+					}
+					if (jsonObject.get("name").isJsonNull() == false) {
+						col.setName(jsonObject.get("name").getAsString());
+					}
+					if (jsonObject.get("definiti").isJsonNull() == false) {
+						col.setDefinition(jsonObject.get("definition").getAsString());
+					}
+					if (jsonObject.get("extendedType").isJsonNull() == false) {
+						col.setExtendedType(gson.fromJson(jsonObject.get("extendedType"), ExtendedType.class));
+					}
+					if (jsonObject.get("originType").isJsonNull() == false) {
+						col.setOriginType(OriginType.valueOf(jsonObject.get("originType").getAsString()));
+					}
+					if (jsonObject.get("description").isJsonNull() == false) {
+						col.setDescription(jsonObject.get("description").getAsString());
+					}
+					if (jsonObject.get("format").isJsonNull() == false) {
+						col.setFormat(jsonObject.get("format").getAsString());
+					}
+					if (jsonObject.get("pos").isJsonNull() == false) {
+						col.setPos(jsonObject.get("pos").getAsInt());
+					}
+					if (jsonObject.get("lname").isJsonNull() == false) {
+						col.setLname(jsonObject.get("lname").getAsString());
+					}
+					if (jsonObject.get("role").isJsonNull() == false) {
+						col.setRole(Role.valueOf(jsonObject.get("role").getAsString()));
+					}
+					if (col.getRole() != null && jsonObject.get("pk").isJsonNull() == false) {
 						if (Role.DOMAIN == col.getRole()) {
 							col.setPk(gson.fromJson(jsonObject.get("pk"), DimensionPK.class));
 						} else if (Role.DATA == col.getRole()) {
