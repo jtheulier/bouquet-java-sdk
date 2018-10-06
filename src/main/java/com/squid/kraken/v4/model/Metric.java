@@ -36,6 +36,9 @@ public class Metric extends DynamicObject<MetricPK> {
 	@SerializedName("expression")
 	private Expression expression = null;
 
+	@SerializedName("displayFormat")
+	private String displayFormat = null;
+
 	/**
 	 * Gets or Sets valueType
 	 */
@@ -200,5 +203,12 @@ public class Metric extends DynamicObject<MetricPK> {
 	public void setName(String name) {
 		this.name = name;
 	}
-}
 
+	public String getDisplayFormat() {
+		return displayFormat;
+	}
+
+	public void setDisplayFormat(String displayFormat) {
+		this.displayFormat = displayFormat;
+	}
+}

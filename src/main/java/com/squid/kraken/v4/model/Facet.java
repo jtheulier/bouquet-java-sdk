@@ -27,7 +27,7 @@ import io.swagger.annotations.ApiModelProperty;
  * Facet
  */
 
-@JsonIgnoreProperties("apiError")
+@JsonIgnoreProperties({ "apiError", "orderDirection" })
 public class Facet extends Base {
 	@SerializedName("items")
 	private List<? extends FacetMember> items = new ArrayList<FacetMember>();

@@ -35,6 +35,9 @@ public class Dimension extends DynamicObject<DimensionPK> {
 	@SerializedName("description")
 	private String description = null;
 
+	@SerializedName("displayFormat")
+	private String displayFormat = null;
+
 	/**
 	 * Gets or Sets type
 	 */
@@ -383,5 +386,13 @@ public class Dimension extends DynamicObject<DimensionPK> {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getDisplayFormat() {
+		return displayFormat;
+	}
+
+	public void setDisplayFormat(String displayFormat) {
+		this.displayFormat = displayFormat;
 	}
 }

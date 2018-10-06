@@ -23,7 +23,7 @@ import io.swagger.annotations.ApiModelProperty;
  * a Index allows to identify a dimension by its position in the Analysis. The dimension is defined by its indice in the analysis job, starting at 0.
  */
 
-public class OrderBy extends Base  {
+public class OrderBy extends Base {
 	@SerializedName("col")
 	private Integer col = null;
 
@@ -51,13 +51,14 @@ public class OrderBy extends Base  {
 			return String.valueOf(value);
 		}
 	}
+
 	@SerializedName("direction")
 	private DirectionEnum direction = null;
 
 	/**
 	 * the direction to order-by
 	 */
-	public enum NullsEnum {
+	public enum NullsPosition {
 		@SerializedName("UNDEFINED")
 		UNDEFINED("UNDEFINED"),
 
@@ -69,7 +70,7 @@ public class OrderBy extends Base  {
 
 		private String value;
 
-		NullsEnum(String value) {
+		NullsPosition(String value) {
 			this.value = value;
 		}
 
@@ -78,8 +79,9 @@ public class OrderBy extends Base  {
 			return String.valueOf(value);
 		}
 	}
-	@SerializedName("nulls")
-	private NullsEnum nulls = NullsEnum.UNDEFINED;
+
+	@SerializedName("nullsPosition")
+	private NullsPosition nullsPosition = NullsPosition.UNDEFINED;
 
 	public OrderBy col(Integer col) {
 		this.col = col;
@@ -135,8 +137,8 @@ public class OrderBy extends Base  {
 		this.direction = direction;
 	}
 
-	public OrderBy nulls(NullsEnum nulls) {
-		this.nulls = nulls;
+	public OrderBy nullsPosition(NullsPosition nullsPosition) {
+		this.nullsPosition = nullsPosition;
 		return this;
 	}
 
@@ -145,14 +147,11 @@ public class OrderBy extends Base  {
 	 * @return direction
 	 **/
 	@ApiModelProperty(example = "NULLS_FIRST", value = "the position of null values to order-by")
-	public NullsEnum getNulls() {
-		return nulls;
+	public NullsPosition getNullsPosition() {
+		return nullsPosition;
 	}
 
-	public void setNulls(NullsEnum nulls) {
-		this.nulls = nulls;
+	public void setNullsPosition(NullsPosition nullsPosition) {
+		this.nullsPosition = nullsPosition;
 	}
 }
-
-
-
