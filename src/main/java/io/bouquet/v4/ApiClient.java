@@ -69,6 +69,7 @@ import com.squareup.okhttp.Response;
 import com.squareup.okhttp.internal.http.HttpMethod;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor.Level;
+import com.squid.kraken.v4.model.CustomerInfo;
 
 import io.bouquet.v4.auth.ApiKeyAuth;
 import io.bouquet.v4.auth.Authentication;
@@ -892,6 +893,11 @@ public class ApiClient {
 			contentType = "application/json";
 		}
 		if (isJsonMime(contentType)) {
+			if (CustomerInfo.class == returnType) {
+				if (respBody != null && respBody.indexOf("{\"id\":\"") == 0) {
+					respBody = respBody.replaceFirst("\"id\":([\"a-z-0-9]+)", "\"id\":{\"customerId\":$1}");
+				}
+			}
 			return json.deserialize(respBody, returnType);
 		} else if (returnType.equals(String.class)) {
 			// Expecting string, return the raw response body.
