@@ -894,6 +894,7 @@ public class ApiClient {
 		}
 		if (isJsonMime(contentType)) {
 			if (CustomerInfo.class == returnType) {
+				//Hack we fix the response to match default model strictly
 				if (respBody != null && respBody.indexOf("{\"id\":\"") == 0) {
 					respBody = respBody.replaceFirst("\"id\":([\"a-z-0-9]+)", "\"id\":{\"customerId\":$1}");
 				}
