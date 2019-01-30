@@ -13,11 +13,12 @@ public class DBMSCredentials extends DefaultCredentials implements Credentials {
 		super();
 	}
 
-	public DBMSCredentials(String url, String login, String password) {
-		super(url);
+	public DBMSCredentials(String url, DatabaseProductFacade databaseProduct, String login, String password) {
+		super(url, databaseProduct);
 		this.login = login;
 		this.password = password;
 	}
+
 	public String getLogin() {
 		return login;
 	}
@@ -28,7 +29,7 @@ public class DBMSCredentials extends DefaultCredentials implements Credentials {
 
 	@Override
 	public Credentials hide() {
-		return new DBMSCredentials(this.getUrl(), this.getLogin(), null);
+		return new DBMSCredentials(this.getUrl(), this.getDatabaseProduct(), this.getLogin(), null);
 	}
 
 	@Override
@@ -39,14 +40,14 @@ public class DBMSCredentials extends DefaultCredentials implements Credentials {
 	@Override
 	public boolean equals(Object o) {
 		if (o != null && o instanceof DBMSCredentials) {
-			if (this.getUrl() == null && ((DBMSCredentials)o).getLogin() != null){
+			if (this.getUrl() == null && ((DBMSCredentials) o).getLogin() != null) {
 				return false;
-			} else if (this.getUrl() != null && ((DBMSCredentials)o).getLogin() == null){
+			} else if (this.getUrl() != null && ((DBMSCredentials) o).getLogin() == null) {
 				return false;
-			} else if (this.getUrl() == null && ((DBMSCredentials)o).getLogin() == null){
+			} else if (this.getUrl() == null && ((DBMSCredentials) o).getLogin() == null) {
 				return true;
 			}
-			return this.getUrl().equals(((DBMSCredentials)o).getLogin());
+			return this.getUrl().equals(((DBMSCredentials) o).getLogin());
 		}
 		return false;
 	}
@@ -54,7 +55,7 @@ public class DBMSCredentials extends DefaultCredentials implements Credentials {
 	@Override
 	public void copyHiddenFields(Credentials credentials) {
 		if (credentials instanceof DBMSCredentials) {
-			this.password= ((DBMSCredentials) credentials).getPassword();
+			this.password = ((DBMSCredentials) credentials).getPassword();
 		}
 	}
 }

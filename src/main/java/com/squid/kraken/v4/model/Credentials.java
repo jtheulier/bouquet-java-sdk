@@ -10,9 +10,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
 @JsonTypeInfo(use = Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
-@JsonSubTypes({ @Type(value = DBMSCredentials.class),
-	@Type(value = APICredentials.class),
-	@Type(value = Oauth2RefreshCredentials.class), })
+@JsonSubTypes({ @Type(value = DBMSCredentials.class), @Type(value = APICredentials.class), @Type(value = Oauth2RefreshCredentials.class), })
 public interface Credentials extends Serializable {
 
 	/**
@@ -20,7 +18,9 @@ public interface Credentials extends Serializable {
 	 * @author jtheulier
 	 *
 	 */
-	public enum CredentialsType { API, DBMS, REFFESH }
+	public enum CredentialsType {
+	API, DBMS, REFFESH
+	}
 
 	public String getUrl();
 
@@ -35,5 +35,9 @@ public interface Credentials extends Serializable {
 	@Transient
 	@JsonIgnore
 	public void copyHiddenFields(Credentials credentials);
+
+	public DatabaseProductFacade getDatabaseProduct();
+
+	public void setDatabaseProduct(DatabaseProductFacade databaseProduct);
 
 }

@@ -13,8 +13,8 @@ public class APICredentials extends DefaultCredentials implements Credentials {
 		super();
 	}
 
-	public APICredentials(String url, String clientId, String clientSecret) {
-		super(url);
+	public APICredentials(String url, DatabaseProductFacade databaseProduct, String clientId, String clientSecret) {
+		super(url, databaseProduct);
 		this.clientId = clientId;
 		this.clientSecret = clientSecret;
 	}
@@ -37,7 +37,7 @@ public class APICredentials extends DefaultCredentials implements Credentials {
 
 	@Override
 	public Credentials hide() {
-		return new APICredentials(this.getUrl(), this.getClientId(), null);
+		return new APICredentials(this.getUrl(), this.getDatabaseProduct(), this.getClientId(), null);
 	}
 
 	@Override
@@ -48,14 +48,14 @@ public class APICredentials extends DefaultCredentials implements Credentials {
 	@Override
 	public boolean equals(Object o) {
 		if (super.equals(o) && o instanceof APICredentials) {
-			if (this.getClientId() == null && ((APICredentials)o).getClientId() != null){
+			if (this.getClientId() == null && ((APICredentials) o).getClientId() != null) {
 				return false;
-			} else if (this.getClientId() != null && ((APICredentials)o).getClientId() == null){
+			} else if (this.getClientId() != null && ((APICredentials) o).getClientId() == null) {
 				return false;
-			} else if (this.getClientId() == null && ((APICredentials)o).getClientId() == null){
+			} else if (this.getClientId() == null && ((APICredentials) o).getClientId() == null) {
 				return true;
 			}
-			return this.getClientId().equals(((APICredentials)o).getClientId());
+			return this.getClientId().equals(((APICredentials) o).getClientId());
 		}
 		return false;
 	}
@@ -63,7 +63,7 @@ public class APICredentials extends DefaultCredentials implements Credentials {
 	@Override
 	public void copyHiddenFields(Credentials credentials) {
 		if (credentials instanceof APICredentials) {
-			this.clientSecret= ((APICredentials) credentials).getClientSecret();
+			this.clientSecret = ((APICredentials) credentials).getClientSecret();
 		}
 	}
 
