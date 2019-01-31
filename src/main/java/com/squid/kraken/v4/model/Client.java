@@ -1,227 +1,241 @@
 /*******************************************************************************
  * Copyright 2017 julien@squidsolutions.com
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  *******************************************************************************/
 package com.squid.kraken.v4.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.swagger.annotations.ApiModelProperty;
-
 public class Client extends VersionedBase<ClientPK> {
 
-	private List<AccessRight> accessRights = new ArrayList<AccessRight>();
-	private String secret = null;
-	private List<String> urls = new ArrayList<String>();
-	private String config = null;
-	private String jwtkeyPublic = null;
-	private String jwtkeyPrivate = null;
-	private String objectType = null;
-	private ClientSSOConfiguration sso;
-	private Boolean forceClientSecret = Boolean.FALSE;
-	private Boolean allowRefreshToken = Boolean.FALSE;
-	private boolean bypassApiKey = Boolean.FALSE;
+  private List<AccessRight> accessRights = new ArrayList<AccessRight>();
+  private String secret = null;
+  private List<String> urls = new ArrayList<String>();
+  private String config = null;
+  private String jwtkeyPublic = null;
+  private String jwtkeyPrivate = null;
+  private String objectType = null;
+  private ClientSSOConfiguration identityProvider;
+  private ClientSSOConfigurationLegacy sso;
+  private Boolean forceClientSecret = Boolean.FALSE;
+  private Boolean allowRefreshToken = Boolean.FALSE;
+  private boolean bypassApiKey = Boolean.FALSE;
 
-	private String name = null;
-
-
-	/**
-	 * The ACL for this object
-	 **/
-	public Client accessRights(List<AccessRight> accessRights) {
-		this.accessRights = accessRights;
-		return this;
-	}
-
-	@ApiModelProperty(example = "null", value = "The ACL for this object")
-	public List<AccessRight> getAccessRights() {
-		return accessRights;
-	}
-	public void setAccessRights(List<AccessRight> accessRights) {
-		this.accessRights = accessRights;
-	}
+  private String name = null;
 
 
-	/**
-	 **/
-	public Client secret(String secret) {
-		this.secret = secret;
-		return this;
-	}
+  /**
+   * The ACL for this object
+   **/
+  public Client accessRights(List<AccessRight> accessRights) {
+    this.accessRights = accessRights;
+    return this;
+  }
 
-	@ApiModelProperty(example = "null", value = "")
-	public String getSecret() {
-		return secret;
-	}
-	public void setSecret(String secret) {
-		this.secret = secret;
-	}
+  @ApiModelProperty(example = "null", value = "The ACL for this object")
+  public List<AccessRight> getAccessRights() {
+    return accessRights;
+  }
 
-
-	/**
-	 **/
-	public Client urls(List<String> urls) {
-		this.urls = urls;
-		return this;
-	}
-
-	@ApiModelProperty(example = "null", value = "")
-	public List<String> getUrls() {
-		return urls;
-	}
-	public void setUrls(List<String> urls) {
-		this.urls = urls;
-	}
+  public void setAccessRights(List<AccessRight> accessRights) {
+    this.accessRights = accessRights;
+  }
 
 
-	/**
-	 **/
-	public Client config(String config) {
-		this.config = config;
-		return this;
-	}
+  /**
+   **/
+  public Client secret(String secret) {
+    this.secret = secret;
+    return this;
+  }
 
-	@ApiModelProperty(example = "null", value = "")
-	public String getConfig() {
-		return config;
-	}
-	public void setConfig(String config) {
-		this.config = config;
-	}
+  @ApiModelProperty(example = "null", value = "")
+  public String getSecret() {
+    return secret;
+  }
 
-
-	/**
-	 **/
-	public Client jwtkeyPublic(String jwtkeyPublic) {
-		this.jwtkeyPublic = jwtkeyPublic;
-		return this;
-	}
-
-	@ApiModelProperty(example = "null", value = "")
-	public String getJwtkeyPublic() {
-		return jwtkeyPublic;
-	}
-	public void setJwtkeyPublic(String jwtkeyPublic) {
-		this.jwtkeyPublic = jwtkeyPublic;
-	}
+  public void setSecret(String secret) {
+    this.secret = secret;
+  }
 
 
-	/**
-	 **/
-	public Client jwtkeyPrivate(String jwtkeyPrivate) {
-		this.jwtkeyPrivate = jwtkeyPrivate;
-		return this;
-	}
+  /**
+   **/
+  public Client urls(List<String> urls) {
+    this.urls = urls;
+    return this;
+  }
 
-	@ApiModelProperty(example = "null", value = "")
-	public String getJwtkeyPrivate() {
-		return jwtkeyPrivate;
-	}
-	public void setJwtkeyPrivate(String jwtkeyPrivate) {
-		this.jwtkeyPrivate = jwtkeyPrivate;
-	}
+  @ApiModelProperty(example = "null", value = "")
+  public List<String> getUrls() {
+    return urls;
+  }
+
+  public void setUrls(List<String> urls) {
+    this.urls = urls;
+  }
 
 
-	@ApiModelProperty(example = "null", value = "")
-	public String getObjectType() {
-		return objectType;
-	}
+  /**
+   **/
+  public Client config(String config) {
+    this.config = config;
+    return this;
+  }
 
-	/**
-	 **/
-	public Client name(String name) {
-		this.name = name;
-		return this;
-	}
+  @ApiModelProperty(example = "null", value = "")
+  public String getConfig() {
+    return config;
+  }
 
-	@ApiModelProperty(example = "null", value = "")
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
+  public void setConfig(String config) {
+    this.config = config;
+  }
 
-	/**
-	 **/
-	public Client sso(ClientSSOConfiguration sso) {
-		this.sso = sso;
-		return this;
-	}
 
-	@ApiModelProperty(example = "null", value = "")
-	/**
-	 * Returns the SSO definition associated with a client
-	 * @return the sso
-	 */
-	public ClientSSOConfiguration getSso() {
-		return sso;
-	}
+  /**
+   **/
+  public Client jwtkeyPublic(String jwtkeyPublic) {
+    this.jwtkeyPublic = jwtkeyPublic;
+    return this;
+  }
 
-	public void setSso(ClientSSOConfiguration sso) {
-		this.sso = sso;
-	}
+  @ApiModelProperty(example = "null", value = "")
+  public String getJwtkeyPublic() {
+    return jwtkeyPublic;
+  }
 
-	/**
-	 **/
-	public Client forceClientSecret(Boolean forceClientSecret) {
-		this.forceClientSecret = forceClientSecret;
-		return this;
-	}
+  public void setJwtkeyPublic(String jwtkeyPublic) {
+    this.jwtkeyPublic = jwtkeyPublic;
+  }
 
-	@ApiModelProperty(example = "null", value = "")
-	/**
-	 * Flag that triggers the use or not of the client secret.
-	 * @return
-	 */
-	public Boolean getForceClientSecret() {
-		return forceClientSecret;
-	}
 
-	public void setForceClientSecret(Boolean forceClientSecret) {
-		this.forceClientSecret = forceClientSecret;
-	}
+  /**
+   **/
+  public Client jwtkeyPrivate(String jwtkeyPrivate) {
+    this.jwtkeyPrivate = jwtkeyPrivate;
+    return this;
+  }
 
-	public Client allowRefreshToken(boolean allowRefreshToken) {
-		this.allowRefreshToken = allowRefreshToken;
-		return this;
-	}
+  @ApiModelProperty(example = "null", value = "")
+  public String getJwtkeyPrivate() {
+    return jwtkeyPrivate;
+  }
 
-	@ApiModelProperty(example = "null", value = "")
-	public boolean isAllowRefreshToken() {
-		return allowRefreshToken;
-	}
+  public void setJwtkeyPrivate(String jwtkeyPrivate) {
+    this.jwtkeyPrivate = jwtkeyPrivate;
+  }
 
-	public void setAllowRefreshToken(boolean allowRefreshToken) {
-		this.allowRefreshToken = allowRefreshToken;
-	}
 
-	/**
-	 **/
-	public Client bypassApiKey(Boolean bypassApiKey) {
-		this.bypassApiKey = bypassApiKey;
-		return this;
-	}
+  @ApiModelProperty(example = "null", value = "")
+  public String getObjectType() {
+    return objectType;
+  }
 
-	@ApiModelProperty(example = "null", value = "")
-	public boolean isBypassApiKey() {
-		return bypassApiKey;
-	}
+  /**
+   **/
+  public Client name(String name) {
+    this.name = name;
+    return this;
+  }
 
-	public void setBypassApiKey(boolean bypassApiKey) {
-		this.bypassApiKey = bypassApiKey;
-	}
+  @ApiModelProperty(example = "null", value = "")
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  /**
+   **/
+  public Client sso(ClientSSOConfigurationLegacy sso) {
+    this.sso = sso;
+    return this;
+  }
+
+  @ApiModelProperty(example = "null", value = "")
+  /**
+   * Returns the SSO definition associated with a client
+   * 
+   * @return the sso
+   */
+  public ClientSSOConfigurationLegacy getSso() {
+    return sso;
+  }
+
+  public void setSso(ClientSSOConfigurationLegacy sso) {
+    this.sso = sso;
+  }
+
+  /**
+   **/
+  public Client forceClientSecret(Boolean forceClientSecret) {
+    this.forceClientSecret = forceClientSecret;
+    return this;
+  }
+
+  @ApiModelProperty(example = "null", value = "")
+  /**
+   * Flag that triggers the use or not of the client secret.
+   * 
+   * @return
+   */
+  public Boolean getForceClientSecret() {
+    return forceClientSecret;
+  }
+
+  public void setForceClientSecret(Boolean forceClientSecret) {
+    this.forceClientSecret = forceClientSecret;
+  }
+
+  public Client allowRefreshToken(boolean allowRefreshToken) {
+    this.allowRefreshToken = allowRefreshToken;
+    return this;
+  }
+
+  @ApiModelProperty(example = "null", value = "")
+  public boolean isAllowRefreshToken() {
+    return allowRefreshToken;
+  }
+
+  public void setAllowRefreshToken(boolean allowRefreshToken) {
+    this.allowRefreshToken = allowRefreshToken;
+  }
+
+  /**
+   **/
+  public Client bypassApiKey(Boolean bypassApiKey) {
+    this.bypassApiKey = bypassApiKey;
+    return this;
+  }
+
+  @ApiModelProperty(example = "null", value = "")
+  public boolean isBypassApiKey() {
+    return bypassApiKey;
+  }
+
+  public void setBypassApiKey(boolean bypassApiKey) {
+    this.bypassApiKey = bypassApiKey;
+  }
+
+  public ClientSSOConfiguration getIdentityProvider() {
+    return identityProvider;
+  }
+
+  public void setIdentityProvider(ClientSSOConfiguration identityProvider) {
+    this.identityProvider = identityProvider;
+  }
 }
 
