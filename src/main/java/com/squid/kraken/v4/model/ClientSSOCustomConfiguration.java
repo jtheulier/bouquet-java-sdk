@@ -18,24 +18,27 @@
  *******************************************************************************/
 package com.squid.kraken.v4.model;
 
+import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * SSO Definition model UserAction indicates how to react when a user isn't found or modified
- * 
+ *
  * @author jtheulier
  *
  */
 @JsonTypeName("Custom")
 public class ClientSSOCustomConfiguration extends ClientSSODefaultConfiguration
-    implements ClientSSOConfiguration {
+implements ClientSSOConfiguration, Serializable {
 
   /**
-   * 
+   *
    */
-  private String ssoEndpoint = null; // Endpoint to perform the auth code exchange with the IDP
-  private String ssoLoginPage = null; // External Login page profided by the IDP
-  private String redirectEndpoint = null;
+  private static final long serialVersionUID = -4337485804618658334L;
+
+  private String tokenEndPoint = null; // Endpoint to perform the auth code exchange with the IDP
+  private String loginPage = null; // External Login page profided by the IDP
+  private String authorizationEndPoint = null;
 
   private String clientId = null;
   private String clientSecret = null;
@@ -51,32 +54,32 @@ public class ClientSSOCustomConfiguration extends ClientSSODefaultConfiguration
    * GET DelegatedUser API: it will return the SSO User associated with the provided token If using the default
    * SSOSecuritytValidator, the URL must contains the {token} string that will be replace by the actual token when
    * executed.
-   * 
+   *
    * @return
    */
-  public String getSsoEndpoint() {
-    return ssoEndpoint;
+  public String getTokenEndPoint() {
+    return tokenEndPoint;
   }
 
-  public void setSsoEndpoint(String ssoEndpoint) {
-    this.ssoEndpoint = ssoEndpoint;
+  public void setTokenEndPoint(String ssoEndpoint) {
+    this.tokenEndPoint = ssoEndpoint;
   };
 
   /**
    * Optionally this is the URL to redirect application to the SSO Authentication page when then token is not valid
    * anymore.
-   * 
+   *
    * @return the ssoLoginPage
    */
-  public String getSsoLoginPage() {
-    return ssoLoginPage;
+  public String getLoginPage() {
+    return loginPage;
   }
 
   /**
    * @param ssoLoginPage the ssoLoginPage to set
    */
-  public void setSsoLoginPage(String ssoLoginPage) {
-    this.ssoLoginPage = ssoLoginPage;
+  public void setLoginPage(String ssoLoginPage) {
+    this.loginPage = ssoLoginPage;
   }
 
   public String getClientId() {
@@ -95,12 +98,13 @@ public class ClientSSOCustomConfiguration extends ClientSSODefaultConfiguration
     this.clientSecret = clientSecret;
   }
 
-  public String getRedirectEndpoint() {
-    return redirectEndpoint;
+  public String getAuthorizationEndPoint() {
+    return authorizationEndPoint;
   }
 
-  public void setRedirectEndpoint(String redirectEndpoint) {
-    this.redirectEndpoint = redirectEndpoint;
+  public void setAuthorizationEndPoint(String redirectEndpoint) {
+    this.authorizationEndPoint = redirectEndpoint;
   }
+
 
 }
