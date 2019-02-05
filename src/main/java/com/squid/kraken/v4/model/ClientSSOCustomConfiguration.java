@@ -19,7 +19,6 @@
 package com.squid.kraken.v4.model;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import java.io.Serializable;
 
 /**
  * SSO Definition model UserAction indicates how to react when a user isn't found or modified
@@ -29,7 +28,7 @@ import java.io.Serializable;
  */
 @JsonTypeName("Custom")
 public class ClientSSOCustomConfiguration extends ClientSSODefaultConfiguration
-    implements ClientSSOConfiguration, Serializable {
+    implements ClientSSOConfiguration {
 
   /**
    * 
