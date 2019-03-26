@@ -1171,7 +1171,7 @@ public class ModelApi extends BaseApi {
 
     Type localVarReturnType = new TypeToken<InputStream>() {}.getType();
 
-    localVarHeaderParams.put("Content-Type", "application/x-www-form-urlencoded");
+    localVarHeaderParams.put("Content-Type", "multipart/form-data");
 
     Call call = getApiClient().buildCall(localVarPath, "POST", localVarQueryParams, localVarPostBody,
         localVarHeaderParams, localVarFormParams, localVarAuthNames, null);
