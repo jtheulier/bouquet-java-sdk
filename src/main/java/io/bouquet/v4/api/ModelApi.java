@@ -48,6 +48,7 @@ import io.bouquet.v4.Pair;
 import io.bouquet.v4.ProgressRequestBody;
 import io.bouquet.v4.ProgressResponseBody;
 import io.bouquet.v4.client.APIUtils.RefreshCacheType;
+import io.bouquet.v4.client.APIUtils.RefreshScope;
 import io.bouquet.v4.client.JWTConfiguration;
 import io.bouquet.v4.client.LoginConfiguration;
 import java.io.IOException;
@@ -1655,6 +1656,11 @@ public class ModelApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public CacheInfo releaseDomainCache(String projectId, String domainId, RefreshCacheType refresh) throws ApiException {
+    return releaseDomainCache(projectId, domainId, refresh, null);
+  }
+
+  public CacheInfo releaseDomainCache(String projectId, String domainId, RefreshCacheType refresh, RefreshScope scope)
+      throws ApiException {
     Object localVarPostBody = null;
 
     // verify the required parameter 'projectId' is set
@@ -1680,6 +1686,10 @@ public class ModelApi extends BaseApi {
 
     if (refresh != null) {
       localVarQueryParams.addAll(getApiClient().parameterToPairs("", "type", refresh));
+    }
+
+    if (scope != null) {
+      localVarQueryParams.addAll(getApiClient().parameterToPairs("", "scope", scope));
     }
 
     Type localVarReturnType = new TypeToken<CacheInfo>() {}.getType();
@@ -3182,6 +3192,10 @@ public class ModelApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public Boolean releaseAllCaches(String projectId) throws ApiException {
+    return releaseAllCaches(projectId, null, null);
+  }
+
+  public Boolean releaseAllCaches(String projectId, RefreshCacheType refresh, RefreshScope scope) throws ApiException {
     Object localVarPostBody = null;
 
     // verify the required parameter 'projectId' is set
@@ -3198,6 +3212,14 @@ public class ModelApi extends BaseApi {
     Map<String, String> localVarHeaderParams = new HashMap<String, String>();
     Map<String, Object> localVarFormParams = new HashMap<String, Object>();
     String[] localVarAuthNames = new String[] {"kraken_auth"};
+
+    if (refresh != null) {
+      localVarQueryParams.addAll(getApiClient().parameterToPairs("", "type", refresh));
+    }
+
+    if (scope != null) {
+      localVarQueryParams.addAll(getApiClient().parameterToPairs("", "scope", scope));
+    }
 
     Type localVarReturnType = new TypeToken<Boolean>() {}.getType();
 
@@ -3216,6 +3238,18 @@ public class ModelApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public CacheInfo releaseProjectCache(String projectId, RefreshCacheType refresh) throws ApiException {
+    return releaseProjectCache(projectId, refresh, null);
+  }
+
+  /**
+   * Drop project related caches (project, analyses, facets)
+   *
+   * @param projectId
+   * @return Boolean
+   * @throws ApiException if fails to make API call
+   */
+  public CacheInfo releaseProjectCache(String projectId, RefreshCacheType refresh, RefreshScope scope)
+      throws ApiException {
     Object localVarPostBody = null;
 
     // verify the required parameter 'projectId' is set
@@ -3235,6 +3269,10 @@ public class ModelApi extends BaseApi {
 
     if (refresh != null) {
       localVarQueryParams.addAll(getApiClient().parameterToPairs("", "type", refresh));
+    }
+
+    if (scope != null) {
+      localVarQueryParams.addAll(getApiClient().parameterToPairs("", "scope", scope));
     }
 
     Type localVarReturnType = new TypeToken<CacheInfo>() {}.getType();
@@ -3283,6 +3321,32 @@ public class ModelApi extends BaseApi {
     return resp.getData();
 
   }
+
+  public Boolean releaseCustomerCache(RefreshScope scope) throws ApiException {
+    Object localVarPostBody = null;
+
+    // create path and map variables
+    String localVarPath = "/rs/caches";
+
+    // query params
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+    String[] localVarAuthNames = new String[] {"kraken_auth"};
+
+    if (scope != null) {
+      localVarQueryParams.addAll(getApiClient().parameterToPairs("", "scope", scope));
+    }
+
+    Type localVarReturnType = new TypeToken<Boolean>() {}.getType();
+
+    Call call = getApiClient().buildCall(localVarPath, "DELETE", localVarQueryParams, localVarPostBody,
+        localVarHeaderParams, localVarFormParams, localVarAuthNames, null);
+    ApiResponse<Boolean> resp = getApiClient().execute(call, localVarReturnType);
+    return resp.getData();
+
+  }
+
 
   /**
    * Gets All Relations
