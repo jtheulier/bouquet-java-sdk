@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 @JsonTypeInfo(use = Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({@Type(value = DBMSCredentials.class), @Type(value = APICredentials.class),
-    @Type(value = Oauth2RefreshCredentials2.class),})
+    @Type(value = OAuth2RefreshCredentials.class),})
 public interface Credentials extends Serializable {
 
   /**
