@@ -17,6 +17,8 @@ public class DefaultCredentials implements Credentials {
 
   private String url;
 
+  private DatabaseProduct databaseProduct;
+
   /**
    * This flag has for purpose to switch the project in "personal" mode: each user will have his own indexed facets
    * Put on this class to allow to do some tests with any type of DBMS. But mainly for API vendors
@@ -63,6 +65,14 @@ public class DefaultCredentials implements Credentials {
   @Override
   public void copyHiddenFields(Credentials credentials) {
 
+  }
+
+  public DatabaseProduct getDatabaseProduct() {
+    return databaseProduct;
+  }
+
+  public void setDatabaseProduct(DatabaseProduct databaseProduct) {
+    this.databaseProduct = databaseProduct;
   }
 
   @Override
