@@ -53,7 +53,7 @@ import com.squid.kraken.v4.model.FacetMember;
 import com.squid.kraken.v4.model.FacetMemberInterval;
 import com.squid.kraken.v4.model.FacetMemberString;
 import com.squid.kraken.v4.model.MetricPK;
-import com.squid.kraken.v4.model.Oauth2RefreshCredentials;
+import com.squid.kraken.v4.model.Oauth2RefreshCredentials2;
 
 public class GsonFactory implements JsonFactory {
 	private ApiClient apiClient;
@@ -141,7 +141,7 @@ public class GsonFactory implements JsonFactory {
 						} else if ("DBMS".equals(jsonObject.get("type").getAsString())) {
 							return gson.fromJson(jsonObject, DBMSCredentials.class);
 						} else if ("REFRESH".equals(jsonObject.get("type").getAsString())) {
-							return gson.fromJson(jsonObject, Oauth2RefreshCredentials.class);
+							return gson.fromJson(jsonObject, Oauth2RefreshCredentials2.class);
 						} else {
 							// throw new ApiException("Invalid facet type");
 							return null;
@@ -166,8 +166,8 @@ public class GsonFactory implements JsonFactory {
 					return context.serialize(src, APICredentials.class);
 				} else if (src instanceof DBMSCredentials) {
 					return context.serialize(src, DBMSCredentials.class);
-				} else if (src instanceof Oauth2RefreshCredentials) {
-					return context.serialize(src, Oauth2RefreshCredentials.class);
+				} else if (src instanceof Oauth2RefreshCredentials2) {
+					return context.serialize(src, Oauth2RefreshCredentials2.class);
 				} else {
 					return null;
 				}

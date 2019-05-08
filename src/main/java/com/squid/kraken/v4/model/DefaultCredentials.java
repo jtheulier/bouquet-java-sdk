@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
 @JsonTypeInfo(use = Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({@Type(value = APICredentials.class), @Type(value = DBMSCredentials.class),
-    @Type(value = Oauth2RefreshCredentials.class)})
+    @Type(value = Oauth2RefreshCredentials2.class)})
 public class DefaultCredentials implements Credentials {
 
   /**
